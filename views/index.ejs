@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP!</title>
+</head>
+
+<body>
+    <!-- <nav>
+        <ul id="menu">
+            <li>LOGO</li>
+            <li>Artists</li>
+            <li>Artwork</li>
+            <li>SHOP</li>
+        </ul>
+    </nav> -->
+    <%- include('partials/navbar') %>
+
+        <div class="container">
+            <h1>Welcome to Tate Museum</h1>
+
+            <div class="col-2">
+                <form action="/api/artists" method="get" id="artistsearch">
+                    <h2>Artist search</h2>
+                    <div></div>
+                    <label for="artist-name">Artist ID </label><input type="text" id="artist-id" name="id">
+                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
+                    <div></div> <input type="submit" id="artistsubmit">
+                </form>
+
+                <form action="/api/artwork" method="get" id="artworksearch">
+                    <h2>Artwork search</h2>
+                    <div></div>
+                    <label for="artwork-name">Artwork ID </label><input type="text" id="artwork-id" name="id">
+                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
+                    <div></div> <input type="submit" id="artworksubmit">
+                </form>
+
+                <div id="results-artists">
+                    <h4>Artists</h4>
+                </div>
+                <div id="results-artwork">
+                    <h4>Artwork</h4>
+                </div>
+            </div>
+
+        </div>
+        <%- include('partials/footer') %>
+            <!-- <footer>
+        <p>Isaac Sanchez,2017</p>
+    </footer> -->
+
+</body>
+
+</html>
