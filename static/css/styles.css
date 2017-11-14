@@ -1,0 +1,112 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #444;
+}
+
+nav,
+footer {
+    color: white;
+    vertical-align: middle;
+    background: #333;
+}
+
+nav {
+    height: 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#menu {
+    list-style: none;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 80px 80px 80px 80px auto;
+}
+
+#menu li {
+    /* background: rgba(255, 255, 255, 0.1); */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+    border-right: solid 1px black;
+}
+
+#menu li:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    height: 2em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.container {
+    margin-top: 3em !important;
+    height: calc(100vh - 8em);
+    padding: 1em;
+    margin: 1em;
+    background: #DDD;
+    box-shadow: 2px 2px 4px #333;
+}
+
+#artistsearch {
+    font-size: 1em;
+    width: 400px;
+    padding: 0.5em 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: auto 1fr;
+    background-color: cornflowerblue;
+    box-shadow: 2px 2px 4px #333;
+}
+
+#artistsearch input {
+    align-self: center;
+    font-size: inherit;
+    color: #222;
+    padding: 0.5em 1em;
+}
+
+#artistsubmit {
+    color: white !important;
+    border: none;
+    box-shadow: 2px 2px 4px #333;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#artistsubmit:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 8px #333;
+    background-color: rgb(50, 118, 235);
+}
+
+.col-2 {
+    padding: 0.5em 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: auto 1fr;
+}
+
+#results {
+    font-size: 1em;
+    min-width: 400px;
+    padding: 0.5em 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: auto 1fr;
+    background-color: coral;
+    box-shadow: 2px 2px 4px #333;
+}
