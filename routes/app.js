@@ -20,6 +20,7 @@ app.get('/', (req, res, next) => {
 });
 
 
+
 app.listen(port, () => {
     console.log(`HTTP server running on port: ${port}`);
 });
@@ -28,3 +29,8 @@ module.exports = app;
 
 require('./artist.js');
 require('./artwork.js');
+
+app.use((req, res) => {
+    res.status(404).render('../templates/404.ejs');
+    // send({url: req.originalUrl + ' not found'})
+});

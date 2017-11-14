@@ -10,7 +10,6 @@ const mongocfg = {
         keepAlive: 1,
         connectTimeoutMS: 30000,
         reconnectInterval: 1000,
-        socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 }
     },
     uri: 'mongodb://ds151355.mlab.com:51355/art'
 };

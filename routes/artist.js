@@ -7,8 +7,7 @@ const app = require('./app.js');
 
 // Get Artists
 app.get('/api/artists', (req, res, next) => {
-    console.log(JSON.stringify(req.params, null, 2));
-    console.log("Artists API - Get artists");
+    console.log("Artists API - Get artists", req.query);
     res.format({
         // html: () => {
         //     // res.render('../templates/select.pug');
@@ -16,12 +15,22 @@ app.get('/api/artists', (req, res, next) => {
         // },
         json: () => {
 
-            artistModel.getArtists(function(err, a) {
-                if (err) handleError(err);
-                else {
-                    res.send(a);
-                }
-            });
+            if (req.query.id !== undefined) {
+                artistModel.getArtistById(req.query.id, function(err, a) {
+                    if (err) handleError(err);
+                    else {
+                        res.send(a);
+                    }
+                });
+            } else {
+                artistModel.getArtists(function(err, a) {
+                    if (err) handleError(err);
+                    else {
+                        res.send(a);
+                    }
+                }, 3);
+            }
+
 
             // Cached
             // res.send(artists);
@@ -33,7 +42,6 @@ app.get('/api/artists', (req, res, next) => {
 // Get Artist by id
 
 app.get('/api/artists/:id', (req, res, next) => {
-    console.log(JSON.stringify(req.params, null, 2));
     const id = req.params.id
     console.log("GET - /api/artists/:id", req.params.id);
     res.format({
