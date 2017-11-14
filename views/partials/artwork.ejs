@@ -1,10 +1,17 @@
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
-<div>
+<div class="artwork">
     <img src="<%= thumbnailUrl %>" alt="" />
-    <h2>
-        <%= title %>
-    </h2>
-    <h3>by
-        <%= artist %>
-    </h3>
+    <div class="card-content">
+        <h4>
+            <%= title %>
+        </h4>
+        <p>by
+            <%= artist %>
+        </p>
+    </div>
+    <div class="buy">
+        <form action="/api/cart/<%= id %>">
+            <input type="submit" value="Add to cart" name="id">
+        </form>
+    </div>
 </div>

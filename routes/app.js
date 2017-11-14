@@ -2,17 +2,23 @@ var artists = require('../server.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const read = require('node-readability');
 const port = process.env.PORT || 3000;
-
+const chalk = require('chalk');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 app.use('/static', express.static('static'))
 
+
+app.get('*', (req, res, next) => {
+    console.info(chalk.green(req.method), req.originalUrl);
+    // console.log(req);
+    next();
+});
+
 app.get('/', (req, res, next) => {
-    console.log("Home page");
+    console.log("GET", req.originalUrl);
     res.format({
         html: () => {
             res.render('../views/index.ejs');
@@ -20,18 +26,18 @@ app.get('/', (req, res, next) => {
     });
 });
 
-
-
 app.listen(port, () => {
-    console.log(`HTTP server running on port: ${port}`);
+    console.log(chalk.yellow(`HTTP server running on port: ${port}`));
 });
 
 module.exports = app;
 
 require('./artist.js');
 require('./artwork.js');
+require('./cart.js');
 
 app.use((req, res) => {
+    console.error('404 - Not found:', req.originalUrl);
     res.status(404).render('../views/partials/404.ejs');
     // send({url: req.originalUrl + ' not found'})
 });

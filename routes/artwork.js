@@ -2,14 +2,13 @@
 //  │ Artwork Routes │
 // └────────────────┘
 
-
+const handleError = require('../config/error.js');
 var artworkModel = require('../models/Artwork.js');
 const app = require('./app.js');
 
 
 // Get Artworks
 app.get('/api/artwork', (req, res, next) => {
-    console.log("Artwork API", req.query);
     res.format({
         html: () => {
             if (req.query.id !== undefined) {
@@ -21,7 +20,8 @@ app.get('/api/artwork', (req, res, next) => {
                         res.render('../views/partials/artwork2.ejs', {
                             thumbnailUrl: artwork.thumbnailUrl,
                             title: artwork.title,
-                            artist: artwork.artist
+                            artist: artwork.artist,
+                            id: artwork.id
                         });
                     } else {
                         res.render('../views/partials/404.ejs');
@@ -54,7 +54,6 @@ app.get('/api/artwork', (req, res, next) => {
 // Get Artwork by id
 app.get('/api/artwork/:id', (req, res, next) => {
     const id = req.params.id
-    console.log("GET - /api/artwork/:id", req.params.id);
     res.format({
         json: () => {
             artworkModel.getArtworkById(id, function(err, result) {

@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
-const mongocfg = require('./config/config.js')
+const mongocfg = require('./config/mongo.js')
+const handleError = require('./config/error.js');
+const chalk = require('chalk');
 
 mongoose.connect(mongocfg.uri, mongocfg.options);
 mongoose.Promise = global.Promise;
@@ -11,10 +13,6 @@ db.on('error', (err) => {
 });
 
 db.once('open', () => {
-    console.log("Connected to DB!");
+    console.log(chalk.yellow("Connected to DB!"));
     const app = require('./routes/app.js');
 });
-
-function handleError(err) {
-    console.log('DB error:', JSON.stringify(err, null, 2));
-}

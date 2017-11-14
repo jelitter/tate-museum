@@ -1,13 +1,12 @@
 //   ┌───────────────┐
 //  │ Artist Routes │
 // └───────────────┘
-
+const handleError = require('../config/error.js');
 var artistModel = require('../models/Artist.js');
 const app = require('./app.js');
 
 // Get Artists
 app.get('/api/artists', (req, res, next) => {
-    console.log("Artists API - Get artists", req.query);
     res.format({
         html: () => {
             if (req.query.id !== undefined) {
@@ -51,7 +50,6 @@ app.get('/api/artists', (req, res, next) => {
 
 app.get('/api/artists/:id', (req, res, next) => {
     const id = req.params.id
-    console.log("GET - /api/artists/:id", req.params.id);
     res.format({
         json: () => {
             artistModel.getArtistById(id, function(err, a) {
@@ -69,7 +67,7 @@ app.get('/api/artists/:id', (req, res, next) => {
 
 // Add Artist
 app.post('/api/artists', (req, res, next) => {
-    console.log("POST - /api/artists", req.body);
+    console.log("POST", req.originalUrl);
     var newartist = req.body;
     artistModel.addArtist(newartist, function(err, artist) {
         if (err) {
