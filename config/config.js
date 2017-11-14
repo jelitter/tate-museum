@@ -1,10 +1,6 @@
 const mongocfg = {
     options: {
         useMongoClient: true,
-        user: "user",
-        pass: "tateuser557",
-        // user: "admin",
-        // pass: "tateadmin378",
         autoIndex: false,
         reconnectTries: Number.MAX_VALUE,
         keepAlive: 1,
