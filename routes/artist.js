@@ -9,10 +9,18 @@ const app = require('./app.js');
 app.get('/api/artists', (req, res, next) => {
     console.log("Artists API - Get artists", req.query);
     res.format({
-        // html: () => {
-        //     // res.render('../templates/select.pug');
-        //     res.send(JSON.stringify(artists, null, 2));
-        // },
+        html: () => {
+            if (req.query.id !== undefined) {
+                artistModel.getArtistById(req.query.id, function(err, artist) {
+                    if (err) handleError(err);
+                    else res.render('../views/partials/artist2.ejs', {
+                        name: artist.name,
+                        yearOfBirth: artist.yearOfBirth,
+                        placeOfBirth: artist.placeOfBirth
+                    });
+                });
+            }
+        },
         json: () => {
 
             if (req.query.id !== undefined) {

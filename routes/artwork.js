@@ -9,13 +9,44 @@ const app = require('./app.js');
 
 // Get Artworks
 app.get('/api/artwork', (req, res, next) => {
-    console.log("Artwork API");
+    console.log("Artwork API", req.query);
     res.format({
+        html: () => {
+            if (req.query.id !== undefined) {
+                artworkModel.getArtworkById(req.query.id, function(err, artwork) {
+                    if (err) handleError(err);
+                    // else res.send(results);
+                    // else res.render('../views/partials/artwork.ejs', {
+                    else if (artwork) {
+                        res.render('../views/partials/artwork2.ejs', {
+                            thumbnailUrl: artwork.thumbnailUrl,
+                            title: artwork.title,
+                            artist: artwork.artist
+                        });
+                    } else {
+                        res.render('../views/partials/404.ejs');
+                    }
+                });
+            }
+        },
         json: () => {
-            artworkModel.getArtwork(function(err, results) {
-                if (err) handleError(err);
-                else res.send(results);
-            });
+
+            if (req.query.id !== undefined) {
+                artworkModel.getArtworkById(req.query.id, function(err, artwork) {
+                    if (err) handleError(err);
+                    // else res.send(results);
+                    else res.render('../views/partials/artwork.ejs', {
+                        thumbnailUrl: artwork.thumbnailUrl,
+                        title: artwork.title,
+                        artist: artwork.artist
+                    });
+                });
+            } else {
+                artworkModel.getArtwork(function(err, results) {
+                    if (err) handleError(err);
+                    else res.send(results);
+                }, 3);
+            }
         }
     });
 });

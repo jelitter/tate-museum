@@ -8,13 +8,14 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs')
 app.use('/static', express.static('static'))
 
 app.get('/', (req, res, next) => {
     console.log("Home page");
     res.format({
         html: () => {
-            res.render('../templates/index.ejs');
+            res.render('../views/index.ejs');
         }
     });
 });
@@ -31,6 +32,6 @@ require('./artist.js');
 require('./artwork.js');
 
 app.use((req, res) => {
-    res.status(404).render('../templates/404.ejs');
+    res.status(404).render('../views/partials/404.ejs');
     // send({url: req.originalUrl + ' not found'})
 });

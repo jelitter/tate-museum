@@ -6,7 +6,8 @@ body {
     background: #444;
 }
 
-nav,
+
+/* nav,
 footer {
     color: white;
     vertical-align: middle;
@@ -19,7 +20,7 @@ nav {
     top: 0;
     left: 0;
     right: 0;
-}
+} */
 
 #menu {
     list-style: none;
@@ -55,14 +56,15 @@ footer {
 
 .container {
     margin-top: 3em !important;
-    height: calc(100vh - 8em);
+    height: calc(100vh - 10em);
     padding: 1em;
     margin: 1em;
     background: #DDD;
     box-shadow: 2px 2px 4px #333;
 }
 
-#artistsearch {
+#artistsearch,
+#artworksearch {
     font-size: 1em;
     width: 400px;
     padding: 0.5em 1em;
@@ -73,14 +75,20 @@ footer {
     box-shadow: 2px 2px 4px #333;
 }
 
-#artistsearch input {
+#artworksearch {
+    background-color: limegreen;
+}
+
+#artistsearch input,
+#artworksearch input {
     align-self: center;
     font-size: inherit;
     color: #222;
     padding: 0.5em 1em;
 }
 
-#artistsubmit {
+#artistsubmit,
+#artworksubmit {
     color: white !important;
     border: none;
     box-shadow: 2px 2px 4px #333;
@@ -90,7 +98,13 @@ footer {
 #artistsubmit:hover {
     cursor: pointer;
     box-shadow: 2px 2px 8px #333;
-    background-color: rgb(50, 118, 235);
+    background-color: cornflowerblue;
+}
+
+#artworksubmit:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 8px #333;
+    background-color: limegreen;
 }
 
 .col-2 {
