@@ -8,10 +8,10 @@ const app = require('./app.js');
 // Get Artists
 app.get('/api/artists', (req, res, next) => {
     res.format({
-        html: () => {
-            if (req.query.id !== undefined) {
-                artistModel.getArtistById(req.query.id, function(err, artist) {
-                    if (err) handleError(err);
+            html: () => {
+                    if (req.query.id !== undefined) {
+                        artistModel.getArtistById(req.query.id, function(err, artist) {
+                    if (err) handleError(res, err);
                     else res.render('../views/partials/artist2.ejs', {
                         name: artist.name,
                         yearOfBirth: artist.yearOfBirth,
@@ -24,14 +24,12 @@ app.get('/api/artists', (req, res, next) => {
 
             if (req.query.id !== undefined) {
                 artistModel.getArtistById(req.query.id, function(err, a) {
-                    if (err) handleError(err);
-                    else {
-                        res.send(a);
-                    }
+                    if (err) handleError(res,err);
+                    else res.send(a);
                 });
             } else {
                 artistModel.getArtists(function(err, a) {
-                    if (err) handleError(err);
+                    if (err) handleError(res,err);
                     else {
                         res.send(a);
                     }
@@ -53,7 +51,7 @@ app.get('/api/artists/:id', (req, res, next) => {
     res.format({
         json: () => {
             artistModel.getArtistById(id, function(err, a) {
-                if (err) handleError(err);
+                if (err) handleError(res,err);
                 else {
                     res.send(a);
                 }

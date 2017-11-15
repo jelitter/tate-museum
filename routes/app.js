@@ -38,6 +38,9 @@ require('./cart.js');
 
 app.use((req, res) => {
     console.error('404 - Not found:', req.originalUrl);
-    res.status(404).render('../views/partials/404.ejs');
+    res.status(404).render("../views/partials/error.ejs", {
+        error: 404,
+        errorMessage: "Not Found"
+    });
     // send({url: req.originalUrl + ' not found'})
 });
