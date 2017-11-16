@@ -19,7 +19,6 @@
     "nodemon": "^1.12.1"
   },
   "dependencies": {
-    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
@@ -27,7 +26,6 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.13.1",
-    "node-readability": "^3.0.0"
+    "mongoose": "^4.13.1"
   }
 }

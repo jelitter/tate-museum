@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const chalk = require('chalk');
 
+app.set('view engine', 'ejs');
+
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
-app.use('/static', express.static('static'))
+app.use('/static', express.static('static'));
 
 
 app.get('*', (req, res, next) => {
