@@ -3,6 +3,7 @@ const compression = require('compression');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const favicon = require('serve-favicon')
 const port = process.env.PORT || 3000;
 const chalk = require('chalk');
 
@@ -12,6 +13,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
+app.use(favicon('./static/favicon.ico'));
 
 
 app.get('*', (req, res, next) => {
