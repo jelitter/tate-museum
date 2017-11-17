@@ -13,7 +13,7 @@ app.get('/api/artwork', (req, res, next) => {
         html: () => {
             if (req.query.id !== undefined) {
                 artworkModel.getArtworkById(req.query.id, function(err, artwork) {
-                    if (err) handleError(err);
+                    if (err) handleError(res, err);
                     // else res.send(results);
                     // else res.render('../views/partials/artwork.ejs', {
                     else if (artwork) {
@@ -33,7 +33,7 @@ app.get('/api/artwork', (req, res, next) => {
 
             if (req.query.id !== undefined) {
                 artworkModel.getArtworkById(req.query.id, function(err, artwork) {
-                    if (err) handleError(err);
+                    if (err) handleError(res, err);
                     // else res.send(results);
                     else res.render('../views/partials/artwork.ejs', {
                         thumbnailUrl: artwork.thumbnailUrl,
@@ -43,7 +43,7 @@ app.get('/api/artwork', (req, res, next) => {
                 });
             } else {
                 artworkModel.getArtwork(function(err, results) {
-                    if (err) handleError(err);
+                    if (err) handleError(res, err);
                     else res.send(results);
                 }, 3);
             }
@@ -57,7 +57,7 @@ app.get('/api/artwork/:id', (req, res, next) => {
     res.format({
         json: () => {
             artworkModel.getArtworkById(id, function(err, result) {
-                if (err) handleError(err);
+                if (err) handleError(res, err);
                 else res.send(result);
             });
         }

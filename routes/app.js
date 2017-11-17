@@ -1,4 +1,5 @@
 var artists = require('../server.js');
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -20,7 +21,6 @@ app.get('*', (req, res, next) => {
 });
 
 app.get('/', (req, res, next) => {
-    console.log("GET", req.originalUrl);
     res.format({
         html: () => {
             res.render('../views/index.ejs');
