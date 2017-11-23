@@ -7,6 +7,26 @@ var artworkModel = require('../models/Artwork.js');
 const app = require('./app.js');
 
 
+// const artworks = [{
+//         thumbnailUrl: "http://www.tate.org.uk/art/images/work/T/T07/T07912_8.jpg",
+//         title: "Help",
+//         artist: "Meadows, Bernard",
+//         id: 225
+//     },
+//     {
+//         thumbnailUrl: "http://www.tate.org.uk/art/images/work/T/T07/T07746_8.jpg",
+//         title: "Mariner",
+//         artist: "Morley, Malcolm",
+//         id: 224
+//     },
+//     {
+//         thumbnailUrl: "http://www.tate.org.uk/art/images/work/T/T07/T07867_8.jpg",
+//         title: "After",
+//         artist: "Deacon, Richard",
+//         id: 223
+//     }
+// ];
+
 // Get Artworks
 app.get('/api/artwork', (req, res, next) => {
     res.format({
@@ -23,8 +43,11 @@ app.get('/api/artwork', (req, res, next) => {
                             artist: artwork.artist,
                             id: artwork.id
                         });
+                        // res.render('../views/partials/artwork2.ejs', artworks);
                     } else {
-                        res.render('../views/partials/404.ejs');
+                        // handleError(res, err);
+                        next();
+                        // res.render('../views/partials/error.ejs');
                     }
                 });
             }
