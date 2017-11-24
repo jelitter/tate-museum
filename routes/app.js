@@ -25,7 +25,8 @@ app.get('*', (req, res, next) => {
 app.get('/', (req, res, next) => {
     res.format({
         html: () => {
-            res.render('../views/index.ejs');
+
+            res.render('../views/index.ejs', { data: [] });
         }
     });
 });

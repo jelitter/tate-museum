@@ -31,17 +31,37 @@
                     <div></div> <input type="submit" id="artistsubmit">
                 </form>
 
-                <form action="/api/artwork" method="get" id="artworksearch" autocomplete="off">
+                <form action="/api/artwork" method="get" id="artworksearch" autocomplete="off" value="Search">
                     <h2>Artwork search</h2>
-                    <div></div>
+                    <div>
+                        <p>Enter ID or leave it blank for random artworks</p>
+                    </div>
                     <label for="artwork-name">Artwork ID </label><input type="text" id="artwork-id" name="id">
                     <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
-                    <div></div> <input type="submit" id="artworksubmit">
+                    <div></div> <input type="submit" id="artworksubmit" value="Search">
                 </form>
 
                 <div id="results-artists">
                 </div>
                 <div id="results-artwork">
+                    <% for(var i=0; i < data.length; i++) { %>
+                        <div class="artwork">
+                            <img src="<%= data[i].thumbnailUrl %>" alt="" />
+                            <div class="card-content">
+                                <h4>
+                                    <%= data[i].title %>
+                                </h4>
+                                <p>
+                                    <%= data[i].artist %>
+                                </p>
+                            </div>
+                            <div class="buy">
+                                <form action="/api/cart/<%= data[i].id %>">
+                                    <input type="submit" value="Add to cart" name="id">
+                                </form>
+                            </div>
+                        </div>
+                        <% } %>
                 </div>
             </div>
 

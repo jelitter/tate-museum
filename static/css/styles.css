@@ -136,6 +136,7 @@ footer {
     max-width: 240px;
     min-width: 100px;
     width: 100%;
+    height: auto;
     align-items: center;
     align-content: center;
     align-self: auto;
@@ -169,6 +170,8 @@ footer {
     text-align: right;
     padding: 0.5em;
     background-color: rgba(255, 255, 255, 0.25);
+    display: block;
+    bottom: 0;
 }
 
 .buy input {

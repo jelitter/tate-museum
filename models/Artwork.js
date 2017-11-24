@@ -28,15 +28,22 @@ var artworkModel = module.exports = mongoose.model('Artwork', ArtworkSchema, "ar
 
 // Get Artworks
 module.exports.getArtwork = function(callback, limit) {
-    artworkModel.find(callback).limit(limit);
-}
+    artworkModel.count().exec((err, count) => {
+        if (err) console.log("Couldn't get count.");
+        else {
+            const skip = Math.floor(Math.random() * count) - limit;
+            console.log(`Count: ${count}, Skip: ${skip}`);
+            artworkModel.find(callback).limit(limit).skip(skip);
+        }
+    });
+};
 
 // Get Artwork by id
 module.exports.getArtworkById = function(artworkid, callback) {
     artworkModel.findOne({ id: artworkid }, callback);
-}
+};
 
 // Add Artwork
 module.exports.addArtwork = function(artwork, callback) {
     artworkModel.create(artwork, callback);
-}
+};

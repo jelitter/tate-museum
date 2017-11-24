@@ -31,7 +31,7 @@ const app = require('./app.js');
 app.get('/api/artwork', (req, res, next) => {
     res.format({
         html: () => {
-            if (req.query.id !== undefined) {
+            if (req.query.id !== undefined && req.query.id != "") {
                 artworkModel.getArtworkById(req.query.id, function(err, artwork) {
                     if (err) handleError(res, err);
                     // else res.send(results);
@@ -43,21 +43,18 @@ app.get('/api/artwork', (req, res, next) => {
                             artist: artwork.artist,
                             id: artwork.id
                         }];
+                        res.render('../views/index.ejs', { data: aw });
 
-                        res.render('../views/partials/artwork2.ejs', { data: aw });
-                        // res.render('../views/partials/artwork2.ejs', artworks);
                     } else {
-                        // handleError(res, err);
                         next();
-                        // res.render('../views/partials/error.ejs');
                     }
                 });
             } else {
                 // No artwork ID
                 artworkModel.getArtwork(function(err, artwork) {
                     if (err) handleError(res, err);
-                    else res.render('../views/partials/artwork2.ejs', { data: artwork });
-                }, 10);
+                    else res.render('../views/index.ejs', { data: artwork });
+                }, 5);
             }
         },
         json: () => {
@@ -67,7 +64,7 @@ app.get('/api/artwork', (req, res, next) => {
                     if (err) handleError(res, err);
                     // else res.send(results);
                     else res.render('../views/partials/artwork.ejs', {
-                        thumbnailUrl: artwork.thumbnailUrl,
+                        thumbnailUrl: artwork.thumbnailUrl || '../static/missing.png',
                         title: artwork.title,
                         artist: artwork.artist
                     });
@@ -76,7 +73,7 @@ app.get('/api/artwork', (req, res, next) => {
                 artworkModel.getArtwork(function(err, results) {
                     if (err) handleError(res, err);
                     else res.send(results);
-                }, 10);
+                }, 5);
             }
         }
     });
