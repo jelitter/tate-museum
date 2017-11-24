@@ -5,72 +5,29 @@
     <meta charset="UTF-8">
     <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHOP!</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tate Museum</title>
 </head>
 
 <body>
-    <!-- <nav>
-        <ul id="menu">
-            <li>LOGO</li>
-            <li>Artists</li>
-            <li>Artwork</li>
-            <li>SHOP</li>
-        </ul>
-    </nav> -->
     <%- include('partials/navbar') %>
-
         <div class="container">
-            <h1>Welcome to Tate Museum</h1>
 
-            <div class="col-2">
-                <form action="/api/artists" method="get" id="artistsearch" autocomplete="off">
-                    <h2>Artist search</h2>
-                    <div></div>
-                    <label for="artist-name">Artist ID </label><input type="text" id="artist-id" name="id">
-                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
-                    <div></div> <input type="submit" id="artistsubmit">
-                </form>
+            <img src="../static/img/bg_museum.jpg" alt="" id="bg">
 
-                <form action="/api/artwork" method="get" id="artworksearch" autocomplete="off" value="Search">
-                    <h2>Artwork search</h2>
-                    <div>
-                        <p>Enter ID or leave it blank for random artworks</p>
-                    </div>
-                    <label for="artwork-name">Artwork ID </label><input type="text" id="artwork-id" name="id">
-                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
-                    <div></div> <input type="submit" id="artworksubmit" value="Search">
-                </form>
+            <h1>Tate Museum Shop</h1>
 
-                <div id="results-artists">
-                </div>
-                <div id="results-artwork">
-                    <% for(var i=0; i < data.length; i++) { %>
-                        <div class="artwork">
-                            <img src="<%= data[i].thumbnailUrl %>" alt="" />
-                            <div class="card-content">
-                                <h4>
-                                    <%= data[i].title %>
-                                </h4>
-                                <p>
-                                    <%= data[i].artist %>
-                                </p>
-                            </div>
-                            <div class="buy">
-                                <form action="/api/cart/<%= data[i].id %>">
-                                    <input type="submit" value="Add to cart" name="id">
-                                </form>
-                            </div>
-                        </div>
-                        <% } %>
-                </div>
-            </div>
+            <form action="/login" method="post" id="loginform" class="tate-form" autocomplete="off" value="Search">
+                <h3>Please login</h3>
+                <div></div>
+                <label for="user">User name </label><input type="user" required id="user" name="user">
+                <label for="user">Password</label><input type="password" required id="password" name="password">
+                <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
+                <div></div> <input type="submit" id="login" value="Login">
+            </form>
 
         </div>
         <%- include('partials/footer') %>
-            <!-- <footer>
-        <p>Isaac Sanchez,2017</p>
-    </footer> -->
-
 </body>
 
 </html>

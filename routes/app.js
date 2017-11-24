@@ -22,10 +22,22 @@ app.get('*', (req, res, next) => {
     next();
 });
 
-app.get('/', (req, res, next) => {
+app.get('/api', (req, res, next) => {
     res.format({
         html: () => {
 
+            res.render('../views/api.ejs', { data: [] });
+        }
+    });
+});
+
+app.get('/', (req, res) => {
+    res.redirect('/login');
+});
+
+app.get('/login', (req, res, next) => {
+    res.format({
+        html: () => {
             res.render('../views/index.ejs', { data: [] });
         }
     });

@@ -43,7 +43,7 @@ app.get('/api/artwork', (req, res, next) => {
                             artist: artwork.artist,
                             id: artwork.id
                         }];
-                        res.render('../views/index.ejs', { data: aw });
+                        res.render('../views/api.ejs', { data: aw });
 
                     } else {
                         next();
@@ -53,7 +53,7 @@ app.get('/api/artwork', (req, res, next) => {
                 // No artwork ID
                 artworkModel.getArtwork(function(err, artwork) {
                     if (err) handleError(res, err);
-                    else res.render('../views/index.ejs', { data: artwork });
+                    else res.render('../views/api.ejs', { data: artwork });
                 }, 5);
             }
         },
