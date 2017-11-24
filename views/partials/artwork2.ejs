@@ -37,8 +37,25 @@
                     <h4>Artists</h4>
                 </div>
                 <div id="results-artwork">
-                    <h4>Artwork</h4>
-                    <%- include('artwork') %>
+
+                    <% for(var i=0; i < data.length; i++) { %>
+                        <div class="artwork">
+                            <img src="<%= data[i].thumbnailUrl %>" alt="" />
+                            <div class="card-content">
+                                <h4>
+                                    <%= data[i].title %>
+                                </h4>
+                                <p>by
+                                    <%= data[i].artist %>
+                                </p>
+                            </div>
+                            <div class="buy">
+                                <form action="/api/cart/<%= data[i].id %>">
+                                    <input type="submit" value="Add to cart" name="id">
+                                </form>
+                            </div>
+                        </div>
+                        <% } %>
                 </div>
             </div>
 

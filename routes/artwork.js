@@ -37,12 +37,14 @@ app.get('/api/artwork', (req, res, next) => {
                     // else res.send(results);
                     // else res.render('../views/partials/artwork.ejs', {
                     else if (artwork) {
-                        res.render('../views/partials/artwork2.ejs', {
-                            thumbnailUrl: artwork.thumbnailUrl,
+                        const aw = [{
+                            thumbnailUrl: artwork.thumbnailUrl || '../static/missing.png',
                             title: artwork.title,
                             artist: artwork.artist,
                             id: artwork.id
-                        });
+                        }];
+
+                        res.render('../views/partials/artwork2.ejs', { data: aw });
                         // res.render('../views/partials/artwork2.ejs', artworks);
                     } else {
                         // handleError(res, err);
@@ -50,6 +52,12 @@ app.get('/api/artwork', (req, res, next) => {
                         // res.render('../views/partials/error.ejs');
                     }
                 });
+            } else {
+                // No artwork ID
+                artworkModel.getArtwork(function(err, artwork) {
+                    if (err) handleError(res, err);
+                    else res.render('../views/partials/artwork2.ejs', { data: artwork });
+                }, 10);
             }
         },
         json: () => {
@@ -68,7 +76,7 @@ app.get('/api/artwork', (req, res, next) => {
                 artworkModel.getArtwork(function(err, results) {
                     if (err) handleError(res, err);
                     else res.send(results);
-                }, 3);
+                }, 10);
             }
         }
     });
