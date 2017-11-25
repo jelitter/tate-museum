@@ -1,11 +1,16 @@
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
-<div class="container">
-    <h1>
-        Error
-        <%= error %>
-    </h1>
-    <h4>
-        <%= errorMessage %>
-    </h4>
-    <a href="/">Back to safety</a>
-</div>
+<%- include('navbar') %>
+    <div class="container">
+        <h1>
+            Error
+            <%= error %>
+        </h1>
+
+        <% if (error == 404)  %>
+            <h4>
+                <%= errorMessage %>
+            </h4>
+            <img src="/static/img/404.gif" alt="" height="300">
+            <p><a href="/">Back to safety</a></p>
+    </div>
+    <%- include('footer') %>
