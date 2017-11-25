@@ -47,17 +47,20 @@
                 <div id="results-artwork">
                     <% for(var i=0; i < data.length; i++) { %>
                         <div class="artwork">
-                            <img src="<%= data[i].thumbnailUrl %>" alt="" />
+
+                            <a href="<%= data[i].url %>" target="_blank">
+                                <img src="<%= data[i].thumbnailUrl || '../static/img/missing.png' %>" alt="" />
+                            </a>
                             <div class="card-content">
-                                <h4>
+                                <h3>
                                     <%= data[i].title %>
-                                </h4>
-                                <p>
+                                </h3>
+                                <h4>
                                     <%= data[i].artist %>
-                                </p>
+                                </h4>
                             </div>
                             <div class="buy">
-                                <form action="/api/cart/<%= data[i].id %>">
+                                <form action="/api/cart/<%= data[i].id %>" method="post">
                                     <input type="submit" value="Add to cart" name="id">
                                 </form>
                             </div>

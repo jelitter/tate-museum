@@ -1,13 +1,11 @@
-var artists = require('../server.js');
 const compression = require('compression');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const favicon = require('serve-favicon')
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const chalk = require('chalk');
 
-app.set('view engine', 'ejs');
 
 app.use(compression());
 app.use(bodyParser.json());
@@ -15,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.use(favicon('./static/favicon.ico'));
 
+app.set('view engine', 'ejs');
 
 app.get('*', (req, res, next) => {
     console.info(chalk.green(req.method), req.originalUrl);
@@ -49,6 +48,7 @@ app.listen(port, () => {
 
 module.exports = app;
 
+require('./login.js');
 require('./artist.js');
 require('./artwork.js');
 require('./cart.js');
