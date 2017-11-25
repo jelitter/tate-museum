@@ -34,7 +34,8 @@ a {
     padding: 0;
     height: 2em;
     display: grid;
-    grid-template-columns: 80px 80px 80px 80px auto;
+    grid-gap: 0;
+    grid-template-columns: 100px 100px 1fr 100px;
     text-align: center;
     align-content: center;
     align-items: center;

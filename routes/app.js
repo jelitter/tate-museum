@@ -44,6 +44,14 @@ app.get('/login', (req, res, next) => {
     });
 });
 
+app.get('/about', (req, res, next) => {
+    res.format({
+        html: () => {
+            res.render('../views/about.ejs', { cache: true, data: [] });
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(chalk.yellow(`HTTP server running on port: ${port}`));
 });
