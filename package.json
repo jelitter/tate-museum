@@ -22,16 +22,12 @@
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
-    "connect-flash": "^0.1.1",
     "console-stamp": "^0.2.6",
-    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.3",
     "morgan": "^1.9.0",
-    "passport": "^0.4.0",
     "serve-favicon": "^2.4.5"
   }
 }

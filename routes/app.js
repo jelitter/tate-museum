@@ -5,9 +5,11 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const chalk = require('chalk');
+const morgan = require('morgan');
 
 
 app.use(compression());
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
@@ -25,7 +27,7 @@ app.get('/api', (req, res, next) => {
     res.format({
         html: () => {
 
-            res.render('../views/api.ejs', { data: [] });
+            res.render('../views/api.ejs', { cache: true, data: [] });
         }
     });
 });
@@ -37,7 +39,7 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res, next) => {
     res.format({
         html: () => {
-            res.render('../views/index.ejs', { data: [] });
+            res.render('../views/index.ejs', { cache: true, data: [] });
         }
     });
 });
@@ -56,6 +58,7 @@ require('./cart.js');
 app.use((req, res) => {
     console.error('404 - Not found:', req.originalUrl);
     res.status(404).render("../views/partials/error.ejs", {
+        cache: true,
         error: 404,
         errorMessage: "Not Found"
     });

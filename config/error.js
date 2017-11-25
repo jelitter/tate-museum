@@ -5,6 +5,7 @@ function handleError(res, err) {
     console.error('DB error:', err.message);
     if (res)
         res.status(500).render("../views/partials/error.ejs", {
+            cache: true,
             error: 500,
             errorMessage: err.message
         });
