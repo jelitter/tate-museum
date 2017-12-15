@@ -14,6 +14,7 @@ app.get('/api/cart/:id', (req, res, next) => {
                 cartModel.getOrder(req.query.id, function(err, order) {
                     if (err) handleError(err);
                     else res.render('../views/partials/order.ejs', {
+                        cache: true,
                         id: order.id,
                         artworkid: order.artworkid
                     });
@@ -22,6 +23,7 @@ app.get('/api/cart/:id', (req, res, next) => {
                 cartModel.getCart(function(err, cart) {
                     if (err) handleError(err);
                     else res.render('../views/partials/cart.ejs', {
+                        cache: true,
                         cart: cart
                     });
                 });

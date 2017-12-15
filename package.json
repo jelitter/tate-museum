@@ -1,32 +1,33 @@
 {
-    "name": "tate-museum-shop",
-    "version": "1.0.0",
-    "description": "An application showcasing Tate Museum artworks and online store to purchase them",
-    "main": "server.js",
-    "scripts": {
-        "start": "nodemon server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-        "tate",
-        "museum",
-        "artwork",
-        "store"
-    ],
-    "author": "Isaac Sanchez",
-    "license": "ISC",
-    "devDependencies": {
-        "nodemon": "^1.12.1"
-    },
-    "dependencies": {
-        "async": "^2.6.0",
-        "body-parser": "^1.18.2",
-        "chalk": "^2.3.0",
-        "console-stamp": "^0.2.6",
-        "ejs": "^2.5.7",
-        "express": "^4.16.2",
-        "mongodb": "^2.2.33",
-        "mongoose": "^4.13.1",
-        "node-readability": "^3.0.0"
-    }
+  "name": "tate-museum-shop",
+  "version": "1.0.0",
+  "description": "An application showcasing Tate Museum artworks and online store to purchase them",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tate",
+    "museum",
+    "artwork",
+    "store"
+  ],
+  "author": "Isaac Sanchez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chalk": "^2.3.0",
+    "compression": "^1.7.1",
+    "console-stamp": "^0.2.6",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.3",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.4.5"
+  }
 }

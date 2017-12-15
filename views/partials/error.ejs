@@ -1,6 +1,25 @@
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+<<<<<<< HEAD
 <div class="container">
     <h1>ERROR <%= error %></h1>
     <h4><%= errorMessage %></h4>
     <a href="/">Back to safety</a>
 </div>
+=======
+<%- include('navbar') %>
+    <div class="container">
+        <h1>
+            Error
+            <%= error %>
+        </h1>
+
+        <% if (error == 404)  %>
+            <h4>
+                <%= errorMessage %>
+            </h4>
+            <!-- <img src="/static/img/404.gif" alt="" height="300"> -->
+            <img src="../static/img/404.png" alt="" id="bg">
+            <p><a href="/">Back to safety</a></p>
+    </div>
+    <%- include('footer') %>
+>>>>>>> c975e0c26a97ae9e936147f577dbd4a2be070e31
