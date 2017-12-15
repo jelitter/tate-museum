@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const mongocfg = require('./config/mongo.js')
+const mongocfg = require('./config/mongo.js');
 const handleError = require('./config/error.js');
 const chalk = require('chalk');
 
