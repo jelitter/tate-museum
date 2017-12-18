@@ -28,14 +28,12 @@ app.post('/login', (req, res, next) => {
     userModel.validateUser(logindata, (err, user) => {
         if (err) handleError(err);
         else {
-            // res.format({
-            //     json: () => {
-            //         res.send({ "result": "OK" });
-            //     }
-            // });
             if (user.length > 0) {
                 if (user[0].user == logindata.username && user[0].pass == logindata.pass) {
                     console.log("Login successful:", logindata);
+                    userModel.findOne({ user: logindata.username }, (err, res) => {
+                        console.log("User: ", res);
+                    });
                     res.status(200).redirect("/api");
                 } else {
                     console.log("Invalid password:", logindata);
@@ -49,16 +47,5 @@ app.post('/login', (req, res, next) => {
 
         }
     });
-    // artistModel.addArtist(newartist, function(err, artist) {
-    //     if (err) {
-    //         console.log("Error: ", JSON.stringify(err, null, 2));
-    //     } else {
-    //         res.format({
-    //             json: () => {
-    //                 res.send(newartist);
-    //                 console.log("Artist added: ", JSON.stringify(newartist, null, 2));
-    //             }
-    //         });
-    //     }
-    // });
+
 });

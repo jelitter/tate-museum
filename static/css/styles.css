@@ -27,10 +27,16 @@ a {
     text-decoration: none;
 }
 
+#nav-icon {
+    position: absolute;
+    height: 2em;
+}
+
 #menu {
     list-style: none;
     vertical-align: middle;
     margin: 0;
+    margin-left: 2em;
     padding: 0;
     height: 2em;
     display: grid;

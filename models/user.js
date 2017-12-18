@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    user: { type: String, trim: true },
-    pass: { type: String, trim: true, max: 100 }
+    user: { type: String, required: true, trim: true },
+    pass: { type: String, required: true, trim: true, max: 100 }
 });
 
-var userModel = module.exports = mongoose.model('user', userSchema, "users");
+var userModel = module.exports = mongoose.model('User', userSchema, "users");
 
 
 module.exports.validateUser = function(userdata, callback) {

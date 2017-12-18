@@ -48,7 +48,7 @@ app.get('/api/artists', (req, res, next) => {
 // Get Artist by id
 
 app.get('/api/artists/:id', (req, res, next) => {
-    const id = req.params.id
+    const id = req.params.id;
     res.format({
         json: () => {
             artistModel.getArtistById(id, function(err, a) {
