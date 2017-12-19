@@ -19,7 +19,16 @@
 
             <form action="/login" method="post" id="loginform" class="tate-form" autocomplete="off" value="Search">
                 <h3>Please login</h3>
-                <div></div>
+                
+                <div id="messages">
+                    <h3>
+                        <%= data.title %>
+                    </h3>
+                    <h4>
+                        <%= data.message %>
+                    </h4>
+                </div>
+
                 <label for="user">User name </label><input type="text" required id="user" name="username">
                 <label for="user">Password</label><input type="password" required id="pass" name="password">
                 <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->

@@ -18,13 +18,13 @@ app.post('/login', (req, res, next) => {
 
     User.findOne({ username. logindata.username }, (err, user) => {
         if (err)
-            return res.status(401).render('login', { error: 'No user', title: 'No user found' });
+            return res.status(401).render('index', { error: 'No user', title: 'No user found' });
         if (!user)
-            return res.status(401).render('login', { error: 'No user', title: 'No user specified' });
+            return res.status(401).render('index', { error: 'No user', title: 'No user specified' });
 
         if (user.compare(logindata.password)) {
             req.session._id = user._id;
-            res.redirect('/api');
+            res.status(200).redirect("/api");
         }
     });
 
