@@ -1,8 +1,9 @@
 //   ┌───────────────┐
-//  │ Artist Routes │
+//  │ Login Routes  │
 // └───────────────┘
 const handleError = require('../config/error.js');
-var userModel = require('../models/user.js');
+let bcrypt = require('bcrypt');
+let User = require('../models/user.js');
 const app = require('./app.js');
 
 var session = {
@@ -10,28 +11,30 @@ var session = {
     user: ""
 };
 
-
-// app.post('/api/artists', (req, res, next) => {
-//             console.log("POST", req.originalUrl);
-//             var newartist = req.body;
-//             artistModel.addArtist(newartist, function(err, artist) {
-//                         if (err) {
-//                             console.log("Error: ", JSON.stringify(err, null, 2));
-//                         } else {
-//                             res.format({
-//                                         json: () => {
-
-
 app.post('/login', (req, res, next) => {
     var logindata = req.body;
     console.log("Login data", logindata);
-    userModel.validateUser(logindata, (err, user) => {
+
+
+    User.findOne({ username. logindata.username }, (err, user) => {
+        if (err)
+            return res.status(401).render('login', { error: 'No user', title: 'No user found' });
+        if (!user)
+            return res.status(401).render('login', { error: 'No user', title: 'No user specified' });
+
+        if (user.compare(logindata.password)) {
+            req.session._id = user._id;
+            res.redirect('/api');
+        }
+    });
+
+    User.validateUser(logindata, (err, user) => {
         if (err) handleError(err);
         else {
             if (user.length > 0) {
-                if (user[0].user == logindata.username && user[0].pass == logindata.pass) {
+                if (user[0].username == logindata.username && user[0].password == logindata.pass) {
                     console.log("Login successful:", logindata);
-                    userModel.findOne({ user: logindata.username }, (err, res) => {
+                    User.findOne({ user: logindata.username }, (err, res) => {
                         console.log("User: ", res);
                     });
                     res.status(200).redirect("/api");
@@ -49,3 +52,8 @@ app.post('/login', (req, res, next) => {
     });
 
 });
+
+let loggedIn = function(req, res, next) {
+    if (req.session) return next();
+    else return res.redirect('/login');
+};

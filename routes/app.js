@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000;
 const chalk = require('chalk');
 const morgan = require('morgan');
 
-
 app.use(compression());
 // app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -58,10 +57,11 @@ app.listen(port, () => {
 
 module.exports = app;
 
-require('./login.js');
-require('./artist.js');
-require('./artwork.js');
-require('./cart.js');
+require('./login');
+require('./artist');
+require('./artwork');
+require('./cart');
+require('./register');
 
 app.use((req, res) => {
     console.error('404 - Not found:', req.originalUrl);
