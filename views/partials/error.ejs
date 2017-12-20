@@ -3,12 +3,12 @@
     <div class="container">
         <h1>
             Error
-            <%= error %>
+            <%= data.error %>
         </h1>
 
-        <% if (error == 404)  %>
+        <% if (data.error == 404)  %>
             <h4>
-                <%= errorMessage %>
+                <%= data.errorMessage %>
             </h4>
             <!-- <img src="/static/img/404.gif" alt="" height="300"> -->
             <img src="../static/img/404.png" alt="" id="bg">

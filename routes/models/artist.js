@@ -1,9 +1,9 @@
 //   ┌───────────────┐
 //  │ Artist Routes │
 // └───────────────┘
-const handleError = require('../config/error.js');
-var artistModel = require('../models/Artist.js');
-const app = require('./app.js');
+const handleError = require('../../config/error');
+var artistModel = require('../../models/Artist');
+const app = require('../../app');
 
 // Get Artists
 app.get('/api/artists', (req, res, next) => {

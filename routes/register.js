@@ -1,12 +1,14 @@
 //   ┌───────────────┐
 //  │   Register    │
 // └───────────────┘
+
+const express = require('express');
+const router = express.Router();
 const handleError = require('../config/error.js');
 let bcrypt = require('bcrypt');
 let User = require('../models/user.js');
-const app = require('./app.js');
 
-app.get('/register', (req, res, next) => {
+router.get('/', (req, res, next) => {
     res.format({
         html: () => {
             res.render('register', { cache: true, data: [] });
@@ -14,14 +16,14 @@ app.get('/register', (req, res, next) => {
     });
 });
 
-app.get('/users.json', (req, res) => {
+router.get('/users.json', (req, res) => {
     User.find({}, (err, users) => {
         if (err) throw err;
         res.send(users);
     });
 });
 
-app.post('/register', (req, res, next) => {
+router.post('/', (req, res, next) => {
     var logindata = req.body;
     console.log("Register data", logindata);
 
@@ -58,3 +60,5 @@ app.post('/register', (req, res, next) => {
         }
     });
 });
+
+module.exports = router;

@@ -33,8 +33,8 @@ userSchema.methods.compare = function(pw) {
 module.exports = mongoose.model('User', userSchema, "users");
 
 
-module.exports.validateUser = function(userdata, callback) {
-    console.log("Validate user:", userdata);
-    // userModel.findOne({ user: userdata.user });
-    userModel.find({ user: userdata.username }, callback);
-};
+// module.exports.validateUser = function(userdata, callback) {
+//     console.log("Validate user:", userdata);
+//     // userModel.findOne({ user: userdata.user });
+//     userModel.find({ user: userdata.username }, callback);
+// };

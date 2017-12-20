@@ -1,11 +1,16 @@
 <nav>
-    <img src="/favicon.ico" alt="" id="nav-icon">
+    <a href="/"><img src="/favicon.ico" alt="" id="nav-icon"></a>
+    
     <ul id="menu">
-        <li>
-            <a href="/register">Register</a>
-        </li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/api">API</a></li>
+        <% if (data.username) { %>
+            <li><a href="/shop"><%= data.username %></a></li>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+        <% } %>
+
+        <li><a href="/shop">Shop</a></li>
         <div></div>
         <li id="about"><a href="/about">About</a></li>
     </ul>

@@ -21,10 +21,10 @@
 
         <div class="container">
             <img src="../static/img/bg_museum.jpg" alt="" id="bg">
-            <h1>API Test</h1>
+            <h1>Tate Museum Shop</h1>
 
             <div class="col-2">
-                <form action="/api/artists" method="get" id="artistsearch" class="tate-form" autocomplete="off">
+                <form action="/shop/artists" method="get" id="artistsearch" class="tate-form" autocomplete="off">
                     <h2>Artist search</h2>
                     <div></div>
                     <label for="artist-name">Artist ID </label><input type="text" id="artist-id" name="id">
@@ -32,7 +32,7 @@
                     <div></div> <input type="submit" id="artistsubmit" value="Search">
                 </form>
 
-                <form action="/api/artwork" method="get" id="artworksearch" class="tate-form" autocomplete="off" value="Search">
+                <form action="/shop/artwork" method="get" id="artworksearch" class="tate-form" autocomplete="off" value="Search">
                     <h2>Artwork search</h2>
                     <div>
                         <p>Enter ID or leave it blank for random artworks</p>
@@ -61,7 +61,7 @@
                                 </h4>
                             </div>
                             <div class="buy">
-                                <form action="/api/cart/<%= data[i].id %>" method="post">
+                                <form action="/shop/cart/<%= data[i].id %>" method="post">
                                     <input type="submit" value="Add to cart" name="id">
                                 </form>
                             </div>
