@@ -1,80 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHOP!</title>
-</head>
+<%- include('partials/head') %>
 
 <body>
-    <!-- <nav>
-        <ul id="menu">
-            <li>LOGO</li>
-            <li>Artists</li>
-            <li>Artwork</li>
-            <li>SHOP</li>
-        </ul>
-    </nav> -->
+
     <%- include('partials/navbar') %>
 
-        <div class="container">
-            <img src="../static/img/bg_museum.jpg" alt="" id="bg">
-            <h1>Tate Museum Shop</h1>
 
-            <div class="col-2">
-                <form action="/shop/artists" method="get" id="artistsearch" class="tate-form" autocomplete="off">
-                    <h2>Artist search</h2>
-                    <div></div>
-                    <label for="artist-name">Artist ID </label><input type="text" id="artist-id" name="id">
-                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
-                    <div></div> <input type="submit" id="artistsubmit" value="Search">
-                </form>
+    <div class="container">
 
-                <form action="/shop/artwork" method="get" id="artworksearch" class="tate-form" autocomplete="off" value="Search">
-                    <h2>Artwork search</h2>
-                    <div>
-                        <p>Enter ID or leave it blank for random artworks</p>
+        <header class="my-4">
+            <h1 class="display-5">Shop</h1>
+        </header>
+
+        <div class="row text-center">
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
                     </div>
-                    <label for="artwork-name">Artwork ID </label><input type="text" id="artwork-id" name="id">
-                    <!-- <label for="artist-gender">Gender </label><input type="gender" id="artist-gender" name="gender"> -->
-                    <div></div> <input type="submit" id="artworksubmit" value="Search">
-                </form>
-
-                <div id="results-artists">
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
                 </div>
-                <div id="results-artwork">
-                    <% for(var i=0; i < data.length; i++) { %>
-                        <div class="artwork">
+            </div>
 
-                            <a href="<%= data[i].url %>" target="_blank">
-                                <img src="<%= data[i].thumbnailUrl || '../static/img/missing.png' %>" alt="" />
-                            </a>
-                            <div class="card-content">
-                                <h3>
-                                    <%= data[i].title %>
-                                </h3>
-                                <h4>
-                                    <%= data[i].artist %>,
-                                        <%= data[i].dateText %>
-                                </h4>
-                            </div>
-                            <div class="buy">
-                                <form action="/shop/cart/<%= data[i].id %>" method="post">
-                                    <input type="submit" value="Add to cart" name="id">
-                                </form>
-                            </div>
-                        </div>
-                        <% } %>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis
+                            beatae culpa natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis
+                            beatae culpa natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa
+                            natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa
+                            natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa
+                            natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa
+                            natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa
+                            natus architecto.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
                 </div>
             </div>
 
         </div>
-        <%- include('partials/footer') %>
-            <!-- <footer>
-        <p>Isaac Sanchez,2017</p>
-    </footer> -->
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

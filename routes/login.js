@@ -10,10 +10,15 @@ let User = require('../models/user');
 
 
 router.get('/', (req, res, next) => {
-    res.format({
-        html: () => {
-            res.render('../views/index_b.ejs', { cache: true, data: [] });
-        }
+    
+    User.findOne({ _id: req.session._id }, (err, user) => {
+        if (err) res.status(500).redirect('/');
+        res.render('index', {
+                cache: true,
+                data: {
+                    username: user ? user.username : ''
+                }
+            });
     });
 });
 
@@ -21,18 +26,39 @@ router.post('/', (req, res, next) => {
     var logindata = req.body;
 
     User.findOne({ username: logindata.username }, (err, user) => {
-        if (err)
-            return res.status(401).render('../views/index.ejs', { data: { title: 'Error', message: 'Invalid credentials' }});
-        if (!user)
-            return res.status(401).render('../views/index.ejs', { data: { title: 'Error', message: 'Invalid username or password' }});
+        if (err) return res.status(401).render('index', { 
+                cache: true,
+                data: { 
+                    type: 'danger', 
+                    message: err.message 
+                }
+            });
+        if (!user) return res.status(401).render('index', { 
+                cache: true,
+                data: { 
+                    type: 'warning', 
+                    message: 'User '+ logindata.username +' does not exist' 
+                }
+            });
 
         if (user.compare(logindata.password)) {
             console.log("Logged in: ", user.username);
             req.session._id = user._id;
-            // res.redirect('/shop'); //, { data: { username: user.username } });
-            res.render('index_b', { data: { username: user.username } });
+            res.render('index', { 
+                cache: true,
+                data: { 
+                    username: user.username 
+                }
+            });
         } else {
-            res.redirect('/'); //, { data: { title: 'Error', message: 'Invalid credentials' } });
+            console.log("Invalid credentials: ", user.username);
+            res.status(401).render('index', {
+                cache: true,
+                data: {
+                    type: 'danger',
+                    message: 'Invalid credentials'
+                }
+            });
         }
     });
 });

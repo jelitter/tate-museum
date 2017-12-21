@@ -10,7 +10,7 @@ router.get('/', loggedIn, (req, res, next) => {
     User.findOne({ _id: req.session._id }, (err, user) => {
         console.log('User found - shop:', user.username);
         if (err) res.status(401).redirect('/');
-        if (user) res.status(200).render('../views/shop.ejs', { cache: true, data: { username: user.username }});
+        if (user) res.status(200).render('../views/shop.ejs', { cache: true, data: { username: user.username, page: 'shop' }});
         else res.status(401).redirect('/');
     });
 });

@@ -1,29 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHOP!</title>
-</head>
-
+<%- include('partials/head') %>
 <body>
-    <!-- <nav>
-        <ul id="menu">
-            <li>LOGO</li>
-            <li>Artists</li>
-            <li>Artwork</li>
-            <li>SHOP</li>
-        </ul>
-    </nav> -->
-    <%- include('partials/navbar') %>
-
-        <div class="container">
-            <img src="../static/img/bg_museum.jpg" alt="" id="bg">
-            <h1>NPM Modules:</h1>
+        <%- include('partials/navbar') %>
+        <div class="jumbotron container">
+            <h1>NPM Modules used:</h1>
             <ul>
                 <li>express</li>
+                <li>express-session</li>
                 <li>body-parser</li>
                 <li>chalk</li>
                 <li>compression</li>
@@ -33,13 +17,7 @@
                 <li>morgan</li>
                 <li>serve-favicon</li>
             </ul>
-
         </div>
         <%- include('partials/footer') %>
-            <!-- <footer>
-        <p>Isaac Sanchez,2017</p>
-    </footer> -->
-
 </body>
-
 </html>
