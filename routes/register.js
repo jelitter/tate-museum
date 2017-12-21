@@ -45,6 +45,51 @@ router.post('/', (req, res, next) => {
                 }
             });
         } else {
+
+            // Validation that both username and password are non-empty
+            if (!logindata.username || !logindata.password) {
+                res.format({
+                    html: () => {
+                        return res.status(401).render('register', {
+                            cache: true,
+                            data: {
+                                type: 'danger',
+                                message: 'Both user name and password must be specified.'
+                            }
+                        });
+                    },
+                    json: () => {
+                        return res.json({
+                            status: 401,
+                            message: 'Both user name and password must be specified'
+                        });
+                    }
+                });
+                return;
+            }
+
+            // Validation that password is at least 6 characters long
+            if (logindata.password.length < 6) {
+                res.format({
+                    html: () => {
+                        return res.status(401).render('register', {
+                            cache: true,
+                            data: {
+                                type: 'danger',
+                                message: 'Password must be at least 6 characters long'
+                            }
+                        });
+                    },
+                    json: () => {
+                        return res.json({
+                            status: 401,
+                            message: 'Password must be at least 6 characters long'
+                        });
+                    }
+                });
+                return;
+            }
+
             User.create({
                 username: logindata.username,
                 password: logindata.password,

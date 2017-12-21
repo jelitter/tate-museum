@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/user');
 // const loggedIn = require('./login');
 
-
 router.get('/', loggedIn, (req, res, next) => {
 
     console.log('/shop hit');

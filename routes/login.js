@@ -25,6 +25,27 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     var logindata = req.body;
 
+    if (!logindata.username || !logindata.password) {
+        res.format({
+            // html: () => {
+            //     return res.status(401).render('index', {
+            //         cache: true,
+            //         data: {
+            //             type: 'danger',
+            //             message: 'Both user name and password must be specified.'
+            //         }
+            //     });
+            // },
+            json: () => {
+                return res.json({
+                    status: 401,
+                    message: 'Both user name and password must be specified.'
+                });
+            }
+        });
+        return;
+    }
+
     User.findOne({ username: logindata.username }, (err, user) => {
         if (err) return res.status(401).render('index', { 
                 cache: true,
