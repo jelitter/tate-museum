@@ -43,13 +43,9 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <strong>Create new account</strong>
-
                                         <% if (data.message) { %>
-                                        
                                         <p class="text-<%= data.type %>"><%= data.message %></p>
-
                                         <% } %>
-
                                     </div>
                                     <div class="panel-body my-3">
                                         <form role="form" id="register-form" action="/register" method="POST">

@@ -1,7 +1,10 @@
 const usernameReg = document.getElementById('username-reg');
 const passwordReg = document.getElementById('password-reg');
 const passFeedback = document.getElementById('pass-feedback');
-const buttonCreate = document.getElementById('button-create');
+
+const usernameLogin = document.getElementById('username-login');
+const passwordLogin = document.getElementById('password-login');
+
 
 
 // Password validation for registering
@@ -18,4 +21,12 @@ function passVal() {
         passFeedback.innerHTML = '<p class="text-warning">Password strengh OK</p>';
     else
         passFeedback.innerHTML = '<p class="text-success">Password strengh great!</p>';
+}
+
+
+function loginVal() {
+    const unlen = usernameLogin.value.length;
+    const pwlen = passwordLogin.value.length;
+
+    $('#button-login').attr("disabled", (pwlen == 0 || unlen == 0));
 }
