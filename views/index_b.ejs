@@ -1,88 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Heroic Features - Start Bootstrap Template</title>
+  <title>Tate Museum</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="/static/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="/static/css/styles.css" rel="stylesheet">
+  <link href="/static/css/bootstrap.css" rel="stylesheet">
+  <link href="/static/css/fontawesome-all.min.css" rel="stylesheet">
+  <link href="/static/css/heroic-features.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/heroic-features.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Tate Museum</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="shop.html">Shop</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <!-- Navigation -->
+  <%- include('partials/navbar_b') %>
+
+  <!-- <img src="/static/img/bg_museum.jpg" alt="bg" class="position-fixed"> -->
 
     <!-- Page Content -->
-    <div class="container">
+  <div class="container-fluid">
 
-      <!-- Jumbotron Header -->
-      <header class="jumbotron my-4">
-        <h1 class="display-3">Welcome to Tate Museum!</h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-        <a href="#" class="btn btn-primary btn-lg">Register</a>
-      </header>
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-3">
+      
+      
+      <h1 class="display-3">Welcome to Tate Museum!</h1>
+      
+      <div class="row">
+      
 
-      <!-- Page Features -->
-      <div class="row text-center">
 
-       <div class="jumbotron my-5">
-         <h2>Cosas museosas</h2>
-       </div>
-
+      <div class="card col-md-4 bg-dark text-white my-3">
+        <img class="card-img" src="/static/img/banner.jpg" alt="Card image">
+        <div class="card-img-overlay">
+          <h4 class="card-title">Our artwork</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, omnis!</p>
+        </div>
       </div>
-      <!-- /.row -->
 
-    </div>
-    <!-- /.container -->
+    <% if (data.username) { %>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Isaac Sanchez 2017</p>
+      <div class="col-md-6 text-center align-middle py-5 my-5">
+        <a class="btn btn-outline-primary btn-lg" href="/shop">
+          <i class="fas fa-images fa-2x p-1 align-middle"></i>  Start browsing</a>
+          </div>
       </div>
-      <!-- /.container -->
-    </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <% } else { %>
 
-  </body>
+      <div class="col">
+        <div class="row">
+          <div class="col"></div>
+          <!-- <div class="col-lg-6 col-md-8 col-sm-12 py-3"> -->
+          <div class="col-12 col-md-6 col-lg-5 col-xl-4 py-3">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <strong>Login to continue</strong>
+              </div>
+              <div class="panel-body my-3">
+                <form role="form" id="login-form" action="/login" method="POST">
+                  <fieldset>
+                    <div class="row">
+                      <div class="col"></div>
+                      <!-- <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1"> -->
+                        <div class="col-12">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                              </span>
+                              <input class="form-control" required placeholder="Username" name="username" type="text" autofocus>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fas fa-lock"></i>
+                            </span>
+                            <input class="form-control" required placeholder="Password" name="password" type="password" value="">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
+                        </div>
+                      </div>
+                      <div class="col"></div>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+              <div class="panel-footer text-center">
+                Don't have an account?
+                <p><a href="/register" onClick="">Register here!</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    
+    <% } %>
+
+  </div>
+    </header>
+
+
+  <%- include('partials/footer') %>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+</body>
 
 </html>

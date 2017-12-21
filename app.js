@@ -42,6 +42,6 @@ app.use('/logout', logout);
 app.use('/register', register);
 app.use('/shop', shop);
 app.use('/about', about);
-app.use('/*', notfound);
+app.use('*', notfound);
 
 module.exports = app;

@@ -7,14 +7,12 @@ const router = express.Router();
 const handleError = require('../config/error');
 let bcrypt = require('bcrypt');
 let User = require('../models/user');
-// const app = require('./app');
-// const session = require('express-session')
 
 
 router.get('/', (req, res, next) => {
     res.format({
         html: () => {
-            res.render('../views/index.ejs', { cache: true, data: [] });
+            res.render('../views/index_b.ejs', { cache: true, data: [] });
         }
     });
 });
@@ -31,7 +29,8 @@ router.post('/', (req, res, next) => {
         if (user.compare(logindata.password)) {
             console.log("Logged in: ", user.username);
             req.session._id = user._id;
-            res.redirect('/shop'); //, { data: { username: user.username } });
+            // res.redirect('/shop'); //, { data: { username: user.username } });
+            res.render('index_b', { data: { username: user.username } });
         } else {
             res.redirect('/'); //, { data: { title: 'Error', message: 'Invalid credentials' } });
         }

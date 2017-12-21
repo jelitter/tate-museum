@@ -11,7 +11,8 @@
     "tate",
     "museum",
     "artwork",
-    "store"
+    "store",
+    "shop"
   ],
   "author": "Isaac Sanchez",
   "license": "ISC",
@@ -25,6 +26,7 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0-beta.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
     "console-stamp": "^0.2.6",
