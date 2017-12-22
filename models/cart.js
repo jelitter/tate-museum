@@ -11,14 +11,12 @@ let userSchema = new Schema({
 
 var CartSchema = mongoose.Schema({
     owner: Schema.Types.ObjectId,
-    items: { 
-        type: [
-            {
-                itemId: { type: Number, required: true },
-                price: { type: Number },
-                amount: { type: Number, required: true, default: 1 }
-            }
-        ] 
+    items: {
+        type: [{
+            itemId: { type: Number, required: true },
+            price: { type: Number },
+            amount: { type: Number, required: true, default: 1 }
+        }]
     },
     priceTotal: Number
 });

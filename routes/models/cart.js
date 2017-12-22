@@ -2,16 +2,85 @@
 //  │ Cart Routes │
 // └─────────────┘
 const handleError = require('../config/error.js');
-var cartModel = require('../models/cart.js');
-const app = require('./app.js');
+const express = require('express');
+const router = express.Router();
+var Cart = require('../models/cart.js');
+let username = null;
+
+router.post('*', loggedIn, (req, res, next) => {
+    User.findOne({ _id: req.session._id }, (err, user) => {
+        if (err) {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'danger',
+                    message: 'Error - Please login',
+                }
+            });
+        }
+        if (user) {
+            username = user.username;
+            next();
+        } else {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'warning',
+                    message: 'Please login',
+                }
+            });
+        }
+    });
+});
+router.get('*', loggedIn, (req, res, next) => {
+    User.findOne({ _id: req.session._id }, (err, user) => {
+        if (err) {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'danger',
+                    message: 'Error - Please login',
+                }
+            });
+        }
+        if (user) {
+            username = user.username;
+            next();
+        } else {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'warning',
+                    message: 'Please login',
+                }
+            });
+        }
+    });
+});
+
+loggedIn = function(req, res, next) {
+    if (req.session._id) return next();
+    else return res.redirect(401, '/');
+};
+
+router.post('/', loggedIn, (req, res, next) => {
+    const query = req.body.query;
+
+    console.log('Cart - POST, Query: ', JSON.stringify(query));
+});
 
 
-app.get('/api/cart/:id', (req, res, next) => {
+
+router.get('/api/cart/:id', (req, res, next) => {
     console.log("Cart API - Get cart", req.params);
     res.format({
         html: () => {
             if (req.query.id !== undefined) {
-                cartModel.getOrder(req.query.id, function(err, order) {
+                Cart.getOrder(req.query.id, function(err, order) {
                     if (err) handleError(err);
                     else res.render('../views/partials/order.ejs', {
                         cache: true,
@@ -20,7 +89,7 @@ app.get('/api/cart/:id', (req, res, next) => {
                     });
                 });
             } else {
-                cartModel.getCart(function(err, cart) {
+                Cart.getCart(function(err, cart) {
                     if (err) handleError(err);
                     else res.render('../views/partials/cart.ejs', {
                         cache: true,
@@ -31,14 +100,14 @@ app.get('/api/cart/:id', (req, res, next) => {
         },
         json: () => {
             if (req.query.id !== undefined) {
-                cartModel.getOrder(req.query.id, function(err, a) {
+                Cart.getOrder(req.query.id, function(err, a) {
                     if (err) handleError(err);
                     else {
                         res.send(a);
                     }
                 });
             } else {
-                cartModel.getCart(function(err, cart) {
+                Cart.getCart(function(err, cart) {
                     if (err) handleError(err);
                     else {
                         res.send(cart);
@@ -51,10 +120,10 @@ app.get('/api/cart/:id', (req, res, next) => {
 
 
 // Add item to order
-app.post('/api/cart', (req, res, next) => {
+router.post('/api/cart', (req, res, next) => {
     console.log("POST - /api/cart", req.body);
     var artistid = req.body.id;
-    cartModel.addItem(newartist, function(err, artist) {
+    Cart.addItem(newartist, function(err, artist) {
         if (err) {
             console.log("Error: ", JSON.stringify(err, null, 2));
         } else {
@@ -68,3 +137,6 @@ app.post('/api/cart', (req, res, next) => {
     });
 
 });
+
+
+module.exports = router;

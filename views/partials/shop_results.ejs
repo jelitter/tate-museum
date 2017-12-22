@@ -8,12 +8,12 @@
         <%- include('pagination') %>
             <% } %>
                 <p class="lead text-success lead text-center">
-                    <%= data.query %>: showing results <%= ((data.page-1)*8 + 1) %> to <%= (data.total < data.page*8 ? data.total : data.page*8) %> of <%= data.total %> (Page: <%= data.page %>)
+                    <%= data.total %> results
                 </p>
                 <% } else if (data.query != '') { %>
-                    <h2 class="lead text-warning strong lead text-center">
-                        No results found
-                    </h2>
+                    <h1 class="lead text-warning strong lead text-center display-4 jumbotron">
+                        No results found for<br>"<%= data.query %>"
+                    </h1>
                     <% } %>
 
 
@@ -35,7 +35,19 @@
                                         </div>
                                         <div class="card-footer text-right">
                                             <p class="float-left text-success align-middle"> &euro;19.95</p>
-                                            <a href="#" class="btn btn-outline-primary">Add to cart</a>
+                                            <!-- Spinner Start -->
+                                            <div class="input-group spinner float-right">
+                                                <input type="text" class="form-control" value="1" id="input-spinner-<%= data.artworks[i].id %>">
+                                                <div class="input-group-btn-vertical">
+                                                    <button id="btn-up-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                    <button id="btn-down-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                                </div>
+                                            </div>
+                                            <!-- Spinner End -->
+                                        </div>
+                                        <div class="card-footer text-right align-middle">
+                                            <p class="float-left">Total: &euro;19.95</p>
+                                            <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-outline-primary">Add to cart</button>
                                         </div>
                                     </div>
                                 </div>

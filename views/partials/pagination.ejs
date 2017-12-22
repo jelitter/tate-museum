@@ -1,22 +1,27 @@
-<nav aria-label="Page navigation example" class=" my-3">
-    <ul class="pagination justify-content-center">
-        <li class="page-item <%= (data.page == 1 ? 'disabled' : '') %>">
-            <a class="page-link" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) -1) %>/">
-            Previous
-            </a>
+<nav aria-label="Page navigation" class=" my-3">
+    <ul class="pagination justify-content-center pagination-lg rounded">
+        <li class="page-item bg-success align-middle <%= (data.page == 1 ? 'invisible' : '') %>">
+                <a class="btn btn-lg" id="prev-button" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) - 1) %>/">
+                <i class="fas fa-fw fa-arrow-left bg-success text-white"></i>
+                </a>
+            </form>
         </li>
+
         <li class="page-item">
-            <a class="page-link" href="#">1</a>
+            <div class="page-link active text-center py-0 px-3">
+           <small class="text-success text-center">
+                Page <%= data.page %> of <%= (Math.floor(data.total / 8)) %>
+            </small>
+            <br>
+           <small class="text-success text-center">
+                Items <%= ((data.page-1)*8 + 1) %> to <%= (data.total < data.page*8 ? data.total : data.page*8) %>
+            </small>
+            </div>
         </li>
-        <li class="page-item">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-                <a class="page-link" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) + 1) %>/">
-                Next
+        
+        <li class="page-item bg-success align-middle <%= (data.page*8 >= data.total ? 'invisible' : '') %>">
+                <a class="btn btn-lg" id="next-button" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) + 1) %>/">
+                <i class="fas fa-fw fa-arrow-right bg-success text-white"></i>
                 </a>
             </form>
         </li>

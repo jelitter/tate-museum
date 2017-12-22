@@ -25,12 +25,30 @@ router.post('*', loggedIn, (req, res, next) => {
 });
 router.get('*', loggedIn, (req, res, next) => {
     User.findOne({ _id: req.session._id }, (err, user) => {
-        if (err) res.status(401).redirect('/');
+        if (err) {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'danger',
+                    message: 'Error - Please login',
+                }
+            });
+        }
         if (user) {
             username = user.username;
             next();
             // res.status(200).render('shop', { cache: true, data: { username: user.username, pagename: 'shop' } });
-        } else res.status(401).redirect('/');
+        } else {
+            res.render('index', {
+                cache: true,
+                data: {
+                    pagename: 'Main',
+                    type: 'warning',
+                    message: 'Please login',
+                }
+            });
+        }
     });
 });
 
@@ -39,7 +57,7 @@ loggedIn = function(req, res, next) {
     else return res.redirect(401, '/');
 };
 
-router.post('/search', (req, res, next) => {
+router.post('/search', loggedIn, (req, res, next) => {
 
     const query = req.body.query;
     const page = req.body.page | 1;
@@ -67,11 +85,10 @@ router.post('/search', (req, res, next) => {
         if (err) console.log("Couldn't get count.");
         else {
             const skip = MAX_RESULTS;
-            console.log(`Count for ${query}: ${count}, Skip: ${skip}`);
+            // console.log(`Count for ${query}: ${count}, Skip: ${skip}`);
             Artwork.find({ title: re }, (err, results) => {
                 if (err) console.log('err', err);
                 else {
-                    console.log(results.length, ' items found for', query);
                     res.render('partials/shop_results', {
                         cache: true,
                         data: {
@@ -96,7 +113,7 @@ router.get('/search/:query', (req, res, next) => {
     // next();
 });
 
-router.get('/search/:query/:page', (req, res, next) => {
+router.get('/search/:query/:page', loggedIn, (req, res, next) => {
     const query = req.params.query;
     const page = req.params.page || 1;
 

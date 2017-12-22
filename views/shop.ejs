@@ -9,19 +9,17 @@
 
 
             <div class="container">
-
                 <header class="my-4">
-
                     <nav class="navbar navbar-light justify-content-between transparent">
                         <h1 class="display-5">Shop</h1>
                         <div class="form-inline">
-                            <input class="form-control mr-sm-2" id="input-search" placeholder="Search" autofocus>
+                            <input class="form-control mr-sm-2" id="input-search" oninput="typeSearch()" placeholder="Search" autofocus>
                             <select class="form-control form-control mr-sm-2">
-                        <option>By Title</option>
-                        <option>By Artist Name</option>
-                        <option>By Genre</option>
-                    </select>
-                            <button class="btn btn-primary " id="button-search" onclick="search()"><i class="fas fa-search"></i> Search</button>
+                                <option>By Title</option>
+                                <option>By Artist Name</option>
+                                <option>By Genre</option>
+                            </select>
+                            <button class="btn btn-primary " id="button-search" onclick="search()" disabled><i class="fas fa-search"></i> Search</button>
                         </div>
                     </nav>
 
@@ -37,16 +35,12 @@
 
 
                 </div>
-
-
-
             </div>
-
             <%- include('partials/footer') %>
-
-                <script src="/static/js/jquery.min.js"></script>
-                <script src="/static/js/bootstrap.bundle.min.js"></script>
-                <script src="/static/js/search.js"></script>
+            <script src="/static/js/jquery.min.js"></script>
+            <script src="/static/js/bootstrap.bundle.min.js"></script>
+            <script src="/static/js/search.js"></script>
+            <script src="/static/js/cart.js"></script>
 
     </body>
 
