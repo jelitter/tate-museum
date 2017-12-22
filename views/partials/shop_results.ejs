@@ -1,43 +1,49 @@
-<p class="lead text-success lead text-center">Showing <%= data.items %> results of <%= data.total %></p>
+<% if (data.message) { %>
+    <p class="lead text-<%= data.type %> lead text-center">
+    <%= data.message %>
+    </p>
+<% } else if (data.items > 0)  { %>
 
-<div class="row" id="card-container">
-<% for(var i=0; i < data.items; i++) { %>
+    <% if (data.items > 0)  { %>
+        <%- include('pagination') %>
+            <% } %>
+                <p class="lead text-success lead text-center">
+                    <%= data.query %>: showing results <%= ((data.page-1)*8 + 1) %> to <%= (data.total < data.page*8 ? data.total : data.page*8) %> of <%= data.total %> (Page: <%= data.page %>)
+                </p>
+                <% } else if (data.query != '') { %>
+                    <h2 class="lead text-warning strong lead text-center">
+                        No results found
+                    </h2>
+                    <% } %>
 
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card">
-            <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
-            <div class="card-body">
-                <h5 class="card-title"><%= data.artworks[i].title %></h5>
-                <p class="card-text text-muted text-right blockquote-footer"><%= data.artworks[i].artist %></p>
-                <p class="card-text"><%= data.artworks[i].medium %></p>
-            </div>
-            <div class="card-footer text-right">
-                <p class="float-left text-success align-middle"> &euro;19.95</p>
-                <a href="#" class="btn btn-outline-primary">Add to cart</a>
-            </div>
-        </div>
-    </div>
-<% } %>
-</div>
 
-<nav aria-label="Page navigation example" class=" my-3">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+                        <div class="row" id="card-container">
+                            <% for(var i=0; i < data.items; i++) { %>
+                                <div class="col-lg-3 col-md-6 mb-4">
+                                    <div class="card">
+                                        <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%= data.artworks[i].title %>
+                                            </h5>
+                                            <p class="card-text text-muted text-right blockquote-footer">
+                                                <%= data.artworks[i].artist %>
+                                            </p>
+                                            <p class="card-text">
+                                                <%= data.artworks[i].medium %>
+                                            </p>
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <p class="float-left text-success align-middle"> &euro;19.95</p>
+                                            <a href="#" class="btn btn-outline-primary">Add to cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
 
-<br>
+                        <% if (data.items > 0)  { %>
+                            <%- include('pagination') %>
+                                <% } %>
+
+                                    <br>
