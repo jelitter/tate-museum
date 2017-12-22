@@ -2,17 +2,22 @@
 //  │ Artwork Routes │
 // └────────────────┘
 
-const handleError = require('../config/error.js');
-var artworkModel = require('../models/Artwork.js');
-const app = require('./app.js');
-const numberOfResults = 5;
+const express = require('express');
+const router = express.Router();
+const handleError = require('../../config/error.js');
+const Artwork = require('../../models/Artwork.js');
+const searchArtworkByTitle = require('../../models/Artwork.js');
+const getArtwork = require('../../models/Artwork.js');
+
+
+const MAX_RESULTS = 10;
 
 // Get Artworks
-app.get('/api/artwork', (req, res, next) => {
+router.get('/', (req, res, next) => {
     res.format({
         html: () => {
             if (req.query.id !== undefined && req.query.id != "") {
-                artworkModel.getArtworkById(req.query.id, function(err, artwork) {
+                Artwork.getArtworkById(req.query.id, function(err, artwork) {
                     if (err) handleError(res, err);
                     // else res.send(results);
                     // else res.render('../views/partials/artwork.ejs', {
@@ -23,7 +28,7 @@ app.get('/api/artwork', (req, res, next) => {
                             artist: artwork.artist,
                             id: artwork.id
                         }];
-                        res.render('../views/api.ejs', { cache: true, data: aw });
+                        res.render('shop', { cache: true, data: aw });
 
                     } else {
                         next();
@@ -31,10 +36,10 @@ app.get('/api/artwork', (req, res, next) => {
                 });
             } else {
                 // No artwork ID
-                artworkModel.getArtwork(function(err, artwork) {
+                Artwork.getArtwork(function(err, artwork) {
                     if (err) handleError(res, err);
                     else {
-                        res.render('../views/api.ejs', { cache: true, data: artwork });
+                        res.render('shop', { cache: true, data: artwork });
                     }
                 }, numberOfResults);
             }
@@ -42,7 +47,7 @@ app.get('/api/artwork', (req, res, next) => {
         json: () => {
 
             if (req.query.id !== undefined) {
-                artworkModel.getArtworkById(req.query.id, function(err, artwork) {
+                Artwork.getArtworkById(req.query.id, function(err, artwork) {
                     if (err) handleError(res, err);
                     // else res.send(results);
                     else res.render('../views/partials/artwork.ejs', {
@@ -53,7 +58,7 @@ app.get('/api/artwork', (req, res, next) => {
                     });
                 });
             } else {
-                artworkModel.getArtwork(function(err, results) {
+                Artwork.getArtwork(function(err, results) {
                     if (err) handleError(res, err);
                     else res.send(results);
                 }, numberOfResults);
@@ -63,14 +68,70 @@ app.get('/api/artwork', (req, res, next) => {
 });
 
 // Get Artwork by id
-app.get('/api/artwork/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     const id = req.params.id
-    res.format({
-        json: () => {
-            artworkModel.getArtworkById(id, function(err, result) {
-                if (err) handleError(res, err);
-                else res.send(result);
+
+    Artwork.getArtworkById(id, function (err, result) {
+        if (err) handleError(res, err);
+        else {
+            res.format({
+                json: () => {
+                    res.send(result);
+                },
+                html: () => {
+                    res.render('partials/artwork_b', {
+                        cache: true,
+                        data: {
+                            artwork: result
+                        }
+                    });
+                }
             });
         }
     });
 });
+
+router.post('/search', (req,res,next) => {
+    
+    const query = req.body.query;
+    console.log('Searching for', query, '...');
+    let re = new RegExp('.*'+ query + '.*', "i")
+
+    Artwork.find({ title: re }).count().exec((err, count) => {
+        if (err) console.log("Couldn't get count.");
+        else {
+            const skip = MAX_RESULTS;
+            console.log(`Count for ${query}: ${count}, Skip: ${skip}`);
+            Artwork.find({ title: re }, (err, results) => {
+                if (err) console.log('err', err);
+                else {
+                    console.log(results.length, ' items found for', query);
+                    res.render('partials/shop_results', {
+                        cache: true,
+                        data: {
+                            artworks: results,
+                            items: results.length,
+                            total: count
+                        }
+                    });
+                }
+            }).limit(MAX_RESULTS).skip(0);
+        }
+    });
+
+
+    
+
+    
+
+    // searchArtworkByTitle(query, (err, result) => {
+    //     if (err) console.log('err', err);
+    //     else console.log('result', result);
+    // }, 10);
+
+    // getArtworkById = function (artworkid, callback) {
+    //     artworkModel.findOne({ id: artworkid }, callback);
+    // };
+});
+
+module.exports = router;

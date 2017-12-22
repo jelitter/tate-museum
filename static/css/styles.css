@@ -26,3 +26,8 @@ body {
 #button-create:enabled, #button-login:enabled {
     cursor: pointer;
 }
+
+.transparent {
+    /* background: rgba(255, 255, 255, 0.05) !important; */
+    background: none;
+}

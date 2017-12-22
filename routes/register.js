@@ -24,13 +24,6 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/users.json', (req, res) => {
-    User.find({}, (err, users) => {
-        if (err) throw err;
-        res.send(users);
-    });
-});
-
 router.post('/', (req, res, next) => {
     var logindata = req.body;
     User.findOne({username: logindata.username }, (err, user) => {

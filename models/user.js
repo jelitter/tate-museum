@@ -1,15 +1,14 @@
 const SALT_ROUNDS = 10;
 let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 let bcrypt = require('bcrypt');
 
-let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
     username: { type: String, required: true,  unique: true },
     password: { type: String, required: true },
     created_at: Date
 });
-
 
 // Database Middleware to auto-hash passwords and don't save them in plain text.
 userSchema.pre('save', function(next) {
@@ -31,10 +30,3 @@ userSchema.methods.compare = function(pw) {
 };
 
 module.exports = mongoose.model('User', userSchema, "users");
-
-
-// module.exports.validateUser = function(userdata, callback) {
-//     console.log("Validate user:", userdata);
-//     // userModel.findOne({ user: userdata.user });
-//     userModel.find({ user: userdata.username }, callback);
-// };

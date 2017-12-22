@@ -16,6 +16,7 @@ var register = require('./routes/register');
 var shop = require('./routes/shop');
 var about = require('./routes/about');
 var notfound = require('./routes/notfound');
+var artwork = require('./routes/models/artwork');
 
 
 // Setup
@@ -42,6 +43,7 @@ app.use('/logout', logout);
 app.use('/register', register);
 app.use('/shop', shop);
 app.use('/about', about);
+app.use('/artwork', artwork);
 app.use('*', notfound);
 
 module.exports = app;

@@ -1,0 +1,15 @@
+<%- include('head') %>
+
+<div class="col-lg-3 col-md-6 mb-4">
+    <div class="card">
+        <img class="card-img-top" src="<%= data.artwork.thumbnailUrl %>" alt="">
+        <div class="card-body">
+            <h4 class="card-title"><%= data.artwork.title %></h4>
+            <p class="card-text lead"><%= data.artwork.artist %></p>
+            <p class="card-text"><%= data.artwork.medium %></p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="btn btn-primary pull-right">Add to cart</a>
+        </div>
+    </div>
+</div>

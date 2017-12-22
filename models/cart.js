@@ -1,9 +1,26 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+
+
+let userSchema = new Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    created_at: Date
+});
 
 
 var CartSchema = mongoose.Schema({
-    items: { type: [Number] }, // Number array with Artwork ids
-    priceTotal: { type: Number }
+    owner: Schema.Types.ObjectId,
+    items: { 
+        type: [
+            {
+                itemId: { type: Number, required: true },
+                price: { type: Number },
+                amount: { type: Number, required: true, default: 1 }
+            }
+        ] 
+    },
+    priceTotal: Number
 });
 
 var cartModel = module.exports = mongoose.model('Cart', CartSchema, "cart");
