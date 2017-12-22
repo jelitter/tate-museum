@@ -1,0 +1,50 @@
+Project Marking Scheme:
+
+1) One page for plan of project: 
+   Plan for Routes                                                    [4 marks]
+
+2) MVC architecture                                                   [4 marks]
+
+3) RESTful                                                            [4 marks]
+
+4) Reconfigurable Middleware component
+   - error handler                                                    [4 marks] 
+   - validation                                                       [4 marks]  
+
+5) At least one Form                                                  [4 marks]
+
+6) Framework e.g express, koa, lookback etc                           [4 marks]
+
+7) template EJS, PUG or VUE                                           [4 marks]
+
+8) list all products                                                  [4 marks]
+
+9) owner can add new products                                         [4 marks] 
+
+10) all products are persisted to a database                          [4 marks]
+
+11) Browse the available prints by artists                            [4 marks] 
+
+12) Browse the available prints by artwork                            [4 marks]
+
+13) Browse the available prints by genre                              [4 marks]
+
+14) Specify desired quantity of prints for a selected artwork         [4 marks]
+
+15) Add the products to their cart/basket                             [4 marks]
+
+16) Order should be processed                                         [4 marks]
+
+17) A logo positioned at the top of each page                         [4 marks]
+
+18) A navigation bar                                                  [4 marks]
+
+19) Product catalog                                                   [4 marks]
+
+20) "Add to Order" Button                                             [4 marks]
+
+21) "Order View" Panel                                                [4 marks]
+
+22) "Buy now" Button                                                  [4 marks]
+
+23) Footer                                                            [4 marks]
