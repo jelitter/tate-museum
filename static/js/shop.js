@@ -4,7 +4,6 @@ $(document).ready(() => {
 
 
 function setSpinners() {
-    console.log('spinners!');
     let spinners = $("[id^=input-spinner]")
     for (s of spinners) {
 

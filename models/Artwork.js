@@ -42,13 +42,6 @@ var getArtwork = function(callback, limit) {
 var searchArtworkByTitle = function(title, callback, limit=10) {
     
     Artwork.findOne({ title: query }, callback);
-    
-    // Artwork.find({ title: query }).limit(limit).exec((err, results) => {
-    //     if (err) console.log("Error searching artwork by title.");
-    //     else {
-    //         Artwork.find(callback).limit(limit).skip(skip);
-    //     }
-    // });
 };
 
 // Get Artwork by id
@@ -61,4 +54,21 @@ module.exports.addArtwork = function(artwork, callback) {
     Artwork.create(artwork, callback);
 };
 
-exports = { getArtwork, searchArtworkByTitle, Artwork }
+module.exports.searchArtworkByTitle = function (query,page=1,itemPerPage=8, callback) {
+    let re = new RegExp('.*' + query + '.*', "i");
+    Artwork.find({ title: re }).count().exec((err, count) => {
+        if (err) console.log("Couldn't get count.");
+        else {
+            const skip = itemPerPage;
+            // console.log(`Count for ${query}: ${count}, Skip: ${skip}`);
+            Artwork.find({ title: re }, (err, results) => {
+                if (err) console.log('err', err);
+                else {
+                    callback(results,count);
+                }
+            }).limit(itemPerPage).skip((page - 1) * itemPerPage);
+        }
+    });
+};
+
+exports = { getArtwork, searchArtworkByTitle, Artwork, searchArtworkByTitle }

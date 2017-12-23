@@ -2,18 +2,23 @@ const express = require('express');
 const router = express.Router();
 let User = require('../models/user');
 
-router.get('/', loggedIn, (req, res, next) => {
-    User.findOne({ _id: req.session._id }, (err, user) => {
-        if (err) res.status(401).redirect('/login');
-        if (user) res.status(200).render('shop', {
+loggedIn = function (req, res, next) {
+    if (req.session._id) return next();
+    else {
+        console.log("Auth middleware - artwork");
+        return res.render('index', {
             cache: true,
             data: {
-                username: user.username,
-                query: ''
-            },
+                pagename: 'Login',
+                type: 'warning',
+                message: 'Please login first',
+            }
         });
-        else res.status(401).redirect('/login');
-    });
+    }
+};
+
+router.get('/', loggedIn, (req, res, next) => {
+    res.redirect(301,'shop');
 });
 
 router.get('/users.json', (req, res) => {
@@ -23,9 +28,6 @@ router.get('/users.json', (req, res) => {
     });
 });
 
-function loggedIn(req, res, next) {
-    if (req.session._id) return next();
-    else return res.redirect('/login');
-}
+
 
 module.exports = router;

@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Artwork = require('../models/Artwork.js');
 
 loggedIn = function(req, res, next) {
     if (req.session._id) return next();
     else {
-        console.log("Auth middleware - shop");
         return res.render('index', {
             cache: false,
             data: {
@@ -17,19 +17,54 @@ loggedIn = function(req, res, next) {
     }
 };
 
-router.get('/', loggedIn, (req, res, next) => {
-    User.findOne({ _id: req.session._id }, (err, user) => {
-        if (err) res.status(401).redirect('/');
-        if (user) res.status(200).render('shop', {
-            cache: true,
+router.get('/', loggedIn, (req, res) => {
+    query = req.query.query || '';
+    page = req.query.page || 1;
+    
+    Artwork.searchArtworkByTitle(query,1,8, (results, count) => {
+        res.status(200).render('shop', {
+            cache: false,
             data: {
-                username: user.username,
-                pagename: 'Shop',
-                query: ''
+                username: req.session.username,
+                pagename: 'Shop', 
+                query: '',
+                artworks: results,
+                items: results.length,
+                total: count, 
+                page: 1 
             }
         });
-        else res.status(401).redirect('/');
     });
 });
+
+router.post('/search', loggedIn, (req, res, next) => {
+
+    // query = req.query.query || '';
+    // page = req.query.page || 1;
+    query = req.body.query;
+    page = req.body.page;
+
+
+    Artwork.searchArtworkByTitle(query, page, 8, (results, count) => {
+        res.render('partials/shop_results', {
+            cache: false,
+            data: {
+                artworks: results,
+                items: results.length,
+                total: count,
+                page: page,
+                pagename: 'Shop',
+                query: query,
+                username: req.session.username
+            }
+        });
+    });
+});
+
+
+
+
+
+
 
 module.exports = router;

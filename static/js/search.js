@@ -8,10 +8,10 @@ function typeSearch() {
     $('#button-search').attr("disabled", (inputSearch.value.length < 3));
 }
 
-function search() {
+function search(page = 1) {
     let query = inputSearch.value.trim();
 
-    $.post('/artwork/search/', { query }, (htmldata) => {
+    $.post('/shop/search/', { query,page }, (htmldata) => {
         console.log(htmldata.length, ' items found for', query);
         $('#card-container').html(htmldata);
         setSpinners();

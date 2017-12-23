@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
     User.findOne({ _id: req.session._id }, (err, user) => {
         if (err) res.status(500).redirect('/');
         res.render('index', {
-            cache: true,
+            cache: false,
             data: {
                 username: user ? user.username : ''
             }
@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
         res.format({
             // html: () => {
             //     return res.status(401).render('index', {
-            //         cache: true,
+            //         cache: false,
             //         data: {
             //             type: 'danger',
             //             message: 'Both user name and password must be specified.'
@@ -48,14 +48,14 @@ router.post('/', (req, res, next) => {
 
     User.findOne({ username: logindata.username }, (err, user) => {
         if (err) return res.status(401).render('index', {
-            cache: true,
+            cache: false,
             data: {
                 type: 'danger',
                 message: err.message
             }
         });
         if (!user) return res.status(401).render('index', {
-            cache: true,
+            cache: false,
             data: {
                 type: 'warning',
                 message: 'User ' + logindata.username + ' does not exist'
@@ -65,8 +65,9 @@ router.post('/', (req, res, next) => {
         if (user.compare(logindata.password)) {
             console.log("Logged in: ", user.username);
             req.session._id = user._id;
+            req.session.username = user.username;
             res.render('index', {
-                cache: true,
+                cache: false,
                 data: {
                     username: user.username
                 }
@@ -74,7 +75,7 @@ router.post('/', (req, res, next) => {
         } else {
             console.log("Invalid credentials: ", user.username);
             res.status(401).render('index', {
-                cache: true,
+                cache: false,
                 data: {
                     type: 'danger',
                     message: 'Invalid credentials'

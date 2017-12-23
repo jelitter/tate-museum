@@ -61,12 +61,11 @@ router.post('/', loggedIn, (req, res, next) => {
                 item.info = itemInfo;
                 Cart.findOneAndUpdate({ owner: req.session._id }, { $push: { items: item } }, { upsert: true }, (err, cart) => {
                     if (err) {
-                        console.error('Error updating cart.');
+                        // console.error('Error updating cart.');
                         res.status(500).send('Error updating cart.');
                     } else {
-                        console.log("Item added to cart!");
+                        // console.log("Item added to cart!");
                         res.status(201).send();
-                        // res.status(200).json(cart);
                     }
                 });
             }

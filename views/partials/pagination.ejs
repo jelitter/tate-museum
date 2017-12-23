@@ -1,29 +1,66 @@
-<nav aria-label="Page navigation" class=" my-3">
-    <ul class="pagination justify-content-center pagination-lg rounded">
-        <li class="page-item bg-success align-middle <%= (data.page == 1 ? 'invisible' : '') %>">
-                <a class="btn btn-lg" id="prev-button" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) - 1) %>/">
-                <i class="fas fa-fw fa-arrow-left bg-success text-white"></i>
-                </a>
-            </form>
+<!-- <nav aria-label="Page navigation" class=" my-3">
+    <ul class="pagination justify-content-center pagination-lg">
+        <li class="col-2 page-item <%= (data.page == 1 ? 'invisible' : '') %>">
+            <button class="btn btn-lg btn-success" id="button-search" onclick="search(<%= (Number(data.page) - 1) %>)">
+                <i class="fas fa-fw fa-arrow-left text-white"></i>
+            </button>
         </li>
 
-        <li class="page-item">
+        <li class="col-4 page-item">
             <div class="page-link active text-center py-0 px-3">
-           <small class="text-success text-center">
-                Page <%= data.page %> of <%= (Math.ceil(data.total / 8)) %>
-            </small>
-            <br>
-           <small class="text-success text-center">
-                Items <%= ((data.page-1)*8 + 1) %> to <%= (data.total < data.page*8 ? data.total : data.page*8) %>
-            </small>
+                <small class="text-success text-center">
+                    Page
+                    <%= data.page %> of
+                        <%= (Math.ceil(data.total / 8)) %>
+                </small>
+                <br>
+                <small class="text-success text-center">
+                    Items
+                    <%= ((data.page-1)*8 + 1) %> to
+                        <%= (data.total < data.page*8 ? data.total : data.page*8) %>
+                </small>
             </div>
         </li>
-        
-        <li class="page-item bg-success align-middle <%= (data.page*8 >= data.total ? 'invisible' : '') %>">
-                <a class="btn btn-lg" id="next-button" href="/artwork/search/<%= data.query %>/<%= (Number(data.page) + 1) %>/">
-                <i class="fas fa-fw fa-arrow-right bg-success text-white"></i>
-                </a>
-            </form>
+
+        <li class="col-2 page-item <%= (data.page*8 >= data.total ? 'invisible' : '') %>">
+            <button class="btn btn-lg btn-success" id="button-search" onclick="search(<%= (Number(data.page) + 1) %>)">
+                <i class="fas fa-fw fa-arrow-right text-white"></i>
+            </button>
         </li>
     </ul>
-</nav>
+</nav> -->
+
+<div class="row text-center">
+    <div class="col"></div>
+    <div class="row col-6">
+
+        <div class="col-3 <%= (data.page == 1 ? 'invisible' : '') %>">
+            <button class="btn btn-lg btn-success" onclick="search(<%= (Number(data.page) - 1) %>)">
+                <i class="fas fa-fw fa-arrow-left text-white"></i>
+            </button>
+        </div>
+        <div class="col-6">
+
+            <div class="btn btn-lg btn-success">
+                <small>
+                    Page
+                    <%= data.page %> of
+                        <%= (Math.ceil(data.total / 8)) %>
+                </small>
+                <br>
+                <small>
+                    Items
+                    <%= ((data.page-1)*8 + 1) %> to
+                        <%= (data.total < data.page*8 ? data.total : data.page*8) %>
+                </small>
+            </div>
+
+        </div>
+        <div class="col-3 <%= (data.page*8 >= data.total ? 'invisible' : '') %>">
+            <button class="btn btn-lg btn-success" onclick="search(<%= (Number(data.page) + 1) %>)">
+                <i class="fas fa-fw fa-arrow-right text-white"></i>
+            </button>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
