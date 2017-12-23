@@ -10,7 +10,7 @@
         <li class="page-item">
             <div class="page-link active text-center py-0 px-3">
            <small class="text-success text-center">
-                Page <%= data.page %> of <%= (Math.floor(data.total / 8)) %>
+                Page <%= data.page %> of <%= (Math.ceil(data.total / 8)) %>
             </small>
             <br>
            <small class="text-success text-center">

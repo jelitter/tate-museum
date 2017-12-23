@@ -9,7 +9,7 @@ router.get('/', loggedIn, (req, res, next) => {
             cache: true,
             data: {
                 username: user.username,
-                pagename: 'shop',
+                pagename: 'Shop',
                 query: ''
             }
         });

@@ -1,14 +1,3 @@
-// (function($) {
-//     $('.spinner .btn:first-of-type').on('click', function() {
-//         $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
-//     });
-//     $('.spinner .btn:last-of-type').on('click', function() {
-//         $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
-//     });
-// })(jQuery);
-
-// $(() => {
-
 $(document).ready(setSpinners);
 
 function setSpinners() {
@@ -16,7 +5,7 @@ function setSpinners() {
     let spinners = $("[id^=input-spinner]")
     for (s of spinners) {
 
-        let itemId = $(s).attr('id').match(/\d{2,}/);
+        let itemId = $(s).attr('id').match(/\d{2,}/)[0];
         let input = $('#input-spinner-' + itemId)
         let cartButton = $('#add-cart-' + itemId)
 

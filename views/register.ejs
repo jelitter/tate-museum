@@ -25,10 +25,11 @@
                             <div class="col"></div>
                     </div>
                     <% if (data.username) { %>
-                        <div class="col-md-6 text-center align-middle py-5 my-5">
+                        <div class="col-md-6 text-center align-middle py-5 my-5 alert alert-success" role="alert">
                             <p class="lead">Welcome
                                 <%= data.username %>!</p>
                             <p>Want to check some art?</p>
+
                             <a class="btn btn-outline-primary btn-lg" href="/shop">
                                 <i class="fas fa-images fa-2x p-1 align-middle"></i> Start browsing!</a>
                         </div>
@@ -43,9 +44,14 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <strong>Create new account</strong>
+
                                         <% if (data.message) { %>
-                                        <p class="text-<%= data.type %>"><%= data.message %></p>
+                                        <div class="alert alert-<%= data.type %> alert-dismissible mt-2" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <small><%= data.message %></small>
+                                        </div>
                                         <% } %>
+
                                     </div>
                                     <div class="panel-body my-3">
                                         <form role="form" id="register-form" action="/register" method="POST">
@@ -69,7 +75,7 @@
                                                                 <input class="form-control" required placeholder="Password" id="password-reg" oninput="passVal()" name="password" type="password" minlength="6" value="">
                                                                 
                                                             </div>
-                                                            <div id="pass-feedback"></div>
+                                                            <span id="pass-feedback"></span>
                                                         </div>
                                                         <!-- <div class="form-group">
                                                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create account">

@@ -16,11 +16,11 @@ function passVal() {
     $('#button-create').attr("disabled", (pwlen < 6 || unlen == 0));
 
     if (pwlen < 6)
-        passFeedback.innerHTML = '<p class="text-danger">Password too short (min. 6 characters)</p>';
+        passFeedback.innerHTML = '<div class="mt-3 alert alert-danger" role="alert"><small>Password too short (min. 6 characters)</small></div>';
     else if (pwlen < 10)
-        passFeedback.innerHTML = '<p class="text-warning">Password strengh OK</p>';
+        passFeedback.innerHTML = '<div class="mt-3 alert alert-warning" role="alert"><small>Password strengh OK</small></div>';
     else
-        passFeedback.innerHTML = '<p class="text-success">Password strengh great!</p>';
+        passFeedback.innerHTML = '<div class="mt-3 alert alert-success" role="alert"><small>Password strengh great!</small></div>';
 }
 
 

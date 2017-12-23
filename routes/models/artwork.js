@@ -73,7 +73,7 @@ router.post('/search', loggedIn, (req, res, next) => {
                 message: 'Please enter at least 3 characters',
                 total: 0,
                 page: 1,
-                pagename: 'shop',
+                pagename: 'Shop',
                 query: query,
                 username: username
             }
@@ -96,7 +96,7 @@ router.post('/search', loggedIn, (req, res, next) => {
                             items: results.length,
                             total: count,
                             page: page,
-                            pagename: 'shop',
+                            pagename: 'Shop',
                             query: query,
                             username: username
                         }
@@ -136,7 +136,7 @@ router.get('/search/:query/:page', loggedIn, (req, res, next) => {
                             items: results.length,
                             total: count,
                             page: page,
-                            pagename: 'shop',
+                            pagename: 'Shop',
                             query: query,
                             username: username
                         }

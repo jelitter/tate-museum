@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/head') %>
+
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+
+        <% for (let i of data.cart[0].items) { %>
+        
+            <div class="panel panel-primary bg-light container my-3 rounded">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><%= i.info.title %></h4>
+                </div>
+                <div class="panel-body">
+                    <img class="img-fluid fixed-left rounded" src="<%= i.info.thumbnailUrl %>">
+                    <p class="text-right">Amount: <%= i.amount %></p>
+                    <p class="text-right">Price: &euro;<%= i.price %></p>
+                </div>
+                <div class="panel-footer block">Panel footer</div>
+            </div>
+        
+        <% } %>
+
+    </div>
+
+    <br>
+
+    <%- include('partials/footer') %>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/cart.js"></script>
+
+</body>
+</html>

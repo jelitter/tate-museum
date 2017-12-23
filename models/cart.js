@@ -8,20 +8,21 @@ let userSchema = new Schema({
     created_at: Date
 });
 
-
 var CartSchema = mongoose.Schema({
-    owner: Schema.Types.ObjectId,
+    owner: String,
+    ownerName: String,
     items: {
         type: [{
             itemId: { type: Number, required: true },
-            price: { type: Number },
+            info : {},
+            price: { type: Number, default: 19.95 },
             amount: { type: Number, required: true, default: 1 }
         }]
     },
-    priceTotal: Number
+    priceTotal: { type: Number, default: 0 }
 });
 
-var cartModel = module.exports = mongoose.model('Cart', CartSchema, "cart");
+module.exports = mongoose.model('Cart', CartSchema, "cart");
 
 // Get cart content
 module.exports.getCart = function(callback, limit) {
