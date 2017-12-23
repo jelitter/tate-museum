@@ -10,15 +10,15 @@ let User = require('../models/user');
 
 
 router.get('/', (req, res, next) => {
-    
+
     User.findOne({ _id: req.session._id }, (err, user) => {
         if (err) res.status(500).redirect('/');
         res.render('index', {
-                cache: true,
-                data: {
-                    username: user ? user.username : ''
-                }
-            });
+            cache: true,
+            data: {
+                username: user ? user.username : ''
+            }
+        });
     });
 });
 
@@ -47,28 +47,28 @@ router.post('/', (req, res, next) => {
     }
 
     User.findOne({ username: logindata.username }, (err, user) => {
-        if (err) return res.status(401).render('index', { 
-                cache: true,
-                data: { 
-                    type: 'danger', 
-                    message: err.message 
-                }
-            });
-        if (!user) return res.status(401).render('index', { 
-                cache: true,
-                data: { 
-                    type: 'warning', 
-                    message: 'User '+ logindata.username +' does not exist' 
-                }
-            });
+        if (err) return res.status(401).render('index', {
+            cache: true,
+            data: {
+                type: 'danger',
+                message: err.message
+            }
+        });
+        if (!user) return res.status(401).render('index', {
+            cache: true,
+            data: {
+                type: 'warning',
+                message: 'User ' + logindata.username + ' does not exist'
+            }
+        });
 
         if (user.compare(logindata.password)) {
             console.log("Logged in: ", user.username);
             req.session._id = user._id;
-            res.render('index', { 
+            res.render('index', {
                 cache: true,
-                data: { 
-                    username: user.username 
+                data: {
+                    username: user.username
                 }
             });
         } else {
@@ -84,11 +84,9 @@ router.post('/', (req, res, next) => {
     });
 });
 
-module.exports = loggedIn = function (req, res, next) {
-    console.log('loggedIn -> session:', req.session._id);
+module.exports = loggedIn = function(req, res, next) {
     if (req.session._id) return next();
     else return res.redirect('/login');
 };
 
 module.exports = router;
-

@@ -4,16 +4,17 @@
 
 const express = require('express');
 const router = express.Router();
-const handleError = require('../config/error.js');
+const handleError = require('../config/error');
 let bcrypt = require('bcrypt');
-let User = require('../models/user.js');
+let User = require('../models/user');
+let Cart = require('../models/cart');
 
 router.get('/', (req, res, next) => {
     User.findOne({ _id: req.session._id }, (err, user) => {
         if (err) res.status(500).redirect('/');
         if (user) {
-            res.render('register', { 
-                cache: true, 
+            res.render('register', {
+                cache: true,
                 data: {
                     username: user.username,
                 }
@@ -26,15 +27,15 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     var logindata = req.body;
-    User.findOne({username: logindata.username }, (err, user) => {
-        
+    User.findOne({ username: logindata.username }, (err, user) => {
+
         if (err) console.log("Error ");
         if (user) {
-            console.log('User found: ', JSON.stringify(user,null,2));
+            console.log('User found: ', JSON.stringify(user, null, 2));
             res.status(401).render('register', {
                 data: {
                     type: 'warning',
-                    message: 'User name ' + user.username +' already in use'
+                    message: 'User name ' + user.username + ' already in use'
                 }
             });
         } else {
@@ -95,10 +96,28 @@ router.post('/', (req, res, next) => {
                     }
                 });
                 else {
-                    console.log("Created account and logged in: ", user.username);
-                    req.session._id = user._id;
-                    res.status(200).render('index', { 
-                        data: { username: user.username } });
+                    // Now creating an empty cart for this user
+                    Cart.create({
+                        owner: user._id,
+                        ownerName: user.username,
+                        items: [],
+                        priceTotal: 0
+                    }, (err, cart) => {
+                        if (err) res.status(500).render('error', {
+                            data: {
+                                type: 'danger',
+                                message: 'Error creating shopping cart:' + err.message
+                            }
+                        });
+                        else {
+                            console.log('Created cart');
+                            console.log('Created account and logged in:', user.username);
+                            req.session._id = user._id;
+                            res.status(200).render('index', {
+                                data: { username: user.username }
+                            });
+                        }
+                    });
                 }
             });
         }

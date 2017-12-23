@@ -1,93 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('partials/head') %>
-<body>
-  <%- include('partials/navbar') %>
-    <div class="container-fluid">
-      <div class="jumbotron my-3">
-        <h1 class="display-4">Welcome to Tate Museum!</h1>
-        <div class="row">
-          <div class="col row">
-            <div class="col"></div>
-            <%- include('partials/carousel') %>
-              <div class="col"></div>
-          </div>
-          <% if (data.username) { %>
-            <div class="col-md-6 text-center align-middle py-5 my-5">
-              <p class="lead">Welcome
-                <%= data.username %>!</p>
-              <p>Want to check some art?</p>
-              <a class="btn btn-outline-primary btn-lg" href="/shop">
-                <i class="fas fa-images fa-2x p-1 align-middle"></i> Start browsing!</a>
-            </div>
-        </div>
 
-        <% } else { %>
+    <body>
+        <%- include('partials/navbar') %>
+            <div class="container-fluid">
+                <div class="container my-3">
+                    <h1 class="display-4">Welcome to Tate Museum!</h1>
+                    <div class="row">
+                        <div class="col row">
+                            <div class="col"></div>
+                            <%- include('partials/carousel') %>
+                                <div class="col"></div>
+                        </div>
+                        <% if (data.username) { %>
+                            <div class="col-md-6 text-center align-middle py-5 my-5">
+                                <p class="lead">Welcome
+                                    <%= data.username %>!</p>
+                                <p>Want to check some art?</p>
+                                <a class="btn btn-outline-primary btn-lg" href="/shop">
+                                    <i class="fas fa-images fa-2x p-1 align-middle"></i> Start browsing!</a>
+                            </div>
+                    </div>
 
-          <div class="col">
-            <div class="row">
-              <div class="col"></div>
-              <div class="col-12 col-md-6 col-lg-5 col-xl-4 py-3">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <strong>Login to continue</strong>
+                    <% } else { %>
 
-                    <% if (data.message) { %>
-                      <div class="alert alert-<%= data.type %> alert-dismissible mt-2" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <small><%= data.message %></small>
-                      </div>
-                    <% } %>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-12 col-md-6 col-lg-5 col-xl-4 py-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <strong>Login to continue</strong>
 
-                  </div>
-                  <div class="panel-body my-3">
-                    <form role="form" id="login-form" action="/login" method="POST">
-                      <fieldset>
-                        <div class="row">
-                          <div class="col"></div>
-                          <div class="col-12">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <span class="input-group-addon">
+                                            <% if (data.message) { %>
+                                                <div class="alert alert-<%= data.type %> alert-dismissible mt-2" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <small><%= data.message %></small>
+                                                </div>
+                                                <% } %>
+
+                                        </div>
+                                        <div class="panel-body my-3">
+                                            <form role="form" id="login-form" action="/login" method="POST">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col"></div>
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
                                   <i class="fas fa-user"></i>
                                 </span>
-                                <input class="form-control" required placeholder="Username" id="username-login" name="username" type="text" oninput="loginVal()" autofocus>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <div class="input-group">
-                                <span class="input-group-addon">
+                                                                    <input class="form-control" required placeholder="Username" id="username-login" name="username" type="text" oninput="loginVal()" autofocus>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
                                   <i class="fas fa-lock"></i>
                                 </span>
-                                <input class="form-control" required placeholder="Password" id="password-login" name="password" type="password" oninput="loginVal()" value="">
-                              </div>
+                                                                    <input class="form-control" required placeholder="Password" id="password-login" name="password" type="password" oninput="loginVal()" value="">
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" id="button-login" class="btn btn-primary form-control center" disabled><i class="fas fa-fw fa-sign-in-alt"></i> Login</button>
+                                                        </div>
+                                                        <div class="col"></div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="panel-footer text-center">
+                                            <p>Don't have an account?<br>
+                                                <a href="/register" onClick="">Register here!</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col"></div>
                             </div>
-                            <button type="submit" id="button-login" class="btn btn-primary form-control center" disabled><i class="fas fa-fw fa-sign-in-alt"></i> Login</button>
-                          </div>
-                          <div class="col"></div>
                         </div>
-                      </fieldset>
-                    </form>
-                  </div>
-                  <div class="panel-footer text-center">
-                    <p>Don't have an account?<br>
-                      <a href="/register" onClick="">Register here!</a>
-                    </p>
-                  </div>
+                        <% } %>
                 </div>
-              </div>
-              <div class="col"></div>
             </div>
-          </div>
-          <% } %>
-    </div>
-  </div>
 
-  <%- include('partials/footer') %>
+            <%- include('partials/footer') %>
 
-  <script src="/static/js/jquery.min.js"></script>
-  <script src="/static/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/js/script.js"></script>
+                <script src="/static/js/jquery.min.js"></script>
+                <script src="/static/js/bootstrap.bundle.min.js"></script>
+                <script src="/static/js/script.js"></script>
 
-</body>
+    </body>
+
 </html>

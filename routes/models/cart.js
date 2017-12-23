@@ -10,64 +10,19 @@ const User = require('../../models/user.js');
 
 let username = null;
 
-router.post('*', loggedIn, (req, res, next) => {
-    User.findOne({ _id: req.session._id }, (err, user) => {
-        if (err) {
-            res.render('index', {
-                cache: true,
-                data: {
-                    pagename: 'Main',
-                    type: 'danger',
-                    message: 'Error - Please login',
-                }
-            });
-        }
-        if (user) {
-            username = user.username;
-            next();
-        } else {
-            res.render('index', {
-                cache: true,
-                data: {
-                    pagename: 'Main',
-                    type: 'warning',
-                    message: 'Please login',
-                }
-            });
-        }
-    });
-});
-router.get('*', loggedIn, (req, res, next) => {
-    User.findOne({ _id: req.session._id }, (err, user) => {
-        if (err) {
-            res.render('index', {
-                cache: true,
-                data: {
-                    pagename: 'Main',
-                    type: 'danger',
-                    message: 'Error - Please login',
-                }
-            });
-        }
-        if (user) {
-            username = user.username;
-            next();
-        } else {
-            res.render('index', {
-                cache: true,
-                data: {
-                    pagename: 'Main',
-                    type: 'warning',
-                    message: 'Please login',
-                }
-            });
-        }
-    });
-});
-
 loggedIn = function(req, res, next) {
     if (req.session._id) return next();
-    else return res.redirect(401, '/');
+    else {
+        console.log("Auth middleware - cart");
+        return res.render('index', {
+            cache: true,
+            data: {
+                pagename: 'Login',
+                type: 'warning',
+                message: 'Please login first',
+            }
+        });
+    }
 };
 
 router.post('/', loggedIn, (req, res, next) => {
@@ -95,8 +50,8 @@ router.post('/', loggedIn, (req, res, next) => {
                     console.log("Created cart: ", JSON.stringify(cart));
                 }
             });
-            
-        } 
+
+        }
         // Push item to cart
         console.log('Pushing item to cart:', item);
 
@@ -104,22 +59,19 @@ router.post('/', loggedIn, (req, res, next) => {
             if (err) return console.error('Error retrieving item info when adding to cart.');
             if (itemInfo) {
                 item.info = itemInfo;
-                Cart.findOneAndUpdate(
-                    { owner: req.session._id }, 
-                    { $push: { items: item } },
-                    { upsert: true }, (err, cart) => {
-                        if (err) { 
-                            console.error('Error updating cart.'); 
-                            res.status(500).send('Error updating cart.');
-                        }
-                    else { 
-                        console.log("Item added to cart!"); 
-                        res.status(200).send('Item added to cart!');
+                Cart.findOneAndUpdate({ owner: req.session._id }, { $push: { items: item } }, { upsert: true }, (err, cart) => {
+                    if (err) {
+                        console.error('Error updating cart.');
+                        res.status(500).send('Error updating cart.');
+                    } else {
+                        console.log("Item added to cart!");
+                        res.status(201).send();
+                        // res.status(200).json(cart);
                     }
-                });  
+                });
             }
         });
-     });
+    });
 
     console.log('POST - Cart, Query: ', JSON.stringify(item));
 });
@@ -131,23 +83,18 @@ router.get('/', loggedIn, (req, res, next) => {
         if (err) return console.error('GET -  Error 500 retrieving cart');
 
         if (cart) {
-            console.log('GET -  Cart found: ', JSON.stringify(cart, null, 2));
-
             res.status(200).render('cart', {
                 cache: true,
                 data: {
-                    username: username,
+                    username: cart[0].ownerName,
                     pagename: 'Shopping Cart',
                     cart: cart
                 }
             });
-
         } else {
             return console.log('GET - Cart not found for this user');
         }
     });
-
-    console.log('GET - Cart');
 });
 
 

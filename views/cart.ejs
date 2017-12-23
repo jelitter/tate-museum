@@ -3,37 +3,82 @@
 
 <%- include('partials/head') %>
 
-<body>
+    <body>
 
-    <%- include('partials/navbar') %>
+        <%- include('partials/navbar') %>
 
-    <div class="container">
-
-        <% for (let i of data.cart[0].items) { %>
-        
-            <div class="panel panel-primary bg-light container my-3 rounded">
-                <div class="panel-heading">
-                    <h4 class="panel-title"><%= i.info.title %></h4>
+            <br>
+            <% if (data.cart[0].items.length == 0) { %>
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <small>Shopping cart is empty</small>
                 </div>
-                <div class="panel-body">
-                    <img class="img-fluid fixed-left rounded" src="<%= i.info.thumbnailUrl %>">
-                    <p class="text-right">Amount: <%= i.amount %></p>
-                    <p class="text-right">Price: &euro;<%= i.price %></p>
-                </div>
-                <div class="panel-footer block">Panel footer</div>
-            </div>
-        
-        <% } %>
 
-    </div>
+                <% } else { %>
 
-    <br>
+                    <div class="container alert alert-info alert-dismissible mt-2" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <small>You have <strong><%= data.cart[0].items.length %></strong> items in your shopping cart</small>
+                    </div>
+                    <% } %>
 
-    <%- include('partials/footer') %>
+                        <!-- <div class="container-fluid"> -->
+                        <div class="card-group d-flex flex-wrap container container-fluid p-0">
 
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/cart.js"></script>
+                            <% for (let i of data.cart[0].items) { %>
+                                <!-- <div class="d-flex flex-row"> -->
+                                <div class="card col-3 m-1 px-0 mh-40 w-60">
+                                    <h6 class="card-header card-title bg-primary text-white text-center mb-0 m-1">
+                                        <%= i.info.title %>
+                                    </h6>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="card-img-left p-1">
+                                                    <img class="card-img float-left" src="<%= i.info.thumbnailUrl %>" alt="Card image">
+                                                </div>
 
-</body>
+                                            </div>
+                                            <div class="col">
+                                                <!-- <h5 class="card-title bg-dark text-white text-center rounded mb-0 p-1">
+                                                    <%= i.info.title %>
+                                                </h5> -->
+                                                <div class="card-body float-right">
+                                                    <div class="card-subtitle text-right mt-0">
+                                                        <small><%= i.info.artist %></small>
+                                                    </div>
+                                                    <div class="card-text text-right">
+                                                        <small>Quantity: <%= i.quantity %></small>
+                                                        <small>Price: &euro;<%= i.price %></small>
+                                                    </div>
+                                                    <footer class="card-text text-right align-bottom">
+                                                        <p>Total: &euro;
+                                                            <%= (Math.round(i.price * i.quantity * 100) / 100) %>
+                                                        </p>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="card-footer text-right mb-0 card-text">
+                                        <button class="btn btn-sm btn-warning float-left"><i class="fas fa-times-circle"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-minus"></i></button>
+                                        <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
+                                    </footer>
+                                </div>
+                                <!-- </div> -->
+
+                                <% } %>
+
+                        </div>
+
+                        <br>
+
+                        <%- include('partials/footer') %>
+
+                            <script src="/static/js/jquery.min.js"></script>
+                            <script src="/static/js/bootstrap.bundle.min.js"></script>
+                            <script src="/static/js/cart.js"></script>
+    </body>
+
 </html>

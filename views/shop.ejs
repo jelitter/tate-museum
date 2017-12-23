@@ -7,9 +7,8 @@
 
         <%- include('partials/navbar') %>
 
-
             <div class="container">
-                <header class="my-4">
+                <header class="mt-4">
                     <nav class="navbar navbar-light justify-content-between transparent">
                         <h1 class="display-5">Shop</h1>
                         <div class="form-inline">
@@ -27,20 +26,21 @@
 
                 <div id="card-container">
 
+                    <div id="info"></div>
 
-                <% if (data) { %>
-                <%- include('partials/shop_results') %>
-                <% } %>
+                    <% if (data) { %>
+                        <%- include('partials/shop_results') %>
+                            <% } %>
 
 
 
                 </div>
             </div>
             <%- include('partials/footer') %>
-            <script src="/static/js/jquery.min.js"></script>
-            <script src="/static/js/bootstrap.bundle.min.js"></script>
-            <script src="/static/js/search.js"></script>
-            <script src="/static/js/cart.js"></script>
+                <script src="/static/js/jquery.min.js"></script>
+                <script src="/static/js/bootstrap.bundle.min.js"></script>
+                <script src="/static/js/search.js"></script>
+                <script src="/static/js/cart.js"></script>
 
     </body>
 

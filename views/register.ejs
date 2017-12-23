@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<!-- <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Tate Museum Shop Exercise">
@@ -11,103 +11,105 @@
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/fontawesome-all.min.css" rel="stylesheet">
     <link href="/static/css/heroic-features.css" rel="stylesheet">
-</head>
+</head> -->
 
-<body>
-    <%- include('partials/navbar') %>
-        <div class="container-fluid">
-            <div class="jumbotron my-3">
-                <h1 class="display-4">Welcome to Tate Museum!</h1>
-                <div class="row">
-                    <div class="col row">
-                        <div class="col"></div>
-                        <%- include('partials/carousel') %>
+<%- include('partials/head') %>
+
+    <body>
+        <%- include('partials/navbar') %>
+            <div class="container-fluid">
+                <div class="jumbotron my-3">
+                    <h1 class="display-4">Welcome to Tate Museum!</h1>
+                    <div class="row">
+                        <div class="col row">
                             <div class="col"></div>
-                    </div>
-                    <% if (data.username) { %>
-                        <div class="col-md-6 text-center align-middle py-5 my-5 alert alert-success" role="alert">
-                            <p class="lead">Welcome
-                                <%= data.username %>!</p>
-                            <p>Want to check some art?</p>
-
-                            <a class="btn btn-outline-primary btn-lg" href="/shop">
-                                <i class="fas fa-images fa-2x p-1 align-middle"></i> Start browsing!</a>
+                            <%- include('partials/carousel') %>
+                                <div class="col"></div>
                         </div>
-                </div>
+                        <% if (data.username) { %>
+                            <div class="col-md-6 text-center align-middle py-5 my-5 alert alert-success" role="alert">
+                                <p class="lead">Welcome
+                                    <%= data.username %>!</p>
+                                <p>Want to check some art?</p>
 
-                <% } else { %>
+                                <a class="btn btn-outline-primary btn-lg" href="/shop">
+                                    <i class="fas fa-images fa-2x p-1 align-middle"></i> Start browsing!</a>
+                            </div>
+                    </div>
 
-                    <div class="col">
-                        <div class="row">
-                            <div class="col"></div>
-                            <div class="col-12 col-md-6 col-lg-5 col-xl-4 py-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <strong>Create new account</strong>
+                    <% } else { %>
 
-                                        <% if (data.message) { %>
-                                        <div class="alert alert-<%= data.type %> alert-dismissible mt-2" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <small><%= data.message %></small>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-12 col-md-6 col-lg-5 col-xl-4 py-3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <strong>Create new account</strong>
+
+                                            <% if (data.message) { %>
+                                                <div class="alert alert-<%= data.type %> alert-dismissible mt-2" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <small><%= data.message %></small>
+                                                </div>
+                                                <% } %>
+
                                         </div>
-                                        <% } %>
-
-                                    </div>
-                                    <div class="panel-body my-3">
-                                        <form role="form" id="register-form" action="/register" method="POST">
-                                            <fieldset>
-                                                <div class="row">
-                                                    <div class="col"></div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon">
+                                        <div class="panel-body my-3">
+                                            <form role="form" id="register-form" action="/register" method="POST">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col"></div>
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
                                                                     <i class="fas fa-user"></i>
                                                                 </span>
-                                                                <input class="form-control" required placeholder="Username" id="username-reg" name="username" type="text" autofocus>
+                                                                    <input class="form-control" required placeholder="Username" id="username-reg" name="username" type="text" autocomplete="off" autofocus>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">
                                                                     <i class="fas fa-lock"></i>
                                                                 </span>
-                                                                <input class="form-control" required placeholder="Password" id="password-reg" oninput="passVal()" name="password" type="password" minlength="6" value="">
-                                                                
+                                                                    <input class="form-control" required placeholder="Password" id="password-reg" oninput="passVal()" name="password" type="password" minlength="6" autocomplete="off">
+
+                                                                </div>
+                                                                <span id="pass-feedback"></span>
                                                             </div>
-                                                            <span id="pass-feedback"></span>
-                                                        </div>
-                                                        <!-- <div class="form-group">
+                                                            <!-- <div class="form-group">
                                                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create account">
                                                         </div> -->
-                                                        <button type="submit" id="button-create" class="btn btn-primary form-control center" disabled>
+                                                            <button type="submit" id="button-create" class="btn btn-primary form-control center" disabled>
                                                             <i class="fas fa-fw fa-user-plus"></i> Create account</button>
+                                                        </div>
+                                                        <div class="col"></div>
                                                     </div>
-                                                    <div class="col"></div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                    <div class="panel-footer text-center">
-                                        <p>Already have an account?<br>
-                                            <a href="/login" onClick="">Login here!</a>
-                                        </p>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="panel-footer text-center">
+                                            <p>Already have an account?<br>
+                                                <a href="/login" onClick="">Login here!</a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col"></div>
                             </div>
-                            <div class="col"></div>
                         </div>
-                    </div>
-                    <% } %>
+                        <% } %>
+                </div>
             </div>
-        </div>
 
-        <%- include('partials/footer') %>
+            <%- include('partials/footer') %>
 
-            <script src="/static/js/jquery.min.js"></script>
-            <script src="/static/js/bootstrap.bundle.min.js"></script>
-            <script src="/static/js/script.js"></script>
+                <script src="/static/js/jquery.min.js"></script>
+                <script src="/static/js/bootstrap.bundle.min.js"></script>
+                <script src="/static/js/script.js"></script>
 
-</body>
+    </body>
 
 </html>

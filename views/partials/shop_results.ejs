@@ -1,68 +1,68 @@
 <% if (data.message) { %>
     <p class="lead text-<%= data.type %> lead text-center">
-    <%= data.message %>
+        <%= data.message %>
     </p>
-<% } else if (data.items > 0)  { %>
+    <% } else if (data.items > 0)  { %>
 
 
-    <%- include('pagination') %>
+        <%- include('pagination') %>
 
 
 
-    <p class="lead text-success lead text-center">
-        <%= data.total %> results
-    </p>
-<% } else if (data.query != '') { %>
-
-                    
-
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong><%= data.query %>:</strong> No results found
-    </div>
-
-<% } %>
+            <p class="lead text-success lead text-center">
+                <%= data.total %> results
+            </p>
+            <% } else if (data.query != '') { %>
 
 
-<div class="row" id="card-deck">
-    <% for(var i=0; i < data.items; i++) { %>
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <%= data.artworks[i].title %>
-                    </h5>
-                    <p class="card-text text-muted text-right blockquote-footer">
-                        <%= data.artworks[i].artist %>
-                    </p>
-                    <p class="card-text">
-                        <%= data.artworks[i].medium %>
-                    </p>
+
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong><%= data.query %>:</strong> No results found
                 </div>
-                <div class="card-footer text-right">
-                    <p class="float-left text-success align-middle"> &euro;19.95</p>
-                    <!-- Spinner Start -->
-                    <div class="input-group spinner float-right">
-                        <input type="text" class="form-control" value="1" id="input-spinner-<%= data.artworks[i].id %>">
-                        <div class="input-group-btn-vertical">
-                            <button id="btn-up-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                            <button id="btn-down-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                        </div>
+
+                <% } %>
+
+
+                    <div class="row" id="card-deck">
+                        <% for(var i=0; i < data.items; i++) { %>
+                            <div class="col-lg-3 col-md-6 mb-4">
+                                <div class="card" id="card-<%= data.artworks[i].id %>">
+                                    <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= data.artworks[i].title %>
+                                        </h5>
+                                        <p class="card-text text-muted text-right blockquote-footer">
+                                            <%= data.artworks[i].artist %>
+                                        </p>
+                                        <p class="card-text">
+                                            <%= data.artworks[i].medium %>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <p class="float-left text-success align-middle"> &euro;19.95</p>
+                                        <!-- Spinner Start -->
+                                        <div class="input-group spinner float-right">
+                                            <input type="text" class="form-control" value="1" id="input-spinner-<%= data.artworks[i].id %>">
+                                            <div class="input-group-btn-vertical">
+                                                <button id="btn-up-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                                <button id="btn-down-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                            </div>
+                                        </div>
+                                        <!-- Spinner End -->
+                                    </div>
+                                    <div class="card-footer text-right align-middle">
+                                        <p class="float-left">Total: &euro;19.95</p>
+                                        <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-outline-primary">Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                     </div>
-                    <!-- Spinner End -->
-                </div>
-                <div class="card-footer text-right align-middle">
-                    <p class="float-left">Total: &euro;19.95</p>
-                    <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-outline-primary">Add to cart</button>
-                </div>
-            </div>
-        </div>
-    <% } %>
-</div>
 
-<% if (data.items > 0) { %>
-    <%- include('pagination') %>
-<% } %>
+                    <% if (data.items > 0) { %>
+                        <%- include('pagination') %>
+                            <% } %>
 
-<br>
+                                <br>

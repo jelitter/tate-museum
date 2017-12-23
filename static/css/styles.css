@@ -1,22 +1,21 @@
 body {
-    background: #444;
     background: url('/static/img/bg_museum.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: #fff;
-    background-color: #333;
-    font-family: 'Open Sans', Arial, Helvetica, Sans-Serif;
+    /* font-family: 'Open Sans', Arial, Helvetica, Sans-Serif; */
+    padding-top: 56px;
 }
 
-.jumbotron {
+
+/* .jumbotron {
     background: rgba(255, 255, 255, 0.5) !important;
 }
 
 .bg-dim {
     background: rgba(255, 255, 255, 0.05) !important;
-}
+} */
 
 #logo {
     height: 25px;
@@ -28,10 +27,10 @@ body {
     cursor: pointer;
 }
 
-.transparent {
-    /* background: rgba(255, 255, 255, 0.05) !important; */
+
+/* .transparent {
     background: none;
-}
+} */
 
 
 /* Spinner */
@@ -78,6 +77,9 @@ body {
     top: 0;
     left: 4px;
 }
+
+
+/* Spinner END */
 
 #prev-button,
 #next-button {

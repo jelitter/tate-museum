@@ -14,9 +14,9 @@ var CartSchema = mongoose.Schema({
     items: {
         type: [{
             itemId: { type: Number, required: true },
-            info : {},
+            info: {},
             price: { type: Number, default: 19.95 },
-            amount: { type: Number, required: true, default: 1 }
+            quantity: { type: Number, required: true, default: 1 }
         }]
     },
     priceTotal: { type: Number, default: 0 }

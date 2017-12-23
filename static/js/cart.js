@@ -1,4 +1,7 @@
-$(document).ready(setSpinners);
+$(document).ready(() => {
+    setSpinners();
+});
+
 
 function setSpinners() {
     console.log('spinners!');
@@ -18,18 +21,15 @@ function setSpinners() {
 
         cartButton.on('click', () => {
             let quantity = $('#input-spinner-' + itemId).val();
-            console.log('clicked');
+
             $.post('/cart/', { itemId, quantity }, (data) => {
-                console.log(JSON.stringify(data));
-            }, 'json');
+                $('#card-' + itemId).append(`
+                <div class="container alert alert-success alert-dismissible mt-2" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <small>Item added to cart!</small>
+                </div>
+                `);
+            });
         });
     }
-}
-
-function addToCart(itemId) {
-    let quantity = $('#input-spinner-' + itemId).val();
-
-    $.post('/cart/', { itemId, quantity }, (data) => {
-        console.log(JSON.stringify(data));
-    }, 'json');
 }
