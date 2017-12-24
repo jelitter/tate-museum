@@ -8,7 +8,7 @@
         <%- include('partials/navbar') %>
 
             <br>
-            <% if (data.cart[0].items.length == 0) { %>
+            <% if (data.cart.items.length == 0) { %>
                 <div class="alert alert-info alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -23,16 +23,16 @@
                         </button>
                     <div class="container container-fluid alert  unselectable row" role="alert">
                         <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                        <div class="col">
-                                <p class="card-text">You have
-                                <strong>
-                                    <%= data.cart[0].items.length %>
-                                </strong> items in your shopping cart</p>
+                        <div class="col text-center">
+                            <p class="card-text">
+                                You have <strong> <%= data.cartItems %></strong> items in your shopping cart
+                            </p>
+                            <h4 class="text-success"><strong>Total: &euro;<span id="price-total"><%= data.priceTotal %></span></strong></h4>
                         </div>
-                        <!-- <div class="col"> -->
-                            <button class="btn btn-sm btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                            <button class="btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
-                        <!-- </div> -->
+                            <% if (data.cartItems > 0) { %>
+                                <button class="emptycart btn btn-sm btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
+                                <button class="btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
+                            <% } %>
                     </div>
                     </div>
 
@@ -41,56 +41,59 @@
                         <!-- <div class="container-fluid"> -->
                         <div class="d-flex flex-wrap container container-fluid p-0 mb-6">
 
-                            <% for (let i of data.cart[0].items) { %>
+                            <% for (let i of data.cart.items) { %>
                                 <!-- <div class="d-flex flex-row"> -->
                                 <div class="card col-3 m-1 px-0 mh-40 w-60 unselectable">
-                                    <h6 class="card-header card-title bg-primary text-white text-center mb-0 m-1">
+                                    <h6 class="card-header card-title bg-dark text-white text-center mb-0">
                                         <%= i.info.title %>
                                     </h6>
-                                    <div class="card-block">
+                                    <div class="card-block p-1">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="card-img-left p-1">
-                                                    <img class="card-img float-left" src="<%= i.info.thumbnailUrl %>" alt="Card image">
-                                                </div>
+                                            <div class="col-md-6">
+                                                <!-- <div class="card-img-left p-1"> -->
+                                                    <img class="card-img float-left w-100" src="<%= i.info.thumbnailUrl %>" alt="Card image">
+                                                <!-- </div> -->
 
                                             </div>
                                             <div class="col">
                                                 <!-- <h5 class="card-title bg-dark text-white text-center rounded mb-0 p-1">
                                                     <%= i.info.title %>
                                                 </h5> -->
-                                                <div class="card-body float-right">
-                                                    <div class="card-subtitle text-right mt-0">
-                                                        <small>
-                                                            <%= i.info.artist %>
-                                                        </small>
+                                                <div class="card-body float-right p-0 m-0">
+                                                    <div class="card-subtitle text-disabled">
+                                                        by <%= i.info.artist %>
                                                     </div>
-                                                    <div class="card-text text-right">
-                                                        <small>Quantity:
-                                                            <%= i.quantity %>
-                                                        </small>
-                                                        <small>Price: &euro;
-                                                            <%= i.price %>
-                                                        </small>
+                                                    <br>
+                                                    <div class="text-right">
+                                                        Price: &euro;<span id="item-price-<%= i.info.id %>"><%= i.price %></span>
                                                     </div>
-                                                    <footer class="card-text text-right align-bottom">
-                                                        <p>Total: &euro;
-                                                            <%= (Math.round(i.price * i.quantity * 100) / 100) %>
-                                                        </p>
+                                                    <div class="text-right">
+                                                        Quantity: <%= i.quantity %>
+                                                    </div>
+                                                    <br>
+                                                    <footer class="card-text text-right">
+                                                        <strong>
+                                                            Total: &euro;
+                                                            <span id="item-total-<%= i.info.id %>">
+                                                            <%= (parseFloat(Math.round(i.price * i.quantity * 100) / 100).toFixed(2)) %>
+                                                            </span> 
+                                                        </strong>
                                                     </footer>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <footer class="card-footer text-right mb-0 card-text">
-                                        <button id="btn-remove-<%= i.id %>" class="btn btn-sm btn-warning float-left">
+                                        <button id="btn-remove-<%= i.info.id %>" class="btn btn-sm btn-warning float-left">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                        <button id="btn-minus-<%= i.id %>" class="btn btn-sm btn-danger">
+                                        <button id="btn-minus-<%= i.info.id %>" class="btn btn-sm btn-danger">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <button id="quantity-<%= i.id %>" class="btn btn-sm text-outline-primary px-3">1</button>
-                                        <button id="btn-plus-<%= i.id %>" class="btn btn-sm btn-success">
+                                        <button id="quantity-<%= i.info.id %>" class="btn btn-sm text-outline-primary px-3">
+                                            <%= i.quantity %>
+                                        </button>
+                                        <button id="btn-plus-<%= i.info.id %>" class="btn btn-sm btn-success">
                                             <i class="fas fa-plus"></i>
                                         </button>
 
@@ -112,15 +115,14 @@
                                     <div class=" col">
                                         <p class="card-text">You have
                                             <strong>
-                                                <%= data.cart[0].items.length %>
+                                                <%= data.cartItems %>
                                             </strong> items in your shopping cart</p>
                                     </div>
-                                    <!-- <div class="col"></div> -->
-                                    <!-- <div class="col"> -->
-                                    <button class="btn btn-warning col-1 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                                    <button class="btn btn-lg btn-success col-2 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
-                                    <!-- <div class="col-1"></div> -->
-                                    <!-- </div> -->
+                                    
+                                    <% if (data.cartItems > 0) { %>
+                                        <button class="emptycart btn btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
+                                        <button class="btn btn-lg btn-success col-3 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
+                                    <% } %>
                                 </div>
                         </footer>
 
@@ -130,7 +132,7 @@
 
                             <script src="/static/js/jquery.min.js"></script>
                             <script src="/static/js/bootstrap.bundle.min.js"></script>
-                            <!-- <script src="/static/js/shop.js"></script> -->
+                            <script src="/static/js/cart.js"></script>
     </body>
 
 </html>

@@ -1,3 +1,5 @@
+// Shop search results
+
 $(document).ready(() => {
     setQuantityControls();
 });
@@ -26,9 +28,9 @@ function setQuantityControls() {
         });
 
         cartButton.on('click', () => {
-            let quantity = $('#quantity-' + itemId).val();
+            let quantity = parseInt($('#quantity-' + itemId).text().trim(), 10);
 
-            $.post('/cart/', { itemId, quantity }, (data) => {
+            $.post('/cart/item', { itemId, quantity }, (data) => {
                 $('#card-' + itemId).append(`
                 <div class="container alert alert-success alert-dismissible mt-2" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -37,7 +39,7 @@ function setQuantityControls() {
                 `);
 
                 // Update cart counter here
-                $('#cart-items').text(parseInt($('#cart-items').text().trim(), 10)+1);
+                $('#cart-items').text(parseInt($('#cart-items').text().trim(), 10)+ quantity);
             });
         });
     }

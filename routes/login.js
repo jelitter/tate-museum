@@ -73,13 +73,17 @@ router.post('/', (req, res, next) => {
             }, (err, cart) => {
                 if (err) return console.error('GET -  Error 500 retrieving cart');
                 if (cart) {
-                    console.log('Cart found in login', cart.items.length, 'items');
-                    req.session.cartItems = cart.items.length;
+                    console.log('Cart found in login', cart.cartItems, 'items');
+                    req.session.cartItems = cart.cartItems;
+                    req.session.priceTotal = cart.priceTotal;
+                    req.session.cart = cart;
                     res.render('index', {
                         cache: false,
                         data: {
                             username: user.username,
-                            cartItems: req.session.cartItems
+                            cartItems: req.session.cartItems,
+                            cart: req.session.cart,
+                            priceTotal: req.session.priceTotal
                         }
                     });
                 } 

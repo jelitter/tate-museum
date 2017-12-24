@@ -10,7 +10,7 @@ const User = require('../../models/user.js');
 
 let username = null;
 
-loggedIn = function(req, res, next) {
+loggedIn = function (req, res, next) {
     if (req.session._id) return next();
     else {
         console.log("Auth middleware - cart");
@@ -25,21 +25,82 @@ loggedIn = function(req, res, next) {
     }
 };
 
+router.post('/create', loggedIn, (req, res, next) => {
+    const item = req.body; // { itemId, quantity }
+
+    Cart.findOne({
+        owner: req.session._id
+    }, (err, cart) => {
+        if (err) return console.error('Error 500 retrieving cart');
+        if (!cart) {
+            Cart.create(req.session._id, username, (err, cart) => {
+                if (err) res.status(500).render('error', {
+                    data: {
+                        type: 'danger',
+                        message: 'Error creating shopping cart:' + err.message
+                    }
+                });
+                else {
+                    console.log("Created cart: ", JSON.stringify(cart));
+                    res.status(201).send();
+                }
+            });
+        }
+    });
+});
+
+// Add item to cart
+router.post('/item', loggedIn, (req,res,next) => {
+    let item = req.body;
+    let owner = req.session._id;
+
+    Artwork.findOne({
+        id: item.itemId
+    }, (err, itemInfo) => {
+        if (err) return console.error('Error retrieving item info when adding to cart.');
+        if (itemInfo) {
+
+            let qty = parseInt(item.quantity);
+            let priceInc = parseFloat(Math.round(qty * (item.price || '19.95') * 100) / 100).toFixed(2);
+
+            item.quantity = qty;
+            item.price = priceInc;
+            console.log('Trying to add item: +', JSON.stringify(item));
+            item.info = itemInfo;
+
+            Cart.addItem(owner, item, (err, result) => {
+                console.log("Item added to cart:", result);
+                res.status(201).send();
+            });
+        }
+    });
+});
+
+router.delete('/item', loggedIn, (req, res, next) => {
+    let item = req.body;
+    let owner = req.session._id;
+
+    Cart.emptyCart(owner, (err, cart) => {
+        if (err) console.error('Error emptying cart.');
+        else {
+           res.status(202).send();
+        }
+    });
+});
+
 router.post('/', loggedIn, (req, res, next) => {
     const item = req.body; // { itemId, quantity }
 
-    Cart.findOne({ owner: req.session._id }, (err, cart) => {
+    Cart.findOne({
+        owner: req.session._id
+    }, (err, cart) => {
         if (err) return console.error('Error 500 retrieving cart');
 
         if (!cart) {
             // Create cart
             console.log('Cart not found, creating...');
-            Cart.create({
-                owner: req.session._id,
-                ownerName: username,
-                items: [],
-                priceTotal: 0
-            }, (err, cart) => {
+
+            Cart.create(req.session._id, username, (err, cart) => {
                 if (err) res.status(500).render('error', {
                     data: {
                         type: 'danger',
@@ -50,55 +111,34 @@ router.post('/', loggedIn, (req, res, next) => {
                     console.log("Created cart: ", JSON.stringify(cart));
                 }
             });
-
         }
         // Push item to cart
         console.log('Pushing item to cart:', item);
-
-        Artwork.findOne({ id: item.itemId }, (err, itemInfo) => {
-            if (err) return console.error('Error retrieving item info when adding to cart.');
-            if (itemInfo) {
-                item.info = itemInfo;
-                Cart.findOneAndUpdate({ owner: req.session._id }, { $push: { items: item } }, { upsert: true }, (err, cart) => {
-                    if (err) {
-                        // console.error('Error updating cart.');
-                        res.status(500).send('Error updating cart.');
-                    } else {
-                        req.session.cartItems++;
-                        
-                        // res.status(201).render('partials/navbar', {
-                        //     cache: true,
-                        //     data: {
-                        //         pagename: 'Shop',
-                        //         username: cart.ownerName,
-                        //         cartItems: req.session.cartItems
-                        //     }
-                        // });
-
-                        res.status(201).send();
-                    }
-                });
-            }
-        });
     });
-
-    console.log('POST - Cart, Query: ', JSON.stringify(item));
+    res.status(201).send(); // Temp.
 });
 
 router.get('/', loggedIn, (req, res, next) => {
-    Cart.find({
+    Cart.findOne({
         owner: req.session._id
     }, (err, cart) => {
         if (err) return console.error('GET -  Error 500 retrieving cart');
 
         if (cart) {
+
+            // console.log('GET cart: ', JSON.stringify(cart, null, 2));
+
+            req.session.priceTotal = parseFloat(cart.priceTotal);
+            req.session.cartItems = parseInt(cart.cartItems);
+
             res.status(200).render('cart', {
                 cache: true,
                 data: {
-                    username: cart[0].ownerName,
+                    username: cart.ownerName,
                     pagename: 'Shopping Cart',
                     cart: cart,
-                    cartItems: req.session.cartItems
+                    cartItems: cart.cartItems,
+                    priceTotal: cart.priceTotal
                 }
             });
         } else {

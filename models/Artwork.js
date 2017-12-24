@@ -20,7 +20,8 @@ var ArtworkSchema = mongoose.Schema({
     inscription: { type: String, trim: true },
     thumbnailCopyright: { type: String, trim: true },
     thumbnailUrl: { type: String, trim: true },
-    url: { type: String, trim: true }
+    url: { type: String, trim: true },
+    price: { type: Number, default: 19.95 }
 });
 
 

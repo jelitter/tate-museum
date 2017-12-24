@@ -17,6 +17,8 @@ router.get('/', (req, res, next) => {
                 cache: true,
                 data: {
                     username: user.username,
+                    cartItems: req.session.cartItems,
+                    priceTotal: req.session.priceTotal
                 }
             });
         } else {
@@ -97,31 +99,30 @@ router.post('/', (req, res, next) => {
                 });
                 else {
                     // Now creating an empty cart for this user
-                    Cart.create({
-                        owner: user._id,
-                        ownerName: user.username,
-                        items: [],
-                        priceTotal: 0
-                    }, (err, cart) => {
-                        if (err) res.status(500).render('error', {
-                            data: {
-                                type: 'danger',
-                                message: 'Error creating shopping cart:' + err.message
-                            }
-                        });
-                        else {
-                            console.log('Created cart');
-                            console.log('Created account and logged in:', user.username);
-                            req.session._id = user._id;
-                            req.session.username = user.username;
-                            req.session.cartItems = 0;
-                            res.status(200).render('index', {
-                                data: { 
-                                    username: user.username,
-                                    cartItems: req.session.cartItems
-                                 }
-                            });
-                        }
+                    Cart.createCart(user._id, user.username, (err, cart) => {
+                        // (err, cart) => {
+                            // if (err) res.status(500).render('partials/error', {
+                            //     data: {
+                            //         type: 'danger',
+                            //         message: 'Error creating shopping cart:' + err.message
+                            //     }
+                            // });
+                            // else {
+                                console.log('Created cart');
+                                console.log('Created account and logged in:', user.username);
+                                req.session._id = user._id;
+                                req.session.username = user.username;
+                                req.session.cartItems = 0;
+                                req.session.priceTotal = 0;
+                                res.status(200).render('index', {
+                                    data: {
+                                        username: user.username,
+                                        cartItems: req.session.cartItems,
+                                        priceTotal: req.session.priceTotal
+                                    }
+                                });
+                            // }
+                        // }
                     });
                 }
             });

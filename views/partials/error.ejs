@@ -5,6 +5,10 @@
         Error <%= data.error %>
     </h1>
 
+    <div class="text-<%= data.type %>">
+        <%= data.message %>
+    </div>
+
     <% if (data.error == 404) { %>
         <div class="row my-3">
             <h4 class="col-5">

@@ -21,14 +21,17 @@ loggedIn = function(req, res, next) {
 router.get('/', loggedIn, (req, res) => {
     query = req.query.query || '';
     page = req.query.page || 1;
+
+    // Random results page on shop loading
+    let randomPage = Math.floor(Math.random() * 8500);
     
-    Artwork.searchArtworkByTitle(query, 1, resultsPerPage = MAX_RESULTS, (results, count) => {
+    Artwork.searchArtworkByTitle(query, randomPage, resultsPerPage = MAX_RESULTS, (results, count) => {
         res.status(200).render('shop', {
             cache: false,
             data: {
                 artworks: results,
                 items: results.length,
-                page: 1 ,
+                page: randomPage,
                 pagename: 'Shop', 
                 query: '',
                 resultsPerPage: resultsPerPage,
@@ -48,7 +51,7 @@ router.post('/search', loggedIn, (req, res, next) => {
     page = req.body.page;
 
 
-    Artwork.searchArtworkByTitle(query, page, 8, (results, count) => {
+    Artwork.searchArtworkByTitle(query, page, MAX_RESULTS, (results, count) => {
         res.render('partials/shop_results', {
             cache: false,
             data: {
