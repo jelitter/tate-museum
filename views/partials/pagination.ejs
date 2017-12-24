@@ -30,7 +30,7 @@
     </ul>
 </nav> -->
 
-<div class="row text-center">
+<!-- <div class="row text-center">
     <div class="col"></div>
     <div class="row col-6">
 
@@ -63,4 +63,33 @@
         </div>
     </div>
     <div class="col"></div>
-</div>
+</div> -->
+
+
+
+<nav aria-label="Results navigation">
+    <ul class="pagination pagination justify-content-center mt-2">
+        <li class="page-item <%= (data.page == 1 ? 'disabled' : '') %>">
+            <div id="button-prev" class="page-link" onclick="search(<%= (Number(data.page) - 1) %>)" tabindex="-1">
+                <i class="fas fa-fw fa-arrow-left"></i>
+            </div>
+        </li>
+        <li class="page-item">
+            <div class="page-link text-center">
+                <small>
+                    Page <strong><%= data.page %></strong> of <strong><%= (Math.ceil(data.total / data.resultsPerPage)) %></strong>
+                </small>
+                <!-- <small>
+                    Items
+                    <%= ((data.page-1)*8 + 1) %> to
+                        <%= (data.total < data.page*8 ? data.total : data.page*8) %>
+                </small> -->
+            </div>
+        </li>
+        <li class="page-item <%= (data.page*8 >= data.total ? 'disabled' : '') %>">
+            <div id="button-next" class="page-link" onclick="search(<%= (Number(data.page) + 1) %>)">
+                <i class="fas fa-fw fa-arrow-right"></i>
+            </div>
+        </li>
+    </ul>
+</nav>

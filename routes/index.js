@@ -5,7 +5,7 @@ let User = require('../models/user');
 loggedIn = function (req, res, next) {
     if (req.session._id) return next();
     else {
-        console.log("Auth middleware - artwork");
+        console.log("Auth middleware - index");
         return res.render('index', {
             cache: true,
             data: {

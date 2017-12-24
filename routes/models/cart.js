@@ -64,7 +64,17 @@ router.post('/', loggedIn, (req, res, next) => {
                         // console.error('Error updating cart.');
                         res.status(500).send('Error updating cart.');
                     } else {
-                        // console.log("Item added to cart!");
+                        req.session.cartItems++;
+                        
+                        // res.status(201).render('partials/navbar', {
+                        //     cache: true,
+                        //     data: {
+                        //         pagename: 'Shop',
+                        //         username: cart.ownerName,
+                        //         cartItems: req.session.cartItems
+                        //     }
+                        // });
+
                         res.status(201).send();
                     }
                 });
@@ -87,7 +97,8 @@ router.get('/', loggedIn, (req, res, next) => {
                 data: {
                     username: cart[0].ownerName,
                     pagename: 'Shopping Cart',
-                    cart: cart
+                    cart: cart,
+                    cartItems: req.session.cartItems
                 }
             });
         } else {

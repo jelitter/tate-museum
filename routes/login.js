@@ -7,6 +7,7 @@ const router = express.Router();
 const handleError = require('../config/error');
 let bcrypt = require('bcrypt');
 let User = require('../models/user');
+let Cart = require('../models/cart');
 
 
 router.get('/', (req, res, next) => {
@@ -63,15 +64,27 @@ router.post('/', (req, res, next) => {
         });
 
         if (user.compare(logindata.password)) {
-            console.log("Logged in: ", user.username);
+            console.log("Logged in:", user.username);
             req.session._id = user._id;
             req.session.username = user.username;
-            res.render('index', {
-                cache: false,
-                data: {
-                    username: user.username
-                }
+
+            Cart.findOne({
+                owner: req.session._id
+            }, (err, cart) => {
+                if (err) return console.error('GET -  Error 500 retrieving cart');
+                if (cart) {
+                    console.log('Cart found in login', cart.items.length, 'items');
+                    req.session.cartItems = cart.items.length;
+                    res.render('index', {
+                        cache: false,
+                        data: {
+                            username: user.username,
+                            cartItems: req.session.cartItems
+                        }
+                    });
+                } 
             });
+
         } else {
             console.log("Invalid credentials: ", user.username);
             res.status(401).render('index', {

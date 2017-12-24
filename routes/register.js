@@ -113,8 +113,13 @@ router.post('/', (req, res, next) => {
                             console.log('Created cart');
                             console.log('Created account and logged in:', user.username);
                             req.session._id = user._id;
+                            req.session.username = user.username;
+                            req.session.cartItems = 0;
                             res.status(200).render('index', {
-                                data: { username: user.username }
+                                data: { 
+                                    username: user.username,
+                                    cartItems: req.session.cartItems
+                                 }
                             });
                         }
                     });

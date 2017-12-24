@@ -9,9 +9,12 @@
 
 
 
-            <p class="lead text-success lead text-center">
-                <%= data.total %> results
+            <p class="text-primary text-center">
+                <small>
+                    Showing items <%= ((data.page-1) * data.items + 1) %> to <%= (data.total < data.page * data.items ? data.total : data.page * data.items) %> (<%= data.total %> total results)
+                </small>
             </p>
+            <br>
             <% } else if (data.query != '') { %>
 
 
@@ -27,7 +30,7 @@
                     <div class="row" id="card-deck">
                         <% for(var i=0; i < data.items; i++) { %>
                             <div class="col-lg-3 col-md-6 mb-4">
-                                <div class="card" id="card-<%= data.artworks[i].id %>">
+                                <div class="card unselectable" id="card-<%= data.artworks[i].id %>">
                                     <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title">
@@ -43,18 +46,42 @@
                                     <div class="card-footer text-right">
                                         <p class="float-left text-success align-middle"> &euro;19.95</p>
                                         <!-- Spinner Start -->
-                                        <div class="input-group spinner float-right">
+                                        <!-- <div class="input-group spinner float-right">
                                             <input type="text" class="form-control" value="1" id="input-spinner-<%= data.artworks[i].id %>">
                                             <div class="input-group-btn-vertical">
                                                 <button id="btn-up-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
                                                 <button id="btn-down-<%= data.artworks[i].id %>" class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- Spinner End -->
+
+                                        <!-- Quantity Controls -->
+                                        <nav aria-label="Results navigation">
+                                            <ul class="pagination pagination-sm justify-content-center mt-2 float-right">
+                                                <li id="btn-minus-<%= data.artworks[i].id %>"class="page-item disabled ">
+                                                    <div class="page-link quantity-control bg-danger text-white" >
+                                                        <i class="fas fa-minus "></i>
+                                                    </div>
+                                                </li>
+                                                <li class="page-item">
+                                                    <div id="quantity-<%= data.artworks[i].id %>"class="page-link text-center px-3 bg-light text-dark">
+                                                        1
+                                                    </div>
+                                                </li>
+                                                <li id="btn-plus-<%= data.artworks[i].id %>"class="page-item">
+                                                    <div class="page-link quantity-control bg-success text-white">
+                                                        <i class="fas fa-plus"></i>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <!-- Quantity Controls (end) -->
+
+
                                     </div>
                                     <div class="card-footer text-right align-middle">
                                         <p class="float-left">Total: &euro;19.95</p>
-                                        <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-outline-primary">Add to cart</button>
+                                        <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i> Add to cart</button>
                                     </div>
                                 </div>
                             </div>

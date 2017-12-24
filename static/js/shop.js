@@ -1,25 +1,32 @@
 $(document).ready(() => {
-    setSpinners();
+    setQuantityControls();
 });
 
+function setQuantityControls() {
 
-function setSpinners() {
-    let spinners = $("[id^=input-spinner]")
-    for (s of spinners) {
+    let qtyControls = $("[id^=btn-plus]")
+    for (c of qtyControls) {
 
-        let itemId = $(s).attr('id').match(/\d{2,}/)[0];
-        let input = $('#input-spinner-' + itemId)
+        let itemId = $(c).attr('id').match(/\d{2,}/)[0];
+        let quantity = $('#quantity-' + itemId)
         let cartButton = $('#add-cart-' + itemId)
 
-        $('#btn-up-' + itemId).on('click', function() {
-            input.val(parseInt(input.val(), 10) + 1);
+        $('#btn-plus-' + itemId).on('click', function () {
+            let qty = parseInt(quantity.text().trim(), 10);
+            quantity.text(++qty);
+            if (qty == 2)
+                $('#btn-minus-' + itemId).removeClass("disabled");
         });
-        $('#btn-down-' + itemId).on('click', function() {
-            input.val(parseInt(input.val(), 10) - 1);
+
+        $('#btn-minus-' + itemId).on('click', function () {
+            let qty = parseInt(quantity.text().trim(), 10);
+            quantity.text(qty == 1 ? 1: qty -1);
+            if (qty == 2)
+                $('#btn-minus-' + itemId).addClass("disabled");
         });
 
         cartButton.on('click', () => {
-            let quantity = $('#input-spinner-' + itemId).val();
+            let quantity = $('#quantity-' + itemId).val();
 
             $.post('/cart/', { itemId, quantity }, (data) => {
                 $('#card-' + itemId).append(`
@@ -28,6 +35,9 @@ function setSpinners() {
                     <small>Item added to cart!</small>
                 </div>
                 `);
+
+                // Update cart counter here
+                $('#cart-items').text(parseInt($('#cart-items').text().trim(), 10)+1);
             });
         });
     }
