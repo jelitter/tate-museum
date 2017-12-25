@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Artwork = require('../models/Artwork.js');
-const MAX_RESULTS = 8;
+const MAX_RESULTS = 12;
 
 loggedIn = function(req, res, next) {
     if (req.session._id) return next();

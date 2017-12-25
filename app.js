@@ -32,12 +32,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.use(favicon('./static/favicon.ico'));
 app.use(session({secret:'sdfjlksjdl234!%aa12_', saveUninitialized: true, resave: true }));
-
-// Routes
 app.use((req, res, next) => {
     console.info(chalk.green(req.method), req.originalUrl);
     next();
 });
+app.use((req, res, next) => { 
+    res.locals.session = req.session;
+    next();
+});
+
+
+
+// Routes
 app.use('/', index);
 app.use('/login', login);
 app.use('/logout', logout);

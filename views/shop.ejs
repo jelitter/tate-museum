@@ -7,11 +7,10 @@
 
         <%- include('partials/navbar') %>
 
-            <div class="container">
+            <div class="px-3 mx-5">
                 <header class="mt-4">
                     <nav class="navbar navbar-light justify-content-between transparent">
-                        <h1 class="display-5"><i class="fas fa-fw fa-images"></i> Shop</h1>
-                        <!-- <h2><i class="fa fa-spinner fa-pulse fa-fw"></i></h2> -->
+                        <h1 class="display-3"><i class="fas fa-fw fa-images"></i> Shop</h1>
                         <div class="form-inline">
                             <input class="form-control mr-sm-2" id="input-search" oninput="typeSearch()" placeholder="Search" name="query" autofocus>
                             <select class="form-control form-control mr-sm-2">
@@ -20,7 +19,6 @@
                                 <option>By Genre</option>
                             </select>
                             <button class="btn btn-primary " id="button-search" type="button" onclick="search()" disabled><i class="fas fa-search"></i> Search</button>
-                             <!-- onclick="search()" -->
                         </div>
                     </nav>
 
@@ -33,9 +31,6 @@
                     <% if (data) { %>
                         <%- include('partials/shop_results') %>
                             <% } %>
-
-
-
                 </div>
             </div>
             <%- include('partials/footer') %>

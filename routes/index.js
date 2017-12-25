@@ -35,7 +35,7 @@ router.get('/', loggedIn, (req, res, next) => {
 
 router.get('/users.json', (req, res) => {
     User.find({}, (err, users) => {
-        if (err) throw err;
+        if (err) console.error(err);
         res.send(users);
     });
 });

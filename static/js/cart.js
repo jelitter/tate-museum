@@ -3,7 +3,9 @@
 $(document).ready(() => {
     setQuantityControls();
     setEmptyCartButtons();
+    setCheckOutButtons();
 });
+
 
 function setQuantityControls() {
 
@@ -15,7 +17,15 @@ function setQuantityControls() {
 
 
         $('#btn-remove-' + itemId).on('click', () => {
-            alert('Add remove item here');
+            spinner(itemId);
+            updateCartItem(itemId, 0, (err, cart) => {
+                if (err) console.error(err);
+                else {
+                    console.log('remove, cart:', cart)
+                    $('#item-' + itemId).remove();
+                    updateItemPrice(itemId, 0);
+                }
+            });
         });
 
         $('#btn-minus-' + itemId).on('click', function () {
@@ -27,9 +37,12 @@ function setQuantityControls() {
                 if (qty == 1)
                     $('#btn-minus-' + itemId).addClass("disabled");
                 spinner(itemId);
-                updateCartItem(itemId, qty, (err, results) => {
-                    console.log('minus, results:', results)
-                    updateItemPrice(itemId, qty);
+                updateCartItem(itemId, qty, (err, cart) => {
+                    if (err) console.error(err);
+                    else {
+                        console.log('minus, cart:', cart)
+                        updateItemPrice(itemId, qty);
+                    }
                 });
             }
         });
@@ -41,10 +54,12 @@ function setQuantityControls() {
                 $('#btn-minus-' + itemId).removeClass("disabled");
             }
             spinner(itemId);
-            updateCartItem(itemId, qty, (err, results) => {
-                if (err) throw err;
-                console.log('plus, results:', results)
-                updateItemPrice(itemId, qty);
+            updateCartItem(itemId, qty, (err, cart) => {
+                if (err) console.error(err);
+                else {
+                    console.log('plus, cart:', cart)
+                    updateItemPrice(itemId, qty);
+                }
             });
         });
     }
@@ -65,7 +80,7 @@ function updateItemPrice(itemId, qty) {
         let itemId = $(t).attr('id').match(/\d{2,}/)[0];
         priceTotal += parseFloat($('#item-total-' + itemId).text());
     }
-    
+
     $('#price-total').text(priceTotal.toFixed(2));
 }
 
@@ -76,26 +91,42 @@ function updateCartItem(itemId, qty, callback) {
     $.post('/cart/item', {
         itemId,
         quantity
-    }, (err, data, data2, data3) => {
-        if (err) throw err;
-        console.log('Updated:', err, data, data2, data3);
-        callback();
-    });
-}
-
-function emptyCart() {
-    $.ajax({
-        url: '/cart/item',
-        type: 'DELETE',
-        success: (err, result) => {
-            location.href = '/cart';
+    }, (err, cart) => {
+        if (err) console.error(err);
+        else {
+            console.log('Updated:', cart);
+            callback(err, cart);
         }
     });
 }
 
+function emptyCart(refresh = true) {
+    $.ajax({
+        url: '/cart/item',
+        type: 'DELETE',
+        success: (err, cart) => {
+            if (refresh) location.href = '/cart';
+        }
+    });
+}
+
+function checkOut() {
+    $.get("/cart/checkout", (html, status) => {
+        emptyCart(false);
+        $('#cart-content').html(html);
+    });
+}
+
+
 function setEmptyCartButtons() {
     $('.emptycart').each(function () {
         $(this).on('click', emptyCart);
+    });
+}
+
+function setCheckOutButtons() {
+    $('.checkout').each(function () {
+        $(this).on('click', checkOut);
     });
 }
 

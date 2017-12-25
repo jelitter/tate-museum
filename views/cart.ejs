@@ -7,6 +7,7 @@
 
         <%- include('partials/navbar') %>
 
+            <span id="cart-content">
             <br>
             <% if (data.cart.items.length == 0) { %>
                 <div class="container container-fluid alert alert-info alert-dismissible" role="alert">
@@ -14,7 +15,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="container container-fluid alert  unselectable row" role="alert">
-                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
                         <div class="col text-center">
                             <p class="card-text lead">
                                 Your shopping cart is empty
@@ -33,7 +33,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     <div class="container container-fluid alert  unselectable row" role="alert">
-                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
                         <div class="col text-center">
                             <p class="card-text">
                                 You have <strong> <%= data.cartItems %></strong> items in your shopping cart
@@ -42,34 +41,26 @@
                         </div>
                             <% if (data.cartItems > 0) { %>
                                 <button class="emptycart btn btn-sm btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                                <button class="btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
+                                <button class="checkout btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
                             <% } %>
-                    </div>
+                        </div>
                     </div>
 
                     <% } %>
 
-                        <!-- <div class="container-fluid"> -->
                         <div class="d-flex flex-wrap container container-fluid p-0 mb-6">
 
                             <% for (let i of data.cart.items) { %>
-                                <!-- <div class="d-flex flex-row"> -->
-                                <div class="card col-3 m-1 px-0 mh-40 w-60 unselectable">
+                                <div class="card col-3 m-1 px-0 mh-40 w-60 unselectable" id="item-<%= i.itemId %>">
                                     <h6 class="card-header card-title bg-dark text-white text-center mb-0">
                                         <%= i.info.title %>
                                     </h6>
                                     <div class="card-block p-1">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <!-- <div class="card-img-left p-1"> -->
                                                     <img class="card-img float-left w-100" src="<%= i.info.thumbnailUrl %>" alt="Card image">
-                                                <!-- </div> -->
-
                                             </div>
                                             <div class="col">
-                                                <!-- <h5 class="card-title bg-dark text-white text-center rounded mb-0 p-1">
-                                                    <%= i.info.title %>
-                                                </h5> -->
                                                 <div class="card-body float-right p-0 m-0">
                                                     <div class="card-subtitle text-disabled">
                                                         by <%= i.info.artist %>
@@ -96,30 +87,23 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         <button id="btn-minus-<%= i.info.id %>" class="btn btn-sm btn-danger <%= (i.quantity == 1 ? 'disabled' : '') %>">
-                                            <i class="fas fa-minus"></i>
+                                            <i class="fas fw fa-minus"></i>
                                         </button>
                                         <button id="quantity-<%= i.info.id %>" class="btn btn-sm text-outline-primary px-3">
                                             <%= i.quantity %>
                                         </button>
                                         <button id="btn-plus-<%= i.info.id %>" class="btn btn-sm btn-success">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fw fa-plus"></i>
                                         </button>
 
                                     </footer>
                                 </div>
-                                <!-- </div> -->
-
                                 <% } %>
-
                         </div>
-
                         <br>
-
                         <div class="jumbotron transparent"></div>
-
                         <footer class="footer bg-dark text-light text-center fixed-bottom p-2 mt-3">
                                 <div class="container-fluid unselectable row" >
-                                    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
                                     <div class=" col">
                                         <p class="card-text">You have
                                             <strong>
@@ -129,18 +113,16 @@
                                     
                                     <% if (data.cartItems > 0) { %>
                                         <button class="emptycart btn btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                                        <button class="btn btn-lg btn-success col-3 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
+                                        <button class="checkout btn btn-lg btn-success col-3 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
                                     <% } %>
                                 </div>
                         </footer>
 
-                        
+            </span>
 
-                        <!-- <%- include('partials/footer') %> -->
-
-                            <script src="/static/js/jquery.min.js"></script>
-                            <script src="/static/js/bootstrap.bundle.min.js"></script>
-                            <script src="/static/js/cart.js"></script>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/js/cart.js"></script>
     </body>
 
 </html>

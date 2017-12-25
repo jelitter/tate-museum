@@ -99,13 +99,48 @@ module.exports.emptyCart = function (ownerId, callback) {
             upsert: true
         },
         (err, cart) => {
-            if (err) throw err;
+            if (err) console.error(err);
             else {
                 console.log('Backend, cart emptied here.');
                 callback();
             }
         }
     );
+};
+
+module.exports.removeItem = function (owner, itemId, callback) {
+
+    console.log('*** Removing item:', itemId);
+    Cart.findOne({
+        owner: owner
+    }, (err, cart) => {
+        if (err) console.error(err);
+
+        for (let i in cart.items) {
+            if (cart.items[i].itemId == itemId) {
+                cart.items.splice(i, 1);
+                console.log('Item found and removed.');
+            }
+        }
+
+        // Recalculate number of items and total price
+        cart.priceTotal = 0.00;
+        cart.cartItems = 0;
+        for (let it of cart.items) {
+            it.total = it.price * it.quantity;
+            cart.cartItems += it.quantity;
+            cart.priceTotal += it.total;
+        }
+
+        Cart.updateOne({
+                owner: owner
+            },
+            cart, (err, results) => {
+                if (err) console.error(err);
+                console.log('*** Cart saved.');
+                callback(err, cart);
+            });
+    });
 };
 
 module.exports.addItem = function (owner, item, callback) {
@@ -117,9 +152,9 @@ module.exports.addItem = function (owner, item, callback) {
     Cart.findOne({
         owner: owner
     }, (err, cart) => {
-        if (err) throw err;
-        
-        let foundAndUpdated= false;
+        if (err) console.error(err);
+
+        let foundAndUpdated = false;
         cart.priceTotal = 0.00;
         cart.cartItems = 0;
 
@@ -146,13 +181,13 @@ module.exports.addItem = function (owner, item, callback) {
         // cart.priceTotal = parseFloat(Math.round(cart.priceTotal * 100) / 100).toFixed(2);
 
         Cart.updateOne({
-            owner: owner
-        }, 
-        cart, (err, results) => {
-            if (err) throw err;
-            console.log('*** Cart saved.');
-            callback(cart);
-        });
+                owner: owner
+            },
+            cart, (err, results) => {
+                if (err) console.error(err);
+                console.log('*** Cart saved.');
+                callback(err, cart);
+            });
     });
 };
 

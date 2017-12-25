@@ -61,18 +61,29 @@ router.post('/item', loggedIn, (req,res,next) => {
         if (itemInfo) {
 
             let qty = parseInt(item.quantity);
-            // let priceInc = parseFloat(Math.round(qty * (item.price || '19.95') * 100) / 100).toFixed(2);
             let price = itemInfo.price || 19.95;
-
-            item.quantity = qty;
-            item.price = price;
-            console.log('Trying to add item: +', JSON.stringify(item));
-            item.info = itemInfo;
-
-            Cart.addItem(owner, item, (err, result, result2) => {
-                console.log("Item added to cart:", result, result2);
-                res.status(201).send(result);
-            });
+            
+            if (item.quantity == 0) {
+                console.log('Trying to remove item: ', JSON.stringify(item));
+                
+                Cart.removeItem(owner, item.itemId, (err, cart) => {
+                    console.log("Item removed from cart:", item.itemId);
+                    req.session.cartItems = cart.cartItems;
+                    req.session.priceTotal = cart.priceTotal;
+                    res.status(202).send();
+                });
+                
+            } else {
+                item.quantity = qty;
+                item.price = price;
+                item.info = itemInfo;
+                Cart.addItem(owner, item, (err, cart) => {
+                    console.log("Item added to cart:", item.itemId, '*', item.quantity);
+                    req.session.cartItems = cart.cartItems;
+                    req.session.priceTotal = cart.priceTotal.toFixed(2);
+                    res.status(201).send();
+                });
+            }
         }
     });
 });
@@ -117,6 +128,37 @@ router.post('/', loggedIn, (req, res, next) => {
         console.log('Pushing item to cart:', item);
     });
     res.status(201).send(); // Temp.
+});
+
+router.get('/checkout', loggedIn, (req, res, next) => {
+    Cart.findOne({
+        owner: req.session._id
+    }, (err, cart) => {
+        if (err) return console.error('GET -  Error 500 retrieving cart');
+
+        if (cart) {
+
+            console.log('Sending checkout template...');
+
+            req.session.priceTotal = parseFloat(cart.priceTotal);
+            req.session.cartItems = parseInt(cart.cartItems);
+
+            console.log(JSON.stringify(cart, null, 2));
+
+            res.status(200).render('checkout', {
+                cache: true,
+                data: {
+                    username: cart.ownerName,
+                    pagename: 'Checkout',
+                    cart: cart,
+                    cartItems: cart.cartItems,
+                    priceTotal: cart.priceTotal
+                }
+            });
+        } else {
+            return console.log('GET - Cart not found for this user');
+        }
+    });
 });
 
 router.get('/', loggedIn, (req, res, next) => {

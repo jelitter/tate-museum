@@ -55,7 +55,7 @@ module.exports.addArtwork = function(artwork, callback) {
     Artwork.create(artwork, callback);
 };
 
-module.exports.searchArtworkByTitle = function (query,page=1,itemPerPage=8, callback) {
+module.exports.searchArtworkByTitle = function (query,page=1,itemPerPage=12, callback) {
     let re = new RegExp('.*' + query + '.*', "i");
     Artwork.find({ title: re }).count().exec((err, count) => {
         if (err) console.log("Couldn't get count.");
