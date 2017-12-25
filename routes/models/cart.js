@@ -61,16 +61,17 @@ router.post('/item', loggedIn, (req,res,next) => {
         if (itemInfo) {
 
             let qty = parseInt(item.quantity);
-            let priceInc = parseFloat(Math.round(qty * (item.price || '19.95') * 100) / 100).toFixed(2);
+            // let priceInc = parseFloat(Math.round(qty * (item.price || '19.95') * 100) / 100).toFixed(2);
+            let price = itemInfo.price || 19.95;
 
             item.quantity = qty;
-            item.price = priceInc;
+            item.price = price;
             console.log('Trying to add item: +', JSON.stringify(item));
             item.info = itemInfo;
 
-            Cart.addItem(owner, item, (err, result) => {
-                console.log("Item added to cart:", result);
-                res.status(201).send();
+            Cart.addItem(owner, item, (err, result, result2) => {
+                console.log("Item added to cart:", result, result2);
+                res.status(201).send(result);
             });
         }
     });
@@ -125,8 +126,6 @@ router.get('/', loggedIn, (req, res, next) => {
         if (err) return console.error('GET -  Error 500 retrieving cart');
 
         if (cart) {
-
-            // console.log('GET cart: ', JSON.stringify(cart, null, 2));
 
             req.session.priceTotal = parseFloat(cart.priceTotal);
             req.session.cartItems = parseInt(cart.cartItems);

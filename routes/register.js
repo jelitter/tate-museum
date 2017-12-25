@@ -10,7 +10,9 @@ let User = require('../models/user');
 let Cart = require('../models/cart');
 
 router.get('/', (req, res, next) => {
-    User.findOne({ _id: req.session._id }, (err, user) => {
+    User.findOne({
+        _id: req.session._id
+    }, (err, user) => {
         if (err) res.status(500).redirect('/');
         if (user) {
             res.render('register', {
@@ -22,14 +24,19 @@ router.get('/', (req, res, next) => {
                 }
             });
         } else {
-            res.render('register', { cache: true, data: {} });
+            res.render('register', {
+                cache: true,
+                data: {}
+            });
         }
     });
 });
 
 router.post('/', (req, res, next) => {
     var logindata = req.body;
-    User.findOne({ username: logindata.username }, (err, user) => {
+    User.findOne({
+        username: logindata.username
+    }, (err, user) => {
 
         if (err) console.log("Error ");
         if (user) {
@@ -100,29 +107,18 @@ router.post('/', (req, res, next) => {
                 else {
                     // Now creating an empty cart for this user
                     Cart.createCart(user._id, user.username, (err, cart) => {
-                        // (err, cart) => {
-                            // if (err) res.status(500).render('partials/error', {
-                            //     data: {
-                            //         type: 'danger',
-                            //         message: 'Error creating shopping cart:' + err.message
-                            //     }
-                            // });
-                            // else {
-                                console.log('Created cart');
-                                console.log('Created account and logged in:', user.username);
-                                req.session._id = user._id;
-                                req.session.username = user.username;
-                                req.session.cartItems = 0;
-                                req.session.priceTotal = 0;
-                                res.status(200).render('index', {
-                                    data: {
-                                        username: user.username,
-                                        cartItems: req.session.cartItems,
-                                        priceTotal: req.session.priceTotal
-                                    }
-                                });
-                            // }
-                        // }
+                        console.log('Created account and logged in:', user.username);
+                        req.session._id = user._id;
+                        req.session.username = user.username;
+                        req.session.cartItems = 0;
+                        req.session.priceTotal = 0;
+                        res.status(200).render('index', {
+                            data: {
+                                username: user.username,
+                                cartItems: req.session.cartItems,
+                                priceTotal: req.session.priceTotal
+                            }
+                        });
                     });
                 }
             });
