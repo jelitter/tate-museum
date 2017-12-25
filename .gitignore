@@ -1,4 +1,3 @@
 .vscode/
 node_modules
 *.pdf
-mongo/mongo-ignore.js
