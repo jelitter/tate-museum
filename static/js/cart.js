@@ -112,8 +112,10 @@ function emptyCart(callback) {
         success: (err, result) => {
             if (err)
                 alert('Error emptying cart');
-            else
+            else {
                 alert('Cart emptied!\n' + result);
+                location.href = '/cart';
+            }
         }
     });
 }
@@ -121,5 +123,6 @@ function emptyCart(callback) {
 function setEmptyCartButtons() {
     $('.emptycart').each(function () {
         $(this).on('click', emptyCart);
+
     });
 }
