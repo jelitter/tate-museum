@@ -140,10 +140,8 @@ router.get('/checkout', loggedIn, (req, res, next) => {
 
             console.log('Sending checkout template...');
 
-            req.session.priceTotal = parseFloat(cart.priceTotal);
-            req.session.cartItems = parseInt(cart.cartItems);
-
-            console.log(JSON.stringify(cart, null, 2));
+            req.session.priceTotal = 0.00;
+            req.session.cartItems = 0;
 
             res.status(200).render('checkout', {
                 cache: true,
@@ -151,8 +149,9 @@ router.get('/checkout', loggedIn, (req, res, next) => {
                     username: cart.ownerName,
                     pagename: 'Checkout',
                     cart: cart,
-                    cartItems: cart.cartItems,
-                    priceTotal: cart.priceTotal
+                    cartItems: parseInt(cart.cartItems),
+                    priceTotal: parseFloat(cart.priceTotal).toFixed(2),
+                    checkedOut: true
                 }
             });
         } else {
