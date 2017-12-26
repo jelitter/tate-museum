@@ -24,52 +24,60 @@
                     <strong><%= data.query %>:</strong> No results found
                 </div>
 
-            <% } %>
+                <% } %>
 
 
                     <div class="row" id="card-deck">
                         <% for(var i=0; i < data.items; i++) { %>
-                            <div class="col-lg-2 col-md-6 mb-4">
-                                <div class="card unselectable" id="card-<%= data.artworks[i].id %>">
-                                    <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-1">
+                                <div class="card unselectable mb-2" id="card-<%= data.artworks[i].id %>">
+                                    <a href="<%= data.artworks[i].url %>" target="_blank">
+                                        <img class="card-img-top" src="<%= (data.artworks[i].thumbnailUrl || '/static/img/missing.png') %>" alt="">
+                                    </a>
+
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <%= (data.artworks[i].title || 'No title') %>
+                                            <%= ((data.artworks[i].title.length > 40 ? data.artworks[i].title.substring(0, 40) + '...' : data.artworks[i].title)
+                                             || 'No title') %>
                                         </h5>
                                         <p class="card-text text-muted text-right blockquote-footer">
                                             <%= data.artworks[i].artist %>
                                         </p>
                                         <p class="card-text">
+                                            <small>
+                                                <%= data.artworks[i].creditLine %>
+                                            </small>
+                                        </p>
+                                        <p class="card-text text-right text-secondary">
                                             <%= data.artworks[i].medium %>
                                         </p>
                                     </div>
                                     <p class="text-success align-middle text-right mr-3"> &euro;19.95</p>
-                                    <span class="card-footer row mx-0 px-2 justify-content-center">
+                                    <span class="card-footer row justify-content-center px-0 mx-0">
 
-                                            <nav aria-label="Results navigation">
-                                                <ul class="pagination pagination-sm justify-content-center mt-2 ">
-                                                    <li id="btn-minus-<%= data.artworks[i].id %>"class="page-item disabled ">
-                                                        <div class="page-link quantity-control bg-danger text-white" >
-                                                            <i class="fas fa-minus "></i>
-                                                        </div>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <div id="quantity-<%= data.artworks[i].id %>"class="page-link text-center px-2 bg-light text-dark">
-                                                            1
-                                                        </div>
-                                                    </li>
-                                                    <li id="btn-plus-<%= data.artworks[i].id %>"class="page-item">
-                                                        <div class="page-link quantity-control bg-success text-white">
-                                                            <i class="fas fa-plus"></i>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-
-
-                                        <span class="col-6 m-0 p-0 float-right">
+                                        <nav class="col-4 float-left ml-0 px-0" aria-label="Results navigation">
+                                            <ul class="pagination pagination-sm justify-content-center">
+                                                <li id="btn-minus-<%= data.artworks[i].id %>"class="page-item disabled ">
+                                                    <div class="page-link quantity-control bg-danger text-white" >
+                                                        <i class="fas fa-minus "></i>
+                                                    </div>
+                                                </li>
+                                                <li class="page-item">
+                                                    <div id="quantity-<%= data.artworks[i].id %>"class="page-link text-center px-2 bg-light text-dark">
+                                                        1
+                                                    </div>
+                                                </li>
+                                                <li id="btn-plus-<%= data.artworks[i].id %>"class="page-item">
+                                                    <div class="page-link quantity-control bg-success text-white">
+                                                        <i class="fas fa-plus"></i>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                       
+                                        <span class="col-4 float-right ml-0 pl-0">
                                             <button id="add-cart-<%= data.artworks[i].id %>" class="btn btn-sm btn-outline-primary h-75 ml-4">
-                                                <i class="fas fa-cart-plus"></i> <small>Add to cart</small></button>
+                                                <i class="fas fa-cart-plus"></i> <small>Add</small></button>
                                         </span>
 
                                     </span>

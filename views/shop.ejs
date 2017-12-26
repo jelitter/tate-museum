@@ -12,13 +12,14 @@
                     <nav class="navbar navbar-light justify-content-between transparent">
                         <h1 class="display-3"><i class="fas fa-fw fa-images"></i> Shop</h1>
                         <div class="form-inline">
-                            <input class="form-control mr-sm-2" id="input-search" oninput="typeSearch()" placeholder="Search" name="query" autofocus>
-                            <select class="form-control form-control mr-sm-2">
-                                <option>By Title</option>
-                                <option>By Artist Name</option>
-                                <option>By Genre</option>
+                            <input class="form-control mr-sm-2" id="input-search" placeholder="Search" name="query" autofocus>
+                            <!-- oninput="typeSearch() -->
+                            <select id="order-by" class="form-control form-control mr-sm-2">
+                                <option>Order by Title</option>
+                                <option>Order by Artist Name</option>
+                                <option>Order by Genre</option>
                             </select>
-                            <button class="btn btn-primary " id="button-search" type="button" onclick="search()" disabled><i class="fas fa-search"></i> Search</button>
+                            <button class="btn btn-primary " id="button-search" type="button" onclick="search()"><i class="fas fa-search"></i> Search</button>
                         </div>
                     </nav>
 
@@ -36,9 +37,8 @@
             <%- include('partials/footer') %>
                 <script src="/static/js/jquery.min.js"></script>
                 <script src="/static/js/bootstrap.bundle.min.js"></script>
-                <script src="/static/js/search.js"></script>
                 <script src="/static/js/shop.js"></script>
-
+                <script src="/static/js/search.js"></script>
     </body>
 
 </html>

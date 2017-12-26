@@ -1,5 +1,5 @@
-<nav aria-label="Results navigation">
-    <ul class="pagination pagination justify-content-center mt-2">
+<nav class="mt-2" aria-label="Results navigation">
+    <ul class="pagination pagination justify-content-center">
         <li class="page-item <%= (data.page == 1 ? 'disabled' : '') %>">
             <div id="button-prev" class="page-link" onclick="search(<%= (Number(data.page) - 1) %>)" tabindex="-1">
                 <i class="fas fa-fw fa-arrow-left"></i>

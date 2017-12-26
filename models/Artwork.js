@@ -40,8 +40,7 @@ var getArtwork = function(callback, limit) {
     });
 };
 
-var searchArtworkByTitle = function(title, callback, limit=10) {
-    
+var searchArtworkByTitle = function(title, callback, limit = 10) {
     Artwork.findOne({ title: query }, callback);
 };
 
@@ -55,21 +54,19 @@ module.exports.addArtwork = function(artwork, callback) {
     Artwork.create(artwork, callback);
 };
 
-module.exports.searchArtworkByTitle = function (query,page=1,itemPerPage=12, callback) {
+module.exports.searchArtworkByTitle = function(query, page = 1, orderBy = 'title', itemPerPage = 12, callback) {
     let re = new RegExp('.*' + query + '.*', "i");
     Artwork.find({ title: re }).count().exec((err, count) => {
         if (err) console.log("Couldn't get count.");
         else {
-            const skip = itemPerPage;
-            // console.log(`Count for ${query}: ${count}, Skip: ${skip}`);
             Artwork.find({ title: re }, (err, results) => {
-                if (err) console.log('err', err);
-                else {
-                    callback(results,count);
-                }
-            }).limit(itemPerPage).skip((page - 1) * itemPerPage);
+                // if (err) console.log('err', err);
+                // else {
+                callback(results, count);
+                // }
+            }).limit(-itemPerPage).sort({ orderBy: 1 }).skip((page - 1) * itemPerPage);
         }
     });
 };
 
-exports = { getArtwork, searchArtworkByTitle, Artwork, searchArtworkByTitle }
+// exports = { getArtwork, searchArtworkByTitle, Artwork, searchArtworkByTitle }
