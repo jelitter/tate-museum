@@ -13,7 +13,7 @@ loggedIn = function(req, res, next) {
             data: {
                 pagename: 'Login',
                 type: 'warning',
-                message: 'Please login first',
+                message: '',
             }
         });
     }

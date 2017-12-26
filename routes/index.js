@@ -5,17 +5,7 @@ let User = require('../models/user');
 loggedIn = function(req, res, next) {
     if (req.session._id) {
         next();
-        // res.redirect(301, 'shop');
     } else {
-        // console.log("Auth middleware - index");
-        // return res.render('index', {
-        //     cache: true,
-        //     data: {
-        //         pagename: 'Login',
-        //         type: 'warning',
-        //         message: 'Please login first',
-        //     }
-        // });
         res.render('index', {
             cache: true,
             data: {
@@ -28,7 +18,6 @@ loggedIn = function(req, res, next) {
 };
 
 router.get('/', loggedIn, (req, res, next) => {
-    // res.redirect(301,'shop');
     res.render('index', {
         cache: true,
         data: {
