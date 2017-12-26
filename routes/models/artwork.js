@@ -47,6 +47,7 @@ router.get('/search/:query', (req, res, next) => {
 router.get('/search/:query/:page', loggedIn, (req, res, next) => {
     const query = req.params.query;
     const page = req.params.page || 1;
+    const orderBy = req.params.orderBy || 'title';
 
     console.log('GET - Searching for', query, ' - Page: ', page);
     let re = new RegExp('.*' + query + '.*', "i")
@@ -70,6 +71,7 @@ router.get('/search/:query/:page', loggedIn, (req, res, next) => {
                             page: page,
                             pagename: 'Shop',
                             query: query,
+                            orderBy: orderBy,
                             username: req.session.username
                         }
                     });

@@ -6,7 +6,7 @@ var artistModel = require('../../models/Artist');
 const app = require('../../app');
 
 // Get Artists
-app.get('/api/artists', (req, res, next) => {
+app.get('/', (req, res, next) => {
     res.format({
         html: () => {
             if (req.query.id !== undefined) {

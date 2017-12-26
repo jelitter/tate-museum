@@ -7,8 +7,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <% if (data && data.username) { %>
+            <!-- <% if (data && data.username) { %>
                 <small class="text-muted">Welcome <%= data.username %>!</small>
+            <% } %> -->
+            <% if (username = data.username || session.username) { %>
+                <small class="text-muted">Welcome <%= username %>!</small>
                 <% } %>
 
                     <% if (data.pagename) { %>
@@ -19,30 +22,36 @@
 
                             <ul class="navbar-nav ml-auto">
 
-                                <% if (data.username) { %>
-                                    <li class="nav-item bg-dim rounded m-1 px-2 active">
+                                <% if (username) { %>
+                                    <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'Shop' ? 'active' : '') %>">
                                         <a class="nav-link" href="/shop"><i class="fas fa-fw fa-images"></i> Shop</a>
                                     </li>
-                                    <li class="nav-item bg-dim rounded m-1 px-2">
+                                    <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'About' ? 'active' : '') %>">
                                         <a class="nav-link" href="/about"><i class="fas fa-fw fa-info"></i> About</a>
+                                    </li>
+                                    <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'Doc' ? 'active' : '') %>">
+                                        <a class="nav-link" href="/doc"><i class="far fa-fw fa-file-alt"></i> Doc</a>
                                     </li>
                                     <li class="nav-item bg-dim rounded m-1 px-2">
                                         <a class="nav-link" href="/logout"><i class="fas fa-fw fa-sign-out-alt"></i> Logout</a>
                                     </li>
-                                    <li class="nav-item rounded btn-primary m-1 px-1 text-center">
+                                    <li class="nav-item rounded btn-primary m-1 px-1 text-center <%= (data.pagename == 'Cart' ? 'active' : '') %>">
                                         <a class="nav-link text-white" href="/cart">
                                             <i class="fas fa-fw fa-shopping-cart"></i> Cart <span id="cart-items" class="badge badge-pill badge-light ml-1"><%= (data.checkedOut ? 0 : data.cartItems) %></span></a>
-                                            
+
                                     </li>
                                     <% } else { %>
-                                        <li class="nav-item bg-dim rounded m-1 px-2">
-                                            <a class="nav-link" href="/login"><i class="fas fa-fw fa-sign-in-alt"></i> Login</a>
+                                        <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'Login' ? 'active' : '') %>">
+                                            <a class="nav-link" href="/login"><i class="fas fa-fw fa-sign-in-alt "></i> Login</a>
                                         </li>
-                                        <li class="nav-item bg-dim rounded m-1 px-2">
+                                        <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'Register' ? 'active' : '') %>">
                                             <a class="nav-link" href="/register"><i class="fas fa-fw fa-user-plus"></i> Register</a>
                                         </li>
-                                        <li class="nav-item bg-dim rounded m-1 px-2">
+                                        <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'About' ? 'active' : '') %>">
                                             <a class="nav-link" href="/about"><i class="fas fa-fw fa-info"></i> About</a>
+                                        </li>
+                                        <li class="nav-item bg-dim rounded m-1 px-2 <%= (data.pagename == 'Doc' ? 'active' : '') %>">
+                                            <a class="nav-link" href="/doc"><i class="far fa-fw fa-file-alt"></i> Doc</a>
                                         </li>
                                         <% } %>
 

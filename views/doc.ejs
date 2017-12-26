@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+    <body>
+        <%- include('partials/navbar') %>
+            <div class="jumbotron transparent mt-0 pt-2">
+                <h1>Routes documentation:</h1>
+                <br>
+                <div class="row">
+
+
+                    <div class="list-group text-dark col">
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/artist</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">Artwork</h3>
+                            <h4 class="list-group-item-heading">/artwork/search, /search/:query, /search/:query/:page</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Request to search by artworks titles and get a specific page, used by search pagination</span><br>
+
+                            </div>
+                        </div>
+
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/login</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/logout</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/register</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="list-group text-dark col">
+
+
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/shop</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/cart</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Cart creation</span><br>
+                            </div>
+                            <h4 class="list-group-item-heading">/cart/create</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Used upon User creation, a new cart is added for a new user</span><br>
+                            </div>
+                            <h4 class="list-group-item-heading">/cart/item</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Used to add an item (artwork, amount) to user's cart</span><br>
+                                <code class="list-group-item-text lead">DELETE:</code>
+                                <span>Used to remove an item from user's cart</span><br>
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/about</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/doc</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                        <div href="#" class="list-group-item">
+                            <h3 class="list-group-item-heading">/notfound</h3>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Test</span><br>
+
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Test 2</span><br>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <%- include('partials/footer') %>
+    </body>
+
+</html>

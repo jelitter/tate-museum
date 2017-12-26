@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 let User = require('../models/user');
 
-loggedIn = function (req, res, next) {
+loggedIn = function(req, res, next) {
     if (req.session._id) {
-        // return next();
-        res.redirect(301, 'shop');
-    }
-    else {
+        next();
+        // res.redirect(301, 'shop');
+    } else {
         // console.log("Auth middleware - index");
         // return res.render('index', {
         //     cache: true,
@@ -30,7 +29,15 @@ loggedIn = function (req, res, next) {
 
 router.get('/', loggedIn, (req, res, next) => {
     // res.redirect(301,'shop');
-    
+    res.render('index', {
+        cache: true,
+        data: {
+            pagename: 'Login',
+            type: 'info',
+            message: ''
+        }
+    });
+
 });
 
 router.get('/users.json', (req, res) => {

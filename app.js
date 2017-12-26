@@ -16,6 +16,7 @@ var register = require('./routes/register');
 var shop = require('./routes/shop');
 var cart = require('./routes/models/cart');
 var about = require('./routes/about');
+var doc = require('./routes/doc');
 var notfound = require('./routes/notfound');
 var artwork = require('./routes/models/artwork');
 
@@ -31,12 +32,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/static', express.static('static'));
 app.use(favicon('./static/favicon.ico'));
-app.use(session({secret:'sdfjlksjdl234!%aa12_', saveUninitialized: true, resave: true }));
+app.use(session({ secret: 'sdfjlksjdl234!%aa12_', saveUninitialized: true, resave: true }));
 app.use((req, res, next) => {
     console.info(chalk.green(req.method), req.originalUrl);
     next();
 });
-app.use((req, res, next) => { 
+app.use((req, res, next) => {
     res.locals.session = req.session;
     next();
 });
@@ -51,6 +52,7 @@ app.use('/register', register);
 app.use('/shop', shop);
 app.use('/cart', cart);
 app.use('/about', about);
+app.use('/doc', doc);
 app.use('/artwork', artwork);
 app.use('*', notfound);
 
