@@ -47,7 +47,7 @@ app.get('/', (req, res, next) => {
 
 // Get Artist by id
 
-app.get('/api/artists/:id', (req, res, next) => {
+app.get('/:id', (req, res, next) => {
     const id = req.params.id;
     res.format({
         json: () => {
@@ -65,7 +65,7 @@ app.get('/api/artists/:id', (req, res, next) => {
 });
 
 // Add Artist
-app.post('/api/artists', (req, res, next) => {
+app.post('/', (req, res, next) => {
     console.log("POST", req.originalUrl);
     var newartist = req.body;
     artistModel.addArtist(newartist, function(err, artist) {

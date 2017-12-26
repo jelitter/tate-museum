@@ -17,7 +17,8 @@ router.get('/', (req, res, next) => {
         res.render('index', {
             cache: false,
             data: {
-                username: user ? user.username : ''
+                username: user ? user.username : '',
+                pagename: 'Login'
             }
         });
     });
@@ -59,7 +60,8 @@ router.post('/', (req, res, next) => {
             cache: false,
             data: {
                 type: 'warning',
-                message: 'User ' + logindata.username + ' does not exist'
+                message: 'User ' + logindata.username + ' does not exist',
+                pagename: 'Login'
             }
         });
 
@@ -83,7 +85,8 @@ router.post('/', (req, res, next) => {
                             username: user.username,
                             cartItems: req.session.cartItems,
                             cart: req.session.cart,
-                            priceTotal: req.session.priceTotal
+                            priceTotal: req.session.priceTotal,
+                            pagename: 'Login'
                         }
                     });
                 } 
@@ -95,7 +98,8 @@ router.post('/', (req, res, next) => {
                 cache: false,
                 data: {
                     type: 'danger',
-                    message: 'Invalid credentials'
+                    message: 'Invalid credentials',
+                    pagename: 'Login'
                 }
             });
         }

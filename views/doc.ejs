@@ -16,11 +16,18 @@
                             <h3 class="list-group-item-heading">/artist</h3>
                             <div class="ml-3">
                                 <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
+                                <span>Add artist to collection</span><br>
 
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Get all artists from collection</span><br>
 
+                            </div>
+                            <h4 class="list-group-item-heading">/artist/:id</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Get artist by Id from collection</span>
+                                <br>
+                            
                             </div>
                         </div>
 
@@ -38,11 +45,11 @@
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/login</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Renders login page to login.ejs template</span><br>
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Sends login credentials to server requesting authentication</span><br>
+
 
                             </div>
                         </div>
@@ -50,11 +57,8 @@
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/logout</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Logs out current user and redirect to home page</span><br>
 
                             </div>
                         </div>
@@ -62,12 +66,11 @@
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/register</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Renders registration page to register.ejs template</span><br>
 
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Requests user creation to backend, and internally also creates shopping cart for user</span><br>
                             </div>
                         </div>
 
@@ -81,23 +84,22 @@
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/shop</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
-
+                                <span>Renders Shop page to shop.ejs template</span><br>
                             </div>
+                            <h4 class="list-group-item-heading">/shop/search</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">POST:</code>
+                                <span>Sends a search to the artworks database and renders back to shop.ejs + shop_results.ejs</span><br>
+                            </div>
+
                         </div>
 
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/cart</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Cart creation</span><br>
-                            </div>
-                            <h4 class="list-group-item-heading">/cart/create</h4>
-                            <div class="ml-3">
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Retrieves cart content and renders to cart.ejs template</span><br>
                                 <code class="list-group-item-text lead">POST:</code>
                                 <span>Used upon User creation, a new cart is added for a new user</span><br>
                             </div>
@@ -108,28 +110,27 @@
                                 <code class="list-group-item-text lead">DELETE:</code>
                                 <span>Used to remove an item from user's cart</span><br>
                             </div>
+                            <h4 class="list-group-item-heading">/cart/checkout</h4>
+                            <div class="ml-3">
+                                <code class="list-group-item-text lead">GET:</code>
+                                <span>Retrieves cart content after processing cart and renders to checkout.ejs template</span>
+                                <br>
+                            </div>
                         </div>
 
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/about</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
-
+                                <span>Renders information about used NPM modules</span><br>
                             </div>
                         </div>
 
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/doc</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Renders this page</span><br>
 
                             </div>
                         </div>
@@ -137,11 +138,8 @@
                         <div href="#" class="list-group-item">
                             <h3 class="list-group-item-heading">/notfound</h3>
                             <div class="ml-3">
-                                <code class="list-group-item-text lead">POST:</code>
-                                <span>Test</span><br>
-
                                 <code class="list-group-item-text lead">GET:</code>
-                                <span>Test 2</span><br>
+                                <span>Used when a 404 error (not found) is produced, rendered to notfound.ejs</span><br>
 
                             </div>
                         </div>

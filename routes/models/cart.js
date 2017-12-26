@@ -25,30 +25,6 @@ loggedIn = function (req, res, next) {
     }
 };
 
-router.post('/create', loggedIn, (req, res, next) => {
-    const item = req.body; // { itemId, quantity }
-
-    Cart.findOne({
-        owner: req.session._id
-    }, (err, cart) => {
-        if (err) return console.error('Error 500 retrieving cart');
-        if (!cart) {
-            Cart.create(req.session._id, username, (err, cart) => {
-                if (err) res.status(500).render('error', {
-                    data: {
-                        type: 'danger',
-                        message: 'Error creating shopping cart:' + err.message
-                    }
-                });
-                else {
-                    console.log("Created cart: ", JSON.stringify(cart));
-                    res.status(201).send();
-                }
-            });
-        }
-    });
-});
-
 // Add item to cart
 router.post('/item', loggedIn, (req,res,next) => {
     let item = req.body;

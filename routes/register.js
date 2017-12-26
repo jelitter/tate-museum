@@ -20,13 +20,14 @@ router.get('/', (req, res, next) => {
                 data: {
                     username: user.username,
                     cartItems: req.session.cartItems,
-                    priceTotal: req.session.priceTotal
+                    priceTotal: req.session.priceTotal,
+                    pagename: 'Register'
                 }
             });
         } else {
             res.render('register', {
                 cache: true,
-                data: {}
+                data: { pagename: 'Register' }
             });
         }
     });
@@ -44,7 +45,8 @@ router.post('/', (req, res, next) => {
             res.status(401).render('register', {
                 data: {
                     type: 'warning',
-                    message: 'User name ' + user.username + ' already in use'
+                    message: 'User name ' + user.username + ' already in use',
+                    pagename: 'Register'
                 }
             });
         } else {
@@ -57,14 +59,16 @@ router.post('/', (req, res, next) => {
                             cache: true,
                             data: {
                                 type: 'danger',
-                                message: 'Both user name and password must be specified.'
+                                message: 'Both user name and password must be specified.',
+                                pagename: 'Register'
                             }
                         });
                     },
                     json: () => {
                         return res.json({
                             status: 401,
-                            message: 'Both user name and password must be specified'
+                            message: 'Both user name and password must be specified',
+                            pagename: 'Register'
                         });
                     }
                 });
@@ -79,14 +83,16 @@ router.post('/', (req, res, next) => {
                             cache: true,
                             data: {
                                 type: 'danger',
-                                message: 'Password must be at least 6 characters long'
+                                message: 'Password must be at least 6 characters long',
+                                pagename: 'Register'
                             }
                         });
                     },
                     json: () => {
                         return res.json({
                             status: 401,
-                            message: 'Password must be at least 6 characters long'
+                            message: 'Password must be at least 6 characters long',
+                            pagename: 'Register'
                         });
                     }
                 });
@@ -101,7 +107,8 @@ router.post('/', (req, res, next) => {
                 if (err) res.status(500).render('register', {
                     data: {
                         type: 'warning',
-                        message: 'user not created:' + err.message
+                        message: 'user not created:' + err.message,
+                        pagename: 'Register'
                     }
                 });
                 else {
@@ -116,7 +123,8 @@ router.post('/', (req, res, next) => {
                             data: {
                                 username: user.username,
                                 cartItems: req.session.cartItems,
-                                priceTotal: req.session.priceTotal
+                                priceTotal: req.session.priceTotal,
+                                pagename: 'Register'
                             }
                         });
                     });
