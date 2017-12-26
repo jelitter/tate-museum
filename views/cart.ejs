@@ -10,28 +10,26 @@
             <span id="cart-content">
             <br>
             <% if (data.cart.items.length == 0) { %>
-                <div class="container container-fluid alert alert-info alert-dismissible" role="alert">
+            <div class="container container-fluid alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="container container-fluid alert  unselectable row" role="alert">
+                <div class="col text-center">
+                    <p class="card-text lead">
+                        Your shopping cart is empty
+                    </p>
+                    <a class="btn btn-outline-primary btn-lg mt-2" href="/shop">
+                        <i class="fas fa-images fa-2x p-1 align-middle"></i> Browse artworks</a>
+                </div>
+            </div>
+            </div>
+
+            <% } else { %>
+                <div class="container container-fluid alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="container container-fluid alert  unselectable row" role="alert">
-                        <div class="col text-center">
-                            <p class="card-text lead">
-                                Your shopping cart is empty
-                            </p>
-                            <a class="btn btn-outline-primary btn-lg mt-2" href="/shop">
-                                <i class="fas fa-images fa-2x p-1 align-middle"></i> Browse artworks</a>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <% } else { %>
-                    <div class="container container-fluid alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                </button>
                     <div class="container container-fluid alert  unselectable row" role="alert">
                         <div class="col text-center">
                             <p class="card-text">
@@ -39,90 +37,93 @@
                             </p>
                             <h4 class="text-success"><strong>Total: &euro;<span id="price-total"><%= data.priceTotal.toFixed(2) %></span></strong></h4>
                         </div>
-                            <% if (data.cartItems > 0) { %>
-                                <button class="emptycart btn btn-sm btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                                <button class="checkout btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
+                        <% if (data.cartItems > 0) { %>
+                            <button class="emptycart btn btn-sm btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
+                            <button class="checkout btn btn-lg btn-success col-4"><i class="far fa-credit-card"></i> Checkout</button>
                             <% } %>
-                        </div>
                     </div>
+                </div>
 
-                    <% } %>
+                <% } %>
 
-                        <div class="d-flex flex-wrap container container-fluid p-0 mb-6">
+                    <div class="row card-container container-fluid m-0 p-3 justify-content-center">
+                        <!-- <div class="row container card-container "> -->
 
-                            <% for (let i of data.cart.items) { %>
-                                <div class="card col-3 m-1 px-0 mh-40 w-60 unselectable" id="item-<%= i.itemId %>">
-                                    <h6 class="card-header card-title bg-dark text-white text-center mb-0">
-                                        <%= i.info.title %>
-                                    </h6>
-                                    <div class="card-block p-1">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                    <img class="card-img float-left w-100" src="<%= i.info.thumbnailUrl %>" alt="Card image">
-                                            </div>
-                                            <div class="col">
-                                                <div class="card-body float-right p-0 m-0">
-                                                    <div class="card-subtitle text-disabled">
-                                                        by <%= i.info.artist %>
-                                                    </div>
-                                                    <br>
-                                                    <div class="text-right">
-                                                        Price: &euro;<span id="item-price-<%= i.info.id %>"><%= i.price %></span>
-                                                    </div>
-                                                    <br>
-                                                    <footer class="card-text text-right">
-                                                        <strong>
-                                                            Total: &euro;
-                                                            <span id="item-total-<%= i.info.id %>">
-                                                            <%= (parseFloat(Math.round(i.price * i.quantity * 100) / 100).toFixed(2)) %>
-                                                            </span> 
-                                                        </strong>
-                                                    </footer>
+                        <% for (let i of data.cart.items) { %>
+                            <div class="card col-lg-3 col-sm-6 m-1 px-0 mh-40 w-60 unselectable" id="item-<%= i.itemId %>">
+                                <!-- <div class="card col-lg-2 col-md-3 col-sm-4 col-xs-6 unselectable m-2" id="item-<%= i.itemId %>"> -->
+                                <h6 class="card-header card-title bg-dark text-white text-center mb-0">
+                                    <%= i.info.title %>
+                                </h6>
+                                <div class="card-block p-1">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img class="card-img float-left w-100" src="<%= i.info.thumbnailUrl %>" alt="Card image">
+                                        </div>
+                                        <div class="col">
+                                            <div class="card-body float-right p-0 m-0">
+                                                <div class="card-subtitle text-disabled">
+                                                    by
+                                                    <%= i.info.artist %>
                                                 </div>
+                                                <br>
+                                                <div class="text-right">
+                                                    Price: &euro;<span id="item-price-<%= i.info.id %>"><%= i.price %></span>
+                                                </div>
+                                                <br>
+                                                <footer class="card-text text-right">
+                                                    <strong>
+                                                        Total: &euro;
+                                                        <span id="item-total-<%= i.info.id %>">
+                                                        <%= (parseFloat(Math.round(i.price * i.quantity * 100) / 100).toFixed(2)) %>
+                                                        </span> 
+                                                    </strong>
+                                                </footer>
                                             </div>
                                         </div>
                                     </div>
-                                    <footer class="card-footer text-right mb-0 card-text">
-                                        <button id="btn-remove-<%= i.info.id %>" class="btn btn-sm btn-warning float-left">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button id="btn-minus-<%= i.info.id %>" class="btn btn-sm btn-danger <%= (i.quantity == 1 ? 'disabled' : '') %>">
-                                            <i class="fas fw fa-minus"></i>
-                                        </button>
-                                        <button id="quantity-<%= i.info.id %>" class="btn btn-sm text-outline-primary px-3">
-                                            <%= i.quantity %>
-                                        </button>
-                                        <button id="btn-plus-<%= i.info.id %>" class="btn btn-sm btn-success">
-                                            <i class="fas fw fa-plus"></i>
-                                        </button>
-
-                                    </footer>
                                 </div>
+                                <footer class="card-footer text-right mt-2 mb-0 card-text">
+                                    <button id="btn-remove-<%= i.info.id %>" class="btn btn-sm btn-warning float-left">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button id="btn-minus-<%= i.info.id %>" class="btn btn-sm btn-danger <%= (i.quantity == 1 ? 'disabled' : '') %>">
+                                        <i class="fas fw fa-minus"></i>
+                                    </button>
+                                    <button id="quantity-<%= i.info.id %>" class="btn btn-sm text-outline-primary px-3">
+                                        <%= i.quantity %>
+                                    </button>
+                                    <button id="btn-plus-<%= i.info.id %>" class="btn btn-sm btn-success">
+                                        <i class="fas fw fa-plus"></i>
+                                    </button>
+
+                                </footer>
+                            </div>
+                            <% } %>
+                    </div>
+                    <br>
+                    <div class="jumbotron transparent"></div>
+                    <footer class="footer bg-dark text-light text-center fixed-bottom p-2 mt-3">
+                        <div class="container-fluid unselectable row">
+                            <div class=" col">
+                                <p class="card-text">You have
+                                    <strong>
+                                            <%= data.cartItems %>
+                                        </strong> items in your shopping cart</p>
+                            </div>
+
+                            <% if (data.cartItems > 0) { %>
+                                <button class="emptycart btn btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
+                                <button class="checkout btn btn-lg btn-success col-3 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
                                 <% } %>
                         </div>
-                        <br>
-                        <div class="jumbotron transparent"></div>
-                        <footer class="footer bg-dark text-light text-center fixed-bottom p-2 mt-3">
-                                <div class="container-fluid unselectable row" >
-                                    <div class=" col">
-                                        <p class="card-text">You have
-                                            <strong>
-                                                <%= data.cartItems %>
-                                            </strong> items in your shopping cart</p>
-                                    </div>
-                                    
-                                    <% if (data.cartItems > 0) { %>
-                                        <button class="emptycart btn btn-warning col-2 mx-2"><i class="fas fa-trash"></i> Empty cart</button>
-                                        <button class="checkout btn btn-lg btn-success col-3 mx-2"><i class="far fa-credit-card"></i> Checkout</button>
-                                    <% } %>
-                                </div>
-                        </footer>
+                    </footer>
 
-            </span>
+                    </span>
 
-        <script src="/static/js/jquery.min.js"></script>
-        <script src="/static/js/bootstrap.bundle.min.js"></script>
-        <script src="/static/js/cart.js"></script>
+                    <script src="/static/js/jquery.min.js"></script>
+                    <script src="/static/js/bootstrap.bundle.min.js"></script>
+                    <script src="/static/js/cart.js"></script>
     </body>
 
 </html>
